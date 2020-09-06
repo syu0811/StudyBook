@@ -1,0 +1,27 @@
+version: "3"
+services:
+    db:
+        image: postgres:11.1-alpine
+        volumes:
+            - ./pgsql-data:/var/lib/postgresql/data
+    selenium_chrome:
+        image: selenium/standalone-chrome-debug
+        logging:
+            driver: none
+    smtp:
+        image: schickling/mailcatcher
+        ports:
+            - "1080:1080"
+            - "1025:1025"
+    web:
+        build: .
+        command: bundle exec rails server -b 0.0.0.0
+        volumes:
+            - ./:/myapp
+        ports:
+            - "3000:3000"
+        depends_on:
+            - db
+        environment:
+            - "SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub"
+
