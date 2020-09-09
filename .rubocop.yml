@@ -1,0 +1,204 @@
+require:
+    - rubocop-rspec
+
+AllCops:
+    NewCops: enable
+    TargetRubyVersion: 2.7.1
+    DisplayCopNames: true
+    Exclude:
+        - !ruby/regexp /vendor\/(assets|bundle|cache|rset)/
+        - 'db/*'
+        - 'tmp/**/*'
+        - 'mysql/**/*'
+        - 'node_modules/**/*'
+        - 'bin/**/*'
+
+Rails:
+    Enabled: true
+
+# リテラル固定エラーを無くす。これは将来的にStringが破壊的変更不可能なものになるためだが、まだいらないので指定
+Style/FrozenStringLiteralComment:
+    Enabled: false
+
+# Layout #########################################
+
+# コメントの先頭にホワイトスペースを入れること
+# 例:
+#   # bad
+#   #Some comment
+#
+#   # good
+#   # Some comment
+Layout/LeadingCommentSpace:
+    Enabled: true
+    Exclude: []
+
+# encodingのマジックコメントは廃止。schema.rbは自動生成のため例外とする
+Layout/EmptyLineAfterMagicComment:
+    Exclude:
+        - '**/schema.rb'
+
+# # 一行での最大文字数を制限しない
+Layout/LineLength:
+    Enabled: false
+
+# # Lint ###########################################
+
+
+# # 代入しながら条件分岐することを許可
+# # 例:
+# #  if hoge = true
+# #    do_something
+# #  end
+Lint/AssignmentInCondition:
+    Enabled: false
+
+# # RSpecでchangeを利用するときに指摘されるため無効にする
+# # https://github.com/rubocop-hq/rubocop/issues/4222
+# Lint/AmbiguousBlockAssociation:
+# Exclude:
+#     - "spec/**/*"
+
+# # Exceptionをraiseするのを禁止する
+Lint/RaiseException:
+    Enabled: true
+
+# # Struct.newによるStruct組み込み関数のオーバーライドを防ぐ
+Lint/StructNewOverride:
+    Enabled: true
+
+# # Metrics ########################################
+
+
+# # Abc Metric
+Metrics/AbcSize:
+    Max: 30
+
+Metrics/BlockLength:
+    Exclude:
+        # specファイルではブロック長を無視する
+        - 'spec/**/*'
+
+# # Style ##########################################
+
+
+# # コメントがないソースコードを許可
+# # コメントを記載しなければならないコードは書かない
+Style/Documentation:
+    Enabled: false
+
+# # コメントにAcsii以外の文字を許可
+# # どうしてもコメントしたい場合、日本語でも良い
+Style/AsciiComments:
+    Enabled: false
+
+# # シンボルのArrayの書き方は%iを推奨しない
+# # 例:
+# #   # good
+# #     [:hoge, :fuga]
+# #   # bad
+# #     %i(hoge, fuga)
+Style/SymbolArray:
+    EnforcedStyle: brackets
+
+# # 文字列のArrayでは%w, %Wも["hoge", "piyo"]の書き方も許容する
+Style/WordArray:
+    Enabled: false
+
+# # ruby19のハッシュの書き方を許容する
+# # ただし、両方をひとつのハッシュで利用するのは認めない
+# # 例:
+# #   # good
+# #     { :ruby19 => 'ruby19', :new => 'hoge' }
+# #     { ruby19: 'ruby19', new: 'hoge' }
+# #   # bad
+# #     { :ruby19 => 'ruby19', new: 'hoge' }
+Style/HashSyntax:
+    EnforcedStyle: no_mixed_keys
+
+# # シングルクォートとダブルクォートについては規約を決めない
+# # (一般的にはエスケープしない物はシングル、するものはダブル)
+Style/StringLiterals:
+    Enabled: false
+
+# # 中身のないメソッドの記載方式
+# # 例:
+# #   # good
+# #     def new
+# #     end
+# #
+# #   # bad
+# #     def new; end
+Style/EmptyMethod:
+    EnforcedStyle: expanded
+
+# # 引数や配列やハッシュの末尾はカンマを強制する
+Style/TrailingCommaInArguments:
+    EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArrayLiteral:
+    EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+    EnforcedStyleForMultiline: comma
+
+# # 数字の桁が大きい時に_(アンダースコア)は入れない
+Style/NumericLiterals:
+    Enabled: false
+
+# # keys.each, values.eachではなくeach_key, each_valueを使用
+Style/HashEachMethods:
+    Enabled: true
+
+# # each_with_object, mapでkeyを変換せずtransform_keysを使用
+Style/HashTransformKeys:
+    Enabled: true
+# # each_with_object, mapでvalueを変換せずtransform_valuesを使用
+Style/HashTransformValues:
+    Enabled: true
+
+# # Naming #########################################
+
+# # メソッド名のprefixに「set_」「get_」を許可
+Naming/AccessorMethodName:
+    Enabled: false
+
+# #===================================================
+# # Rspecについて
+# #===================================================
+
+# # Rspecのネストの深さ
+RSpec/NestedGroups:
+    Max: 6
+
+# # Rspecのsubjectに明示的に名前をつけるのを強制させない
+RSpec/NamedSubject:
+    Enabled: false
+
+# # インスタンスのstub化を強制しない
+RSpec/AnyInstance:
+    Enabled: false
+
+# # ワンライナーshouldではなくis_expectedを推奨
+RSpec/ImplicitExpect:
+    EnforcedStyle: is_expected
+
+# # contextを利用するときのprefixは制限しない
+RSpec/ContextWording:
+    Enabled: false
+
+# # subjectの後や最後のletの後は改行を強制する
+RSpec/EmptyLineAfterFinalLet:
+    Enabled: true
+RSpec/EmptyLineAfterSubject:
+    Enabled: true
+
+# # view系のテストの最初のdescribeは文字列になるため除外
+RSpec/DescribeClass:
+    Exclude:
+        - spec/views/*
+        - spec/features/*
+        - spec/system/*
+
+# # feature specはexampleが長くなりがちなので除外
+RSpec/ExampleLength:
+    Exclude:
+        - spec/system/**/*
