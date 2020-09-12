@@ -31,11 +31,15 @@ module Myapp
     config.generators do |g|
       g.assets false
       g.helper false
+      g.decorator false
       g.test_framework :rspec,
+                       decorator_specs: false,
                        view_specs: false,
                        helper_specs: false,
-                       controller_specs: false,
                        routing_specs: false
     end
+    # i18nの設定
+    config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
   end
 end
