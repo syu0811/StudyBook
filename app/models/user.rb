@@ -16,6 +16,6 @@ class User < ApplicationRecord
 
   def birthdate_cannot_be_in_the_future
     # 生年月日が入力済かつ未来日ではない
-    errors.add(:birthdate, I18n.t('errors.messages.birthdate_cannot_be_in_the_future')) if birthdate.present? && birthdate.future?
+    errors.add(:birthdate, :birthdate_cannot_be_in_the_future) if birthdate.present? && birthdate.future?
   end
 end
