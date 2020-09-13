@@ -48,6 +48,26 @@ RSpec.describe User, type: :model do
     expect(user.errors[:nickname]).to include("を入力してください")
   end
 
+  it "is not valid with a not unique nickname" do
+    nickname = "test_nick-name"
+    create(:user, nickname: nickname)
+    user = build(:user, nickname: nickname)
+    user.valid?
+    expect(user.errors[:nickname]).to include("はすでに存在します")
+  end
+
+  it "is not valid with a Japanese nickname" do
+    user = build(:user, nickname: '日本語')
+    user.valid?
+    expect(user.errors[:nickname]).to include("は不正な値です")
+  end
+
+  it "is not valid with a illegal sign nickname" do
+    user = build(:user, nickname: '\\')
+    user.valid?
+    expect(user.errors[:nickname]).to include("は不正な値です")
+  end
+
   it "is not valid with a 3 characters or less nickname" do
     user = build(:user, nickname: 'a' * 3)
     user.valid?
