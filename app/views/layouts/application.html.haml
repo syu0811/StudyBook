@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Myapp
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_pack_tag 'application'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    .header
+      - if user_signed_in?
+        = link_to 'logout', destroy_user_session_path, method: :delete
+      .flash
+        - flash.each do |key, value|
+          - key = "info" if key == "notice"
+          - key = "danger"  if key == "alert"
+          = content_tag :div, value, class: "alert alert-#{key}"
+    .container
+      = yield

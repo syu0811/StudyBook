@@ -1,0 +1,3 @@
+firstname,lastname,nickname,admin,birthdate,email,password
+管理者,ゆーざ,admin-user01,true,1999-01-01,admin@example.com,password
+一般者,ゆーざ,general_user01,false,1999-01-01,general@example.com,password

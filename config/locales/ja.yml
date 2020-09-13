@@ -1,0 +1,4 @@
+ja:
+  errors:
+    messages:
+      birthdate_cannot_be_in_the_future: は正しい範囲で設定してください

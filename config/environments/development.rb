@@ -31,9 +31,6 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.
@@ -51,4 +48,19 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # mailcatcherの設定1 配信方法を指定
+  config.action_mailer.delivery_method = :smtp
+  # mailcatcherの設定2 addressはサーバ名指定
+  config.action_mailer.smtp_settings = { :address => "smtp", :port => 1025 }
+  # メール配信に失敗した場合にエラーを発生させる
+  config.action_mailer.raise_delivery_errors = true
+
+  # default url ActionMailerのビューでURLを作成するためのもの
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # missing host to link to!
+  host = 'samplehost'
+  Rails.application.routes.default_url_options[:host] = host
+
+  config.mailer_sender = 'scambio.main@gmail.com'
 end
