@@ -9,7 +9,7 @@ RSpec.describe "Users", type: :request do
     end
 
     it 'user page is displayed' do
-      get user_path(login_user)
+      get user_path(login_user.nickname)
       expect(response).to have_http_status(:ok)
     end
   end
