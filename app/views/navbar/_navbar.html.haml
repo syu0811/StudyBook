@@ -1,0 +1,7 @@
+- if user_signed_in?
+  %nav.navbar.navbar-expand.navbar-dark.bg-dark
+    %ul.navbar-nav.ml-auto
+      %li
+        = link_to t('.mypage'), user_path(current_user.nickname), class: 'nav-link'
+      %li
+        = link_to t('.log_out'), destroy_user_session_path, method: :delete, class: 'nav-link'
