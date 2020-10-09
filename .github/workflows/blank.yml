@@ -14,6 +14,10 @@ jobs:
       image: ruby:2.6.6
     steps:
       - uses: actions/checkout@v2
+      - name: Rubocop Linter Action
+        uses: andrewmcodes/rubocop-linter-action@v3.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: setup bundle
         run: bundle install
       - name: run rubocop

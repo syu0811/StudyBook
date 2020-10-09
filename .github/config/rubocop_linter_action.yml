@@ -1,0 +1,8 @@
+check_name: 'Rubocop Results'
+versions:
+  - rubocop: '0.90.0'
+  - rubocop-rails: '2.8.0'
+  - rubocop-rspec: '1.43.2'
+rubocop_config_path: '.rubocop.yml'
+rubocop_force_exclusion: true
+check_scope: 'modified'
