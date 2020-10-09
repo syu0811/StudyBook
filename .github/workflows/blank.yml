@@ -18,7 +18,17 @@ jobs:
         uses: andrewmcodes/rubocop-linter-action@v3.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: setup bundle
-        run: bundle install
+      - name: Cache bundle directory
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+      - name: Prepare bundler
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
       - name: run rubocop
         run: bundle exec rubocop
