@@ -1,7 +1,10 @@
 version: "3"
 services:
     db:
-        image: postgres:11.1-alpine
+        image: groonga/pgroonga:latest
+        environment:
+            - "POSTGRES_HOST_AUTH_METHOD=trust"
+            - "LANG=ja_JP.utf8"
         volumes:
             - ./pgsql-data:/var/lib/postgresql/data
     selenium_chrome:
