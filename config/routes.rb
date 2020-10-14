@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :admin, only: [:index]
 
   namespace :admin do
-    resources :tags, only: [:index, :new, :create]
+    resources :tags, only: [:index, :new, :create, :edit, :update]
   end
 
   root 'users#show'

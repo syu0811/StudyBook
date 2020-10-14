@@ -1,6 +1,7 @@
 module Admin
   class TagsController < ApplicationController
     before_action :get_tags, only: :index
+    before_action :get_tag, only: [:edit, :update]
 
     def new
       @tag = Tag.new
@@ -9,9 +10,17 @@ module Admin
     def create
       @tag = Tag.new(tag_params)
       if @tag.save
-        redirect_to admin_tags_path
+        redirect_to admin_tags_path, notice: t('flash.create')
       else
         render :new
+      end
+    end
+
+    def update
+      if @tag.update(tag_params)
+        redirect_to admin_tags_path, notice: t('flash.update')
+      else
+        render :edit
       end
     end
 
@@ -23,6 +32,10 @@ module Admin
 
     def get_tags
       @tags = Tag.all
+    end
+
+    def get_tag
+      @tag = Tag.find(params[:id])
     end
   end
 end
