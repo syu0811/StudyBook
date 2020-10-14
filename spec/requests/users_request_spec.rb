@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
-  let!(:login_user) { create(:user) }
+  let(:login_user) { create(:user) }
 
   describe 'GET /users/:id' do
     before do
