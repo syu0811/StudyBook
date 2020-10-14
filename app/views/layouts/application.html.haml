@@ -5,10 +5,8 @@
     %title Myapp
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag 'application', media: 'all'
     = javascript_pack_tag 'application'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-    = stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'application'
   %body
     .header
       = render partial: 'navbar/navbar'
