@@ -1,0 +1,14 @@
+%h1
+  タグ一覧表示
+
+%table.table.text-nowrap
+  %thead.thead-light
+    %tr
+      %th
+        タグ名
+      %th
+  %tbody
+    - @tags.each do |tag|
+      %tr
+        %td
+          = tag.name
