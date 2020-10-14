@@ -1,6 +1,8 @@
 %h1
   タグ一覧表示
 
+= link_to '登録', new_admin_tag_path, class: 'btn btn-success mb-3'
+
 %table.table.text-nowrap
   %thead.thead-light
     %tr
@@ -12,3 +14,4 @@
       %tr
         %td
           = tag.name
+        %td
