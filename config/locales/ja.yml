@@ -4,6 +4,10 @@ ja:
       create: 登録
       update: 更新
       destroy: 削除
+  flash:
+    create: 登録しました
+    update: 更新しました
+    destroy: 削除しました
   errors:
     messages:
       birthdate_cannot_be_in_the_future: は正しい範囲で設定してください
