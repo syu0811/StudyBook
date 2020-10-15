@@ -1,4 +1,4 @@
 %h1
   = t('.title')
-  = current_user.nickname
-  = current_user.admin
+
+= link_to t('.tags'), admin_tags_path, class: 'btn btn-outline-dark'
