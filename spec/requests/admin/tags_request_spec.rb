@@ -76,5 +76,18 @@ RSpec.describe "Admin::Tags", type: :request do
         end
       end
     end
+
+    describe 'DELETE /admin/tags/:id' do
+      let(:tag) { create(:tag) }
+
+      before do
+        tag
+      end
+
+      it '一覧ページへリダイレクトすること' do
+        delete admin_tag_path(tag.id)
+        expect(response).to redirect_to admin_tags_path
+      end
+    end
   end
 end

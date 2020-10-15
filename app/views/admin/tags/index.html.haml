@@ -16,3 +16,4 @@
           = tag.name
         %td
           = link_to '編集', edit_admin_tag_path(tag.id), class: 'btn btn-outline-dark'
+          = link_to '削除', admin_tag_path(tag.id), method: :delete, data: {confirm: '削除しますか？'}, class: 'btn btn-danger'

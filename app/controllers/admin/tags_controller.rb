@@ -1,7 +1,7 @@
 module Admin
   class TagsController < ApplicationController
     before_action :get_tags, only: :index
-    before_action :get_tag, only: [:edit, :update]
+    before_action :get_tag, only: [:edit, :update, :destroy]
 
     def new
       @tag = Tag.new
@@ -21,6 +21,14 @@ module Admin
         redirect_to admin_tags_path, notice: t('flash.update')
       else
         render :edit
+      end
+    end
+
+    def destroy
+      if @tag.destroy
+        redirect_to admin_tags_path, notice: t('flash.destroy')
+      else
+        redirect_to admin_tags_path, notice: t('flash.failed_destroy')
       end
     end
 
