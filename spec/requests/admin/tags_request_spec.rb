@@ -90,4 +90,74 @@ RSpec.describe "Admin::Tags", type: :request do
       end
     end
   end
+
+  describe '一般者ユーザでログインしている場合' do
+    let(:login_user) { create(:user, admin: false) }
+
+    before do
+      sign_in login_user
+    end
+
+    describe 'GET /admin/tags' do
+      it 'ユーザページへリダイレクトすること' do
+        get admin_tags_path
+        expect(response).to redirect_to user_path(login_user.nickname)
+      end
+    end
+
+    describe 'GET /admin/tags/new' do
+      it 'ユーザページへリダイレクトすること' do
+        get new_admin_tag_path
+        expect(response).to redirect_to user_path(login_user.nickname)
+      end
+    end
+
+    describe 'POST /admin/tags' do
+      let(:tag) { build(:tag) }
+
+      it 'ユーザページへリダイレクトすること' do
+        post admin_tags_path, params: { tag: { name: tag.name } }
+        expect(response).to redirect_to user_path(login_user.nickname)
+      end
+    end
+
+    describe 'GET /admin/tags/:id/edit' do
+      let(:tag) { create(:tag) }
+
+      before do
+        tag
+      end
+
+      it 'ユーザページへリダイレクトすること' do
+        get edit_admin_tag_path(tag.id)
+        expect(response).to redirect_to user_path(login_user.nickname)
+      end
+    end
+
+    describe 'PUT /admin/tags/:id' do
+      let(:tag) { create(:tag) }
+
+      before do
+        tag
+      end
+
+      it 'ユーザページへリダイレクトすること' do
+        put admin_tag_path(tag.id), params: { tag: { name: tag.name } }
+        expect(response).to redirect_to user_path(login_user.nickname)
+      end
+    end
+
+    describe 'DELETE /admin/tags/:id' do
+      let(:tag) { create(:tag) }
+
+      before do
+        tag
+      end
+
+      it 'ユーザページへリダイレクトすること' do
+        delete admin_tag_path(tag.id)
+        expect(response).to redirect_to user_path(login_user.nickname)
+      end
+    end
+  end
 end

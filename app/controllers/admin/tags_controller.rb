@@ -1,5 +1,7 @@
 module Admin
   class TagsController < ApplicationController
+`
+    before_action :authenticate_admin!`
     before_action :get_tags, only: :index
     before_action :get_tag, only: [:edit, :update, :destroy]
 

@@ -1,5 +1,10 @@
 ja:
   navbar:
     navbar:
+      admin: 管理者用ページ
       mypage: マイページ
       log_out: ログアウト
+  admin:
+    index:
+      title: 管理者用ページ
+      tags: タグ一覧
