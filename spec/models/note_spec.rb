@@ -6,6 +6,7 @@ RSpec.describe Note, type: :model do
   # it 何が期待されるか
   describe 'Validation' do
     let(:user) { create(:user) }
+
     context '正常系' do
       it "成功すること" do
         note = build(:note, user: user)
