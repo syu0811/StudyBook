@@ -5,11 +5,15 @@
   %thead.thead-light
     %tr
       %th
+        ユーザー名　
         タイトル
       %th
   %tbody
     - @notes.each do |note|
       %tr
         %td
-          = note.name
+          = note.title
+          = name.nickname
+
+
 
