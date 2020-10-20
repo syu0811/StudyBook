@@ -1,4 +1,7 @@
 ja:
-    activerecord:
-        attrributes:
-            models:
+  activerecord:
+    attributes:
+      tag:
+        name: タグ名
+    models:
+      tag: タグ

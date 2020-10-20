@@ -4,5 +4,13 @@ Rails.application.routes.draw do
   resources :users, only: [:show], param: :nickname
   resources :admin, only: [:index]
 
+  namespace :admin do
+    resources :tags, only: [:index, :new, :create, :edit, :update, :destroy]
+  end
+
+  namespace :admin do
+    resources :tags, only: [:index, :new, :create, :edit, :update, :destroy]
+  end
+
   root 'users#show'
 end

@@ -1,0 +1,19 @@
+%h1
+  タグ一覧表示
+
+= link_to '登録', new_admin_tag_path, class: 'btn btn-success mb-3'
+
+%table.table.text-nowrap
+  %thead.thead-light
+    %tr
+      %th
+        タグ名
+      %th
+  %tbody
+    - @tags.each do |tag|
+      %tr
+        %td
+          = tag.name
+        %td
+          = link_to '編集', edit_admin_tag_path(tag.id), class: 'btn btn-outline-dark'
+          = link_to '削除', admin_tag_path(tag.id), method: :delete, data: {confirm: '削除しますか？'}, class: 'btn btn-danger'
