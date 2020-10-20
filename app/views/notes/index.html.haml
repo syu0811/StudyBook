@@ -1,0 +1,15 @@
+%h1
+  ノート一覧表示
+
+%table.table.text-nowrap
+  %thead.thead-light
+    %tr
+      %th
+        タイトル
+      %th
+  %tbody
+    - @notes.each do |note|
+      %tr
+        %td
+          = note.name
+
