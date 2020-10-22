@@ -1,0 +1,17 @@
+%h1
+  カテゴリー一覧
+
+%table.table.text-nowrap
+  %thead.thead-light
+    %tr
+      %th
+        カテゴリー名
+      %th
+  %tbody
+    - @categories.each do |categories|
+      %tr
+        %td
+          = categories.name
+        %td
+          = link_to '編集', edit_admin_categories_path(categories.id), class: 'btn btn-outline-dark'
+          = link_to '削除', admin_categories_path(categories.id), method: :delete, data: {confirm: '削除しますか？'}, class: 'btn btn-danger'
