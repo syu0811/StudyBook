@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :tags, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :tags, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :categories, only: [:index, :new]
   end
   root 'users#show'
