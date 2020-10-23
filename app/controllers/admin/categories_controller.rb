@@ -2,6 +2,7 @@ module Admin
   class CategoriesController < ApplicationController
     before_action :authenticate_admin!
     before_action :get_categories, only: :index
+    before_action :get_category, only: [:edit, :update]
 
     def new
       @category = Category.new
@@ -16,6 +17,14 @@ module Admin
       end
     end
 
+    def update
+      if @category.update(category_params)
+        redirect_to admin_categories_path, notice: t('flash.update')
+      else
+        render :edit
+      end
+    end
+
     private
 
     def category_params
@@ -24,6 +33,10 @@ module Admin
 
     def get_categories
       @categories = Category.all
+    end
+
+    def get_category
+      @category = Category.find(params[:id])
     end
   end
 end

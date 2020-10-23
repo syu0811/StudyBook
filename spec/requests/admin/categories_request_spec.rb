@@ -41,6 +41,41 @@ RSpec.describe "Admin::Categories", type: :request do
         end
       end
     end
+
+    describe 'GET /admin/categories/:id/edit' do
+      let(:category) { create(:category) }
+
+      before do
+        category
+      end
+
+      it 'ステータス OK が返ってくる' do
+        get edit_admin_category_path(category.id)
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    describe 'PUT /admin/categories/:id' do
+      let(:category) { create(:category) }
+
+      before do
+        category
+      end
+
+      context '正常系' do
+        it '一覧ページへリダイレクトすること' do
+          put admin_category_path(category.id), params: { category: { name: category.name } }
+          expect(response).to redirect_to admin_categories_path
+        end
+      end
+
+      context '異常系' do
+        it '登録に失敗し遷移しない' do
+          put admin_category_path(category.id), params: { category: { name: '' } }
+          expect(response).to have_http_status(:ok)
+        end
+      end
+    end
   end
 
   describe '一般者ユーザでログインしている場合' do
@@ -69,6 +104,32 @@ RSpec.describe "Admin::Categories", type: :request do
 
       it 'ユーザページへリダイレクトすること' do
         post admin_categories_path, params: { category: { name: category.name } }
+        expect(response).to redirect_to user_path(login_user.nickname)
+      end
+    end
+
+    describe 'GET /admin/categories/:id/edit' do
+      let(:category) { create(:category) }
+
+      before do
+        category
+      end
+
+      it 'ユーザページへリダイレクトすること' do
+        get edit_admin_category_path(category.id)
+        expect(response).to redirect_to user_path(login_user.nickname)
+      end
+    end
+
+    describe 'PUT /admin/categories/:id' do
+      let(:category) { create(:category) }
+
+      before do
+        category
+      end
+
+      it 'ユーザページへリダイレクトすること' do
+        put admin_category_path(category.id), params: { category: { name: category.name } }
         expect(response).to redirect_to user_path(login_user.nickname)
       end
     end
