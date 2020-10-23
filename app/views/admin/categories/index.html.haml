@@ -10,7 +10,10 @@
         カテゴリー名
       %th
   %tbody
-    - @categories.each do |categories|
+    - @categories.each do |category|
       %tr
         %td
-          = categories.name
+          = category.name
+        %td
+          = link_to '編集', edit_admin_category_path(category.id), class: 'btn btn-outline-dark'
+      
