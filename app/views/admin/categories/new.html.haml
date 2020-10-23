@@ -1,0 +1,15 @@
+%h1
+  カテゴリー登録
+
+= form_with(model: @category, url: admin_categories_path, local: true) do |f|
+  - if f.object.errors.any?
+    .alert-warning
+      %ul
+        - f.object.errors.full_messages.each do |message|
+          %li
+            = message
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.submit nil, class: 'btn btn-success'
