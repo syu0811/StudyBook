@@ -76,6 +76,19 @@ RSpec.describe "Admin::Categories", type: :request do
         end
       end
     end
+
+    describe 'DELETE /admin/categories/:id' do
+      let(:category) { create(:category) }
+
+      before do
+        category
+      end
+
+      it '一覧ページへリダイレクトすること' do
+        delete admin_category_path(category.id)
+        expect(response).to redirect_to admin_categories_path
+      end
+    end
   end
 
   describe '一般者ユーザでログインしている場合' do
@@ -130,6 +143,19 @@ RSpec.describe "Admin::Categories", type: :request do
 
       it 'ユーザページへリダイレクトすること' do
         put admin_category_path(category.id), params: { category: { name: category.name } }
+        expect(response).to redirect_to user_path(login_user.nickname)
+      end
+    end
+
+    describe 'DELETE /admin/categories/:id' do
+      let(:category) { create(:category) }
+
+      before do
+        category
+      end
+
+      it 'ユーザページへリダイレクトすること' do
+        delete admin_category_path(category.id)
         expect(response).to redirect_to user_path(login_user.nickname)
       end
     end
