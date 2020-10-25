@@ -1,9 +1,7 @@
 class NotesController < ApplicationController
   def index
-    @notes = Note.includes(:user)
-
-    @notes.each do |_nickname|
-      note.user.nickname
-    end
+    @users = current_user.id
+    @notes = Note.includes(:user).where('notes.user_id = ?', @users).references(:users)
+    # コピペプログラムで表示する内容をログインしているユーザーに限定することができた
   end
 end
