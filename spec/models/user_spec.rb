@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
     expect(user).to be_valid
   end
 
-  it "is not valid without a frstname" do
+  it "is not valid without a firstname" do
     user = build(:user, firstname: nil)
     user.valid?
     expect(user.errors[:firstname]).to include("を入力してください")

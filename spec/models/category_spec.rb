@@ -10,7 +10,7 @@ RSpec.describe Category, type: :model do
     end
 
     context '異常系' do
-      it "nameが20文を超える場合" do
+      it "nameが20文字を超える場合" do
         category = build(:category, name: "a" * 21)
         category.valid?
         expect(category.errors[:name]).to include("は20文字以内で入力してください")
