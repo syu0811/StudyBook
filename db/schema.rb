@@ -10,15 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_16_025742) do
+ActiveRecord::Schema.define(version: 2020_10_26_135049) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgroonga"
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "my_lists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.string "description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["title", "description"], name: "index_my_lists_on_title_and_description", using: :pgroonga
+    t.index ["user_id"], name: "index_my_lists_on_user_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -67,5 +78,6 @@ ActiveRecord::Schema.define(version: 2020_10_16_025742) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "my_lists", "users"
   add_foreign_key "notes", "users"
 end

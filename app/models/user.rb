@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :trackable, :confirmable, :lockable
 
   has_many :notes
+  has_many :my_lists
 
   # 名前は全角平仮名、漢字（鬼車）のみ許可
   VALID_NAME_REGEX = /\A(?:\p{Hiragana}|[ー－]|[一-龠々])+\z/.freeze
