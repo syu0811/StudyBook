@@ -5,5 +5,5 @@ class MyList < ApplicationRecord
   validates :title, presence: true, length: { maximum: 50 }
   validates :description, presence: true, length: { maximum: 300 }
 
-  scope :full_search, ->(query) { where('title @@ ? OR description @@ ?', query, query) }
+  scope :full_search, ->(query) { where('my_lists.title @@ ? OR my_lists.description @@ ?', query, query) }
 end

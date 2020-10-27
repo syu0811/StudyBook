@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_26_135049) do
+ActiveRecord::Schema.define(version: 2020_10_27_073922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgroonga"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 2020_10_26_135049) do
   create_table "my_lists", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title", null: false
-    t.string "description", null: false
+    t.text "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["title", "description"], name: "index_my_lists_on_title_and_description", using: :pgroonga
+    t.index ["id", "title", "description"], name: "index_full_text_my_lists", opclass: { title: :pgroonga_varchar_full_text_search_ops }, using: :pgroonga
     t.index ["user_id"], name: "index_my_lists_on_user_id"
   end
 
