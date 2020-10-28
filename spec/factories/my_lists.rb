@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :my_list do
-    user
-    category
+    association :user
+    association :category
     title { 'マイリストタイトル' }
     description { 'これはマイリストの説明です' }
   end

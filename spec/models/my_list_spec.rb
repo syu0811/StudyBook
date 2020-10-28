@@ -54,8 +54,8 @@ RSpec.describe MyList, type: :model do
   describe ".full_search" do
     let(:user) { create(:user) }
     let(:category) { create(:category) }
-    let(:my_list_a) { create(:my_list, user: user, category: category, title: "これはマイリストAです", description: "これはマイリストAの説明です")}
-    let(:my_list_b) { create(:my_list, user: user, category: category, title: "これはマイリストBです", description: "これはマイリストBの説明です")}
+    let(:my_list_a) { create(:my_list, user: user, category: category, title: "これはマイリストAです", description: "これはマイリストAの説明です") }
+    let(:my_list_b) { create(:my_list, user: user, category: category, title: "これはマイリストBです", description: "これはマイリストBの説明です") }
 
     before do
       user
@@ -64,34 +64,34 @@ RSpec.describe MyList, type: :model do
     end
 
     context "これはで検索" do
-      let (:q) { "これは" }
+      let(:q) { "これは" }
 
       it "全てのマイリストが返る" do
-        expect(MyList.full_search(q).size).to eq(2)
+        expect(described_class.full_search(q).size).to eq(2)
       end
     end
 
     context "Aで検索" do
-      let (:q) { "A" }
+      let(:q) { "A" }
 
       it "Aのマイリストが返る" do
-        expect(MyList.full_search(q)).to eq([my_list_a])
+        expect(described_class.full_search(q)).to eq([my_list_a])
       end
     end
 
     context "これは 説明 Aで検索" do
-      let (:q) { "これは 説明 A" }
+      let(:q) { "これは 説明 A" }
 
       it "Aのマイリストが返る" do
-        expect(MyList.full_search(q)).to eq([my_list_a])
+        expect(described_class.full_search(q)).to eq([my_list_a])
       end
     end
 
     context "Bです 説明ですで検索" do
-      let (:q) { "Bです 説明です" }
+      let(:q) { "Bです 説明です" }
 
       it "結果が0件であること" do
-        expect(MyList.full_search(q).size).to eq(0)
+        expect(described_class.full_search(q).size).to eq(0)
       end
     end
   end
