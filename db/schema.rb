@@ -24,10 +24,12 @@ ActiveRecord::Schema.define(version: 2020_10_27_073922) do
 
   create_table "my_lists", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
     t.string "title", null: false
     t.text "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_my_lists_on_category_id"
     t.index ["id", "title", "description"], name: "index_full_text_my_lists", opclass: { title: :pgroonga_varchar_full_text_search_ops }, using: :pgroonga
     t.index ["user_id"], name: "index_my_lists_on_user_id"
   end
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_073922) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "my_lists", "categories"
   add_foreign_key "my_lists", "users"
   add_foreign_key "notes", "users"
 end
