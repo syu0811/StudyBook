@@ -8,6 +8,7 @@ RSpec.describe NoteTag, type: :model do
         expect(note_tag).to be_valid
       end
     end
+
     context '異常系' do
       it "note_idが無ければ失敗する" do
         note_tag = build(:note_tag, note_id: nil)
