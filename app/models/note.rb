@@ -1,5 +1,7 @@
 class Note < ApplicationRecord
   belongs_to :user
+  has_many :tags, through: :note_tags
+  has_many :note_tags
 
   validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 50 }
