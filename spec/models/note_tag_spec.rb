@@ -2,11 +2,13 @@ require 'rails_helper'
 
 RSpec.describe NoteTag, type: :model do
   describe 'Validation' do
-    let!(:note){create(:note)}
-    let!(:tag){create(:tag)}
+    let!(:user) { create(:user) }
+    let!(:note) { create(:note, user: user) }
+    let!(:tag) { create(:tag) }
+
     context '正常系' do
       it "成功する" do
-        note_tag = build(:note_tag, note_id: note, tag_id: tag)
+        note_tag = build(:note_tag, note: note, tag: tag)
         expect(note_tag).to be_valid
       end
     end
@@ -22,6 +24,13 @@ RSpec.describe NoteTag, type: :model do
         note_tag = build(:note_tag, tag_id: nil)
         note_tag.valid?
         expect(note_tag.errors[:tag_id]).to include("を入力してください")
+      end
+
+      it "note_idとtag_idが重複している場合" do
+        create(:note_tag, note: note, tag: tag)
+        note_tag = build(:note_tag, note: note, tag: tag)
+        note_tag.valid?
+        expect(note_tag.errors[:tag_id]).to include("はすでに存在します")
       end
     end
   end

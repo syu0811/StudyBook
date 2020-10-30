@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_29_023530) do
+ActiveRecord::Schema.define(version: 2020_10_28_081845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,10 +22,11 @@ ActiveRecord::Schema.define(version: 2020_10_29_023530) do
   end
 
   create_table "note_tags", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.bigint "note_id", null: false
     t.bigint "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["note_id", "tag_id"], name: "index_note_tags_on_note_id_and_tag_id", unique: true
     t.index ["note_id"], name: "index_note_tags_on_note_id"
     t.index ["tag_id"], name: "index_note_tags_on_tag_id"
   end
