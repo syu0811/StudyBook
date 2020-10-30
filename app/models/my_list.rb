@@ -4,6 +4,8 @@ class MyList < ApplicationRecord
 
   has_many :my_list_notes
   has_many :notes, through: :my_list_notes
+  has_many :user_subscribe_my_lists
+  has_many :subscribe_users, through: :user_subscribe_my_lists, source: :users
 
   validates :user_id, presence: true
   validates :category_id, presence: true
