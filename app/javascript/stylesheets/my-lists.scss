@@ -1,0 +1,52 @@
+.my-lists {
+  background-color: #ffffff;
+  padding: 5px 10px;
+  &__hr {
+    &--top {
+      margin-top: -5px;
+    }
+  }
+  &__my-list {
+    overflow: hidden;
+    margin: 100px;
+  }
+  &__my-list-main {
+    padding: 0 15px;
+  }
+  &__my-list-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  &__my-list-description {
+    font-size: 0.9em;
+    color: #464646;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: auto;
+  }
+  &__my-list-sub {
+    padding: 0 15px;
+    color: #6a6a6a;
+    font-size: 0.8em;
+  }
+  &__my-list-category {
+    display: inline-block;
+    background-color: #caffe6;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 30%;
+  }
+  &__my-list-user {
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 30%;
+  }
+}
