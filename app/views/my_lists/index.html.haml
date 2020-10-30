@@ -3,18 +3,18 @@
     .list-header__content--active
       = link_to notes_path, class: "list-header__link" do
         %span.list-header__link-text
-          = "ノート"
+          = t '.notes'
     .list-header__content
       = link_to my_lists_path, class: "list-header__link" do
         %span.list-header__link-text--active
-          = "マイリスト"
+          = t '.my_lists'
   .my-lists
     %hr.my-lists__hr--top
     - @my_lists.each do |my_list|
       .my_lists__my-list
         .my-lists__my-list-main
           .my-lists__my-list-title
-            = my_list.title
+            = link_to my_list.title, my_list_path(my_list), class: "my-lists__my-list-link"
           .my-lists__my-list-description
             = my_list.description
         .my-lists__my-list-sub
