@@ -6,6 +6,10 @@ ja:
       notes: ノート
       my_lists: マイリスト
       log_out: ログアウト
+  my_lists:
+    index:
+      my_lists: マイリスト
+      notes: ノート
   admin:
     index:
       title: 管理者用ページ

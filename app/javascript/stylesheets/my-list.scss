@@ -12,16 +12,12 @@
   &__header-title {
     font-weight: bold;
     font-size: 1.2em;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    word-wrap: break-word;
   }
   &__header-description {
     font-size: 0.9em;
     color: #464646;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    word-wrap: break-word;
     width: auto;
   }
   &__header-sub {

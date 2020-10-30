@@ -20,6 +20,12 @@
     white-space: nowrap;
     overflow: hidden;
   }
+  &__my-list-link {
+    color: #000000;
+    &:hover {
+      color: #000000;
+    }
+  }
   &__my-list-description {
     font-size: 0.9em;
     color: #464646;
