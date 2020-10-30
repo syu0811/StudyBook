@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe NoteTag, type: :model do
   describe 'Validation' do
+    let!(:note){create(:note)}
+    let!(:tag){create(:tag)}
     context '正常系' do
       it "成功する" do
-        note_tag = build(:note_tag)
+        note_tag = build(:note_tag, note_id: note, tag_id: tag)
         expect(note_tag).to be_valid
       end
     end
