@@ -3,7 +3,7 @@ CSV.foreach('db/seeds/development/csv/my_lists.csv', headers: true) do |row|
     title: row['title'],
     description: row['description'],
     user: User.first,
-    category: Category.find_by(name: row['category_name'])
+    category: Category.find_by(name: row['category_name']),
   )
 
   if my_list.save
