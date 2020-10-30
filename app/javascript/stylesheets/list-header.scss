@@ -1,0 +1,53 @@
+.list-header {
+  height: 3em;
+  background-color: #ffffff;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  &__content {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    $element: #{&};
+    &--active {
+      @extend #{$element};
+      background-color: #e5e5e5;
+    }
+  }
+  &__link {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  &__link-text {
+    color: #888888;
+    position: absolute;
+    display: inline-block;
+    vertical-align: middle;
+    top: 50%; /*親要素を起点に上から50%*/
+    left: 50%; /*親要素を起点に左から50%*/
+    transform: translateY(-50%) translateX(-50%); /*要素の大きさの半分ずつを戻す*/
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    white-space: nowrap;
+    overflow: hidden;
+    &:hover {
+      color: #000000;
+    }
+    &:active {
+      color: #000000;
+      font-weight: bold;
+    }
+    $element: #{&};
+    &--active {
+      @extend #{$element};
+      color: #000000;
+    }
+  }
+}

@@ -3,6 +3,8 @@ ja:
     navbar:
       admin: 管理者用ページ
       mypage: マイページ
+      notes: ノート
+      my_lists: マイリスト
       log_out: ログアウト
   admin:
     index:

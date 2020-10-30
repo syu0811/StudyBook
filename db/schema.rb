@@ -10,15 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_16_025742) do
+ActiveRecord::Schema.define(version: 2020_10_28_115723) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgroonga"
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "my_list_notes", force: :cascade do |t|
+    t.bigint "my_list_id", null: false
+    t.bigint "note_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["my_list_id", "note_id"], name: "index_my_list_notes_on_my_list_id_and_note_id", unique: true
+    t.index ["my_list_id"], name: "index_my_list_notes_on_my_list_id"
+    t.index ["note_id"], name: "index_my_list_notes_on_note_id"
+  end
+
+  create_table "my_lists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
+    t.string "title", null: false
+    t.text "description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_my_lists_on_category_id"
+    t.index ["id", "title", "description"], name: "index_full_text_my_lists", opclass: { title: :pgroonga_varchar_full_text_search_ops }, using: :pgroonga
+    t.index ["user_id"], name: "index_my_lists_on_user_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -67,5 +90,9 @@ ActiveRecord::Schema.define(version: 2020_10_16_025742) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "my_list_notes", "my_lists"
+  add_foreign_key "my_list_notes", "notes"
+  add_foreign_key "my_lists", "categories"
+  add_foreign_key "my_lists", "users"
   add_foreign_key "notes", "users"
 end

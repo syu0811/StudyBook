@@ -88,6 +88,10 @@ Metrics/BlockLength:
     Exclude:
         # specファイルではブロック長を無視する
         - 'spec/**/*'
+        - 'config/environments/development.rb'
+Metrics/MethodLength:
+    Exclude:
+        - 'db/migrate/20200910121553_devise_create_users.rb'
 
 # # Style ##########################################
 
