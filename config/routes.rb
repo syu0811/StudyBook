@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
   resources :users, only: [:show], param: :nickname
   resources :admin, only: [:index]
-  resources :notes, only: [:index]
+  resources :notes, only: [:index, :show], param: :category
 
   namespace :admin do
     resources :tags, only: [:index, :new, :create, :edit, :update, :destroy]
