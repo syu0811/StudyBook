@@ -6,6 +6,7 @@
     %tr
       %th
         タイトル　
+      %th
         ユーザー名
       %th
   %tbody
@@ -13,7 +14,9 @@
       %tr
         %td
           = note.title
+        %td
           = note.user.nickname
+        %td
+          = link_to '追加ボタン', new_my_list_path, remote: true
 
-
-
+#new_my_list_form

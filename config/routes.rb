@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :admin, only: [:index]
   resources :notes, only: [:index]
-  resources :my_lists, only: [:index, :show]
+  resources :my_lists, only: [:index, :show, :new, :create, :update]
 
   namespace :admin do
     resources :tags, only: [:index, :new, :create, :edit, :update, :destroy]
