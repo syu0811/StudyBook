@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_10_30_145722) do
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
     t.string "title", null: false
-    t.text "description", null: false
+    t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_my_lists_on_category_id"

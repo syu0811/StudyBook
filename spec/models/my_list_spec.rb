@@ -42,12 +42,6 @@ RSpec.describe MyList, type: :model do
         my_list.valid?
         expect(my_list.errors[:description]).to include("は300文字以内で入力してください")
       end
-
-      it "descriptionがない時にエラーが帰ること" do
-        my_list = build(:my_list, description: nil, user: user, category: category)
-        my_list.valid?
-        expect(my_list.errors[:description]).to include("を入力してください")
-      end
     end
   end
 
