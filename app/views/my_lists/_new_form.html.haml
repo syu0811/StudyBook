@@ -1,4 +1,5 @@
-= form_with(model: my_list, url: my_lists_path, local: false) do |f|
+= form_with(model: my_list, url: my_lists_path(note_id: params[:note_id]), local: false) do |f|
   = f.collection_select :category_id, @categories, :id, :name
   = f.text_field :title
   = f.submit nil
+

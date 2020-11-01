@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   resources :admin, only: [:index]
   resources :notes, only: [:index]
-  resources :my_lists, only: [:index, :show, :new, :create, :update]
+  resources :my_lists, only: [:index, :show, :create]
+  get '/my_lists/new/:note_id', to: 'my_lists#new', as: :new_my_list
 
   namespace :admin do
     resources :tags, only: [:index, :new, :create, :edit, :update, :destroy]

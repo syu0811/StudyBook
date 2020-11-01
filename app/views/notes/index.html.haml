@@ -17,6 +17,6 @@
         %td
           = note.user.nickname
         %td
-          = link_to '追加ボタン', new_my_list_path, remote: true
+          = link_to '追加ボタン', new_my_list_path(note_id: note.id), remote: true
 
 #new_my_list_form
