@@ -1,0 +1,9 @@
+document.getElementById('my_list_header').innerHTML = "<%= j(render partial: 'edit_my_list_header', locals: { my_list: @my_list, categories: @categories }) %>";
+
+// テキストエリアの取得
+var textarea = document.getElementById("my_list_description");
+// 入力ごとに呼び出されるイベントを設定
+textarea.addEventListener("input", function() {
+  setRows(textarea, 5);
+}, false);
+setRows(textarea);

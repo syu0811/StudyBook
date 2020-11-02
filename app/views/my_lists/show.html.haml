@@ -1,16 +1,7 @@
 .main
   .my-list
-    .my-list__header
-      .my-list__header-main
-        .my-list__header-title
-          = @my_list.title
-        .my-list__header-description
-          = @my_list.description
-      .my-list__header-sub
-        .my-list__header-user
-          = "#{t('general.by')} #{@my_list.user.nickname}"
-        .my-list__header-category
-          = @my_list.category.name
+    .my-list__header#my_list_header
+      = render partial: 'my_list_header', locals: { my_list: @my_list }
     .my-list__notes
       - @my_list.notes.each_with_index do |note, i|
         - unless i == 0
