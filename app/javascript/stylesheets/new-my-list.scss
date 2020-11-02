@@ -1,0 +1,59 @@
+.new-my-list {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  background-color: #a3d2ca;
+  border-radius: 20px;
+  padding: 15px 20px;
+  &__existing {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+  }
+  &__my-list-row {
+    margin: 10px 0;
+    white-space: nowrap;
+  }
+  &__check-box {
+    transform:scale(1.5);
+    margin-right: 10px;
+  }
+  &__title {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
+  }
+  &__regist {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 15px 20px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  &__collection {
+    @extend .form-control;
+    display: inline-block;
+    width: 25%;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+  &__text-field {
+    @extend .form-control;
+    display: inline-block;
+    width: 50%;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+  &__submit-button {
+    @extend .btn, .btn-outline-dark;
+    width: 20%;
+    vertical-align: middle;
+  }
+}

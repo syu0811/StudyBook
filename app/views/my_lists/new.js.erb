@@ -1,0 +1,7 @@
+document.getElementById('new_my_list_form').innerHTML = "<%= j(render partial: 'new_form', locals: { my_list: @my_list, my_lists: @my_lists, note_id: params[:note_id] }) %>";
+
+document.addEventListener('click', (e) => {
+  if(!e.target.closest('#new_my_list_pop_up')) {
+    document.getElementById('new_my_list_form').innerHTML = "";
+  }
+})
