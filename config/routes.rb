@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   resources :users, only: [:show], param: :nickname
   resources :admin, only: [:index]
   resources :notes, only: [:index]
-
+  namespace :api do
+    namespace :v1 do
+      post 'users/:id/token', to: 'users#token', as: 'token_user'
+    end
+  end
   namespace :admin do
     resources :tags, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :categories, only: [:index, :new, :create, :edit, :update, :destroy]
