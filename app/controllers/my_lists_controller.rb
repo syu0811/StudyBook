@@ -5,6 +5,7 @@ class MyListsController < ApplicationController
 
   def new
     @my_list = MyList.new
+    @my_lists = current_user.my_lists.includes(:my_list_notes)
   end
 
   def create
