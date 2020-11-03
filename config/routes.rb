@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post 'users/:id/token', to: 'users#token', as: 'token_user'
+      post 'users/:id/auth', to: 'users#auth', as: 'token_auth'
     end
   end
   namespace :admin do
