@@ -32,13 +32,10 @@ class Api::V1::UsersController < ApplicationController
 
     user = User.find_by(id: id)
 
-    if user.token == auth_token then
-      # トークン認証に成功したパターン
-      @result = "ok"
-    else
-      # 認証失敗
-      @result = "NG"
-    end
-
+    @result = if user.token == auth_token
+                "OK"
+              else
+                "NG"
+              end
   end
 end
