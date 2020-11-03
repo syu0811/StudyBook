@@ -1,2 +1,2 @@
 # json.text "テキスト"
-json.text "#{@result}"
+json.text @result.to_s
