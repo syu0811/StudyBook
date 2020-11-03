@@ -14,6 +14,8 @@
         %td
           = note.title
           = note.user.nickname
+          
 
-
-
+= form_with(model: @notes, url: notes_path, local: true) do |f|
+  = f.label :"カテゴリー"
+  = f.collection_select :category_id, Category.all, :id, :name, {include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);"}

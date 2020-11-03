@@ -3,5 +3,6 @@ FactoryBot.define do
     title { 'てすとタイトル' }
     text { 'テストテキスト' }
     user
+    category
   end
 end
