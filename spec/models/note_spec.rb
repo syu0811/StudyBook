@@ -6,10 +6,11 @@ RSpec.describe Note, type: :model do
   # it 何が期待されるか
   describe 'Validation' do
     let(:user) { create(:user) }
+    let(:category) { create(:category) }
 
     context '正常系' do
       it "成功すること" do
-        note = build(:note, user: user)
+        note = build(:note, user: user, category: category)
         expect(note).to be_valid
       end
     end
@@ -19,6 +20,12 @@ RSpec.describe Note, type: :model do
         note = build(:note, user_id: nil)
         note.valid?
         expect(note.errors[:user_id]).to include("を入力してください")
+      end
+
+      it "category_idがない時にエラーが返ること" do
+        note = build(:note, category_id: nil)
+        note.valid?
+        expect(note.errors[:category_id]).to include("を入力してください")
       end
 
       it "titleの文字数が50文字を超えている時にエラーが帰ること" do
