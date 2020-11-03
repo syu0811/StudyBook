@@ -18,14 +18,5 @@
 
 = form_with(model: @notes, url: notes_path, local: true) do |f|
   = f.label :"カテゴリー"
-  = f.collection_select :category_id, Category.all, :id, :name, include_blank: '選択して下さい'
-:javascript
-  document.addEventListener('DOMContentLoaded', function() {
-    select = document.getElementById('note_category_id');
-  });
-  function OnButtonClick(){
-    const url = new URL(location);
-    url.searchParams.set('category', select.value);
-    location.href = url.toString();
-  }
-%input{type: "button", value: "検索", onclick: "OnButtonClick();"}
+  = f.collection_select :category_id, Category.all, :id, :name, {include_blank: '選択して下さい'}, {onchange: "onChange(this.value);"}
+
