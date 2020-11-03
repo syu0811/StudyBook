@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2020_10_30_145722) do
   create_table "my_list_notes", force: :cascade do |t|
     t.bigint "my_list_id", null: false
     t.bigint "note_id", null: false
+    t.integer "index", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["my_list_id", "note_id"], name: "index_my_list_notes_on_my_list_id_and_note_id", unique: true
