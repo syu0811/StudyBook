@@ -1,7 +1,7 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authenticate_user!
   protect_from_forgery with: :null_session
-  def token # user/tokenにアクセスされたら来る
+  def token
     # メールアドレスとパスワードの受取
     @mail = params[:email]
     @password = params[:password]
@@ -11,7 +11,7 @@ class Api::V1::UsersController < ApplicationController
     # DBから登録されたパスワードを受け取る
     user = User.find_by(email: @mail) # メールアドレスに紐付いたユーザー情報を受け取る
 
-    if user.valid_password?(@password) then
+    if user.valid_password?(@password)
       # 正しいときの処理
       # トークン生成
       @token = SecureRandom.urlsafe_base64(10)

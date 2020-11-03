@@ -1,3 +1,3 @@
 # json.text "テキスト"
 
-json.text "#{@token}"
+json.text @token.to_s
