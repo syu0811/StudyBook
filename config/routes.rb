@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :my_lists, only: [:index, :show, :create, :edit, :update]
   get '/my_lists/new/:note_id', to: 'my_lists#new', as: :new_my_list
 
+  resources :my_list_notes, only: [:update]
   post '/my_list_notes', to: 'my_list_notes#create', as: :create_my_list_note
   delete '/my_list_notes', to: 'my_list_notes#destroy', as: :destroy_my_list_note
 

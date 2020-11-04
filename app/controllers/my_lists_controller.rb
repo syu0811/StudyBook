@@ -1,8 +1,12 @@
 class MyListsController < ApplicationController
   before_action :get_my_lists, only: [:index]
-  before_action :get_my_list, only: [:show]
   before_action :get_current_user_my_list, only: [:edit, :update]
   before_action :get_categories, only: [:new, :edit]
+
+  def show
+    @my_list = MyList.find(params[:id])
+    @notes = @my_list.notes.includes(:user, :my_list_notes).order("my_list_notes.index")
+  end
 
   def new
     @my_list = MyList.new
@@ -33,10 +37,6 @@ class MyListsController < ApplicationController
 
   def get_my_lists
     @my_lists = MyList.includes(:category, :user)
-  end
-
-  def get_my_list
-    @my_list = MyList.includes(notes: [:user]).find(params[:id])
   end
 
   def get_current_user_my_list

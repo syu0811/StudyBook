@@ -3,7 +3,7 @@
     .my-list__header#my_list_header
       = render partial: 'my_list_header', locals: { my_list: @my_list }
     .my-list__notes
-      - @my_list.notes.each_with_index do |note, i|
+      - @notes.each_with_index do |note, i|
         - unless i == 0
           %hr
         .my-list__note
@@ -13,3 +13,6 @@
           .my-list__note-sub
             .my-list__note-user
               = "#{t('general.by')} #{note.user.nickname}"
+
+- if @notes.size >= 2
+  = link_to "変更", my_list_note_path(my_list_id: @my_list.id, my_list_note: { first_id: @my_list.my_list_notes.first.id, second_id: @my_list.my_list_notes.second.id }), method: :patch, remote: true

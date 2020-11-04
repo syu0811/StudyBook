@@ -58,27 +58,29 @@ RSpec.describe MyListNote, type: :model do
       let!(:my_list_notes) { create_list(:my_list_note, 2, my_list: my_list, index: nil) }
 
       it "trueが返る" do
-        expect(described_class.exchange(my_list, my_list_notes[0].id, my_list_notes[1].id)).to eq(true)
+        expect(my_list_notes[0].exchange(1)).to eq(true)
       end
 
       it "indexが更新されている" do
         expect do
-          described_class.exchange(my_list, my_list_notes[0].id, my_list_notes[1].id)
+          my_list_notes[0].exchange(1)
         end.to change { my_list_notes[0].reload.index }.from(0).to(1).and change { my_list_notes[1].reload.index }.from(1).to(0)
       end
     end
 
-    context "マイリストが違う場合" do
-      let!(:my_list_notes) { create_list(:my_list_note, 2, index: nil) }
+    context "更新先indexが0より小さい場合" do
+      let!(:my_list_note) { create(:my_list_note) }
 
       it "falseが返る" do
-        expect(described_class.exchange(my_list_notes[0].my_list, my_list_notes[0].id, my_list_notes[1].id)).to eq(false)
+        expect(my_list_note.exchange(-1)).to eq(false)
       end
+    end
 
-      it "indexが更新されている" do
-        expect do
-          described_class.exchange(my_list_notes[0].my_list, my_list_notes[0].id, my_list_notes[1].id)
-        end.to change { my_list_notes[0].reload.index }.by(0).and change { my_list_notes[1].reload.index }.by(0)
+    context "更新先indexが既にある最大のindexより大きい場合" do
+      let!(:my_list_note) { create(:my_list_note) }
+
+      it "falseが返る" do
+        expect(my_list_note.exchange(1)).to eq(false)
       end
     end
   end
