@@ -1,13 +1,13 @@
 %h1
-  カテゴリー一覧
+  = t '.title'
 
-= link_to '登録', new_admin_category_path, class: 'btn btn-success mb-3'
+= link_to t('.registration'), new_admin_category_path, class: 'btn btn-success mb-3'
 
 %table.table.text-nowrap
   %thead.thead-light
     %tr
       %th
-        カテゴリー名
+        = t '.name'
       %th
   %tbody
     - @categories.each do |category|
@@ -15,5 +15,5 @@
         %td
           = category.name
         %td
-          = link_to '編集', edit_admin_category_path(category.id), class: 'btn btn-outline-dark'
-          = link_to '削除', admin_category_path(category.id), method: :delete, data: {confirm: '削除しますか？'}, class: 'btn btn-danger'
+          = link_to t('.edit'), edit_admin_category_path(category.id), class: 'btn btn-outline-dark'
+          = link_to t('.delete'), admin_category_path(category.id), method: :delete, data: {confirm: t('.confirm')}, class: 'btn btn-danger'
