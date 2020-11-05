@@ -9,9 +9,16 @@ RSpec.describe "Admin::Tags", type: :request do
     end
 
     describe 'GET /admin/tags' do
+      let!(:tags) { create_list(:tag, 2) }
+
       it 'ステータス OK が返ってくる' do
         get admin_tags_path
         expect(response).to have_http_status(:ok)
+      end
+
+      it "一覧のデータ生成の成功" do
+        get admin_tags_path
+        expect(response.body).to include(tags[0].name, tags[1].name)
       end
     end
 
