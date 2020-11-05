@@ -1,24 +1,13 @@
 .main
   .my-list
-    .my-list__header
-      .my-list__header-main
-        .my-list__header-title
-          = @my_list.title
-        .my-list__header-description
-          = @my_list.description
-      .my-list__header-sub
-        .my-list__header-user
-          = "#{t('general.by')} #{@my_list.user.nickname}"
-        .my-list__header-category
-          = @my_list.category.name
-    .my-list__notes
-      - @my_list.notes.each_with_index do |note, i|
-        - unless i == 0
-          %hr
-        .my-list__note
+    .my-list__header#my_list_header
+      = render partial: 'my_list_header', locals: { my_list: @my_list }
+    .my-list__notes#my_list_notes{ data: { sortable: "#{current_user.id == @my_list.user_id}" } }
+      - @my_list_notes.each do |my_list_note|
+        .my-list__note{data: { id: my_list_note.id }}
           .my-list__note-main
             .my-list__note-title
-              = note.title
+              = my_list_note.note.title
           .my-list__note-sub
             .my-list__note-user
-              = "#{t('general.by')} #{note.user.nickname}"
+              = "#{t('general.by')} #{my_list_note.note.user.nickname}"
