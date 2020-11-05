@@ -90,6 +90,13 @@
     border-radius: 10px;
     padding: 10px 15px;
   }
+  &__note {
+    padding: 10px 0;
+    border-top: 1px solid #333333;
+    &:first-child {
+    border-top: none;
+    }
+  }
   &__note-main {
     padding: 0 15px;
   }
