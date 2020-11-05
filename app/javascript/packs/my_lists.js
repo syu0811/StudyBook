@@ -22,23 +22,25 @@ window.addMyListNote = function (e, note_id, my_list_id) {
 
 document.addEventListener("DOMContentLoaded", function () {
   var el = document.getElementById("my_list_notes");
-  Sortable.create(el, {
-    onEnd: function (e) {
-      $.ajaxPrefilter((options, originalOptions, jqXHR) => {
-        if (!options.crossDomain) {
-          const token = $('meta[name="csrf-token"]').attr("content");
-          if (token) {
-            return jqXHR.setRequestHeader("X-CSRF-Token", token);
+  if (el.dataset.sortable == "true") {
+    Sortable.create(el, {
+      onEnd: function (e) {
+        $.ajaxPrefilter((options, originalOptions, jqXHR) => {
+          if (!options.crossDomain) {
+            const token = $('meta[name="csrf-token"]').attr("content");
+            if (token) {
+              return jqXHR.setRequestHeader("X-CSRF-Token", token);
+            }
           }
-        }
-      });
+        });
 
-      $.ajax({
-        url: `/my_list_notes/${e.item.dataset.id}`,
-        type: "PATCH",
-        data: { my_list_note: { index: e.newIndex } },
-        dataType: "json",
-      });
-    },
-  });
+        $.ajax({
+          url: `/my_list_notes/${e.item.dataset.id}`,
+          type: "PATCH",
+          data: { my_list_note: { index: e.newIndex } },
+          dataType: "json",
+        });
+      },
+    });
+  }
 });

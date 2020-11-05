@@ -2,7 +2,7 @@
   .my-list
     .my-list__header#my_list_header
       = render partial: 'my_list_header', locals: { my_list: @my_list }
-    .my-list__notes#my_list_notes
+    .my-list__notes#my_list_notes{ data: { sortable: "#{current_user.id == @my_list.user_id}" } }
       - @my_list_notes.each do |my_list_note|
         .my-list__note{data: { id: my_list_note.id }}
           .my-list__note-main
