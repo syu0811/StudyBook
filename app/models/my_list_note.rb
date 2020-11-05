@@ -13,11 +13,7 @@ class MyListNote < ApplicationRecord
 
     from_index = index
     transaction do
-      if to_index < from_index
-        exchange_lower(from_index, to_index)
-      else
-        exchange_upper(from_index, to_index)
-      end
+      to_index < from_index ? exchange_lower(from_index, to_index) : exchange_upper(from_index, to_index)
       raise ActiveRecord::Invalid unless my_list.touch
     end
     true

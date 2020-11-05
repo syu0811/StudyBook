@@ -1,5 +1,5 @@
 class MyListNotesController < ApplicationController
-  before_action :get_current_user_my_list, only: [:create, :update, :destroy]
+  before_action :get_current_user_my_list, only: [:create, :destroy]
 
   def create
     @my_list_note = @my_list.my_list_notes.new(note_id: params[:note_id])
@@ -11,8 +11,12 @@ class MyListNotesController < ApplicationController
   end
 
   def update
-    ids = my_list_note_params
-    flash.now[:danger] = 'ノートの移動に失敗しました' unless MyListNote.exchange(@my_list, ids[:first_id], ids[:second_id])
+    @my_list_note = MyListNote.find(params[:id])
+    if @my_list_note.my_list.user_id == current_user.id && @my_list_note.exchange(my_list_note_params[:index].to_i)
+      head :no_content
+    else
+      head :bad_request
+    end
   end
 
   def destroy
@@ -22,7 +26,7 @@ class MyListNotesController < ApplicationController
   private
 
   def my_list_note_params
-    params.require(:my_list_note).permit(:first_id, :second_id)
+    params.require(:my_list_note).permit(:index)
   end
 
   def get_current_user_my_list

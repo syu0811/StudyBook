@@ -40,6 +40,43 @@ RSpec.describe "MyListNotes", type: :request do
       end
     end
 
+    describe "PATCH /my_list_notes/:id" do
+      let!(:my_list) { create(:my_list, user: login_user) }
+      let!(:my_list_notes) { create_list(:my_list_note, 2, my_list: my_list, index: nil) }
+
+      context "正常系" do
+        it "ステータスOKが返る" do
+          patch my_list_note_path(my_list_notes[0].id), params: { my_list_note: { index: 1 } }
+          expect(response).to have_http_status(:no_content)
+        end
+      end
+
+      context "違うユーザのマイリストを更新する場合" do
+        let!(:my_list) { create(:my_list) }
+        let!(:my_list_notes) { create_list(:my_list_note, 2, my_list: my_list, index: nil) }
+
+        it "ステータス Bad Request が返る" do
+          patch my_list_note_path(my_list_notes[0].id), params: { my_list_note: { index: 1 } }
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+
+      context "範囲外の順番へと更新する場合" do
+        let!(:my_list) { create(:my_list, user: login_user) }
+        let!(:my_list_notes) { create_list(:my_list_note, 2, my_list: my_list, index: nil) }
+
+        it "2の場合ステータス Bad Request が返る" do
+          patch my_list_note_path(my_list_notes[0].id), params: { my_list_note: { index: 2 } }
+          expect(response).to have_http_status(:bad_request)
+        end
+
+        it "-1の場合ステータス Bad Request が返る" do
+          patch my_list_note_path(my_list_notes[0].id), params: { my_list_note: { index: -1 } }
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+    end
+
     describe "DELETE /my_list_notes" do
       context 'ログインユーザのマイリストのものを削除する場合' do
         let!(:my_list) { create(:my_list, user: login_user) }
