@@ -1,6 +1,6 @@
 class MyListsController < ApplicationController
   before_action :get_my_lists, only: [:index]
-  before_action :get_current_user_my_list, only: [:edit, :update]
+  before_action :get_current_user_my_list, only: [:edit, :update, :destroy]
   before_action :get_categories, only: [:new, :edit]
 
   def show
@@ -26,6 +26,20 @@ class MyListsController < ApplicationController
       flash.now[:notice] = 'マイリスト情報を更新しました'
     else
       flash.now[:danger] = 'マイリスト情報更新に失敗しました'
+    end
+  end
+
+  def destroy
+    if @my_list.destroy
+      flash.now[:notice] = 'マイリストを削除しました'
+    else
+      flash.now[:danger] = 'マイリストの削除に失敗しました'
+    end
+
+    if params[:redirect_to_user_my_lists] == 'true'
+      redirect_to user_my_lists_path(current_user.nickname)
+    else
+      redirect_to my_lists_path
     end
   end
 
