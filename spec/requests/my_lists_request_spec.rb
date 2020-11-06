@@ -58,7 +58,7 @@ RSpec.describe "MyLists", type: :request do
       end
 
       it 'マイリストノートの削除に成功している' do
-        expect { delete my_list_path(my_list.id)}.to change { MyListNote.all.size }.from(2).to(0)
+        expect { delete my_list_path(my_list.id) }.to change { MyListNote.all.size }.from(2).to(0)
       end
 
       it '302が返る' do

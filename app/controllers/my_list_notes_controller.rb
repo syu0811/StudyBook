@@ -21,6 +21,7 @@ class MyListNotesController < ApplicationController
 
   def destroy
     @my_list.my_list_notes.find_by!(note_id: params[:note_id]).destroy!
+    flash.now[:notice] = "マイリストからノートを削除しました。"
   end
 
   private

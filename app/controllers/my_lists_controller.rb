@@ -26,6 +26,7 @@ class MyListsController < ApplicationController
       flash.now[:notice] = 'マイリスト情報を更新しました'
     else
       flash.now[:danger] = 'マイリスト情報更新に失敗しました'
+      get_current_user_my_list
     end
   end
 

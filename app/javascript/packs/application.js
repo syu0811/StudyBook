@@ -11,6 +11,7 @@ import "bootstrap";
 import "../stylesheets/application";
 import "./marked";
 import "./my_lists";
+import "./my_list_notes";
 import "./text_area";
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -20,11 +21,11 @@ import "./text_area";
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-window.getStyleSheetValue = function(element, property) {
+window.getStyleSheetValue = function (element, property) {
   if (!element || !property) {
     return null;
   }
   var style = window.getComputedStyle(element);
   var value = style.getPropertyValue(property);
   return value;
-}
+};
