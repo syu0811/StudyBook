@@ -21,3 +21,15 @@ ja:
     index:
       title: 管理者用ページ
       tags: タグ一覧
+    categories:
+      index:
+        title: 'カテゴリー一覧'
+        name: 'カテゴリー名'
+        registration: '登録'
+        edit: '編集'
+        delete: '削除'
+        confirm: '削除しますか？'
+      new:
+        title: 'カテゴリー登録'
+      edit:
+        title: 'カテゴリー編集'

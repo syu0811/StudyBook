@@ -1,6 +1,10 @@
 %h1
   ノート一覧表示
 
+= form_with(model: @notes, url: notes_path, local: true) do |f|
+  = f.label :"カテゴリー"
+  = f.collection_select :category_id, Category.all, :id, :name, {include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);"}
+
 %table.table.text-nowrap
   %thead.thead-light
     %tr
@@ -20,3 +24,4 @@
           = link_to '追加ボタン', new_my_list_path(note_id: note.id), remote: true
 
 #new_my_list_form
+

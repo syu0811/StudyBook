@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :admin, only: [:index]
-  resources :notes, only: [:index]
+  resources :notes, only: [:index], param: :category
   resources :my_lists, only: [:index, :show, :create, :edit, :update, :destroy]
   get '/my_lists/new/:note_id', to: 'my_lists#new', as: :new_my_list
 
