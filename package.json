@@ -9,7 +9,8 @@
     "bootstrap": "^4.5.2",
     "jquery": "^3.5.1",
     "marked": "^1.2.0",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "sortablejs": "1.10"
   },
   "version": "0.1.0",
   "devDependencies": {

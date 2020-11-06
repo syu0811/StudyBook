@@ -1,2 +1,4 @@
 %h1
   = @user.nickname
+
+= link_to "ユーザのマイリスト(仮)", user_my_lists_path(user_nickname: current_user.nickname)

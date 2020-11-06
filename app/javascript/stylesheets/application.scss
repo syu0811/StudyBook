@@ -1,2 +1,25 @@
-@import '~bootstrap/scss/bootstrap';
-@import './devise.scss';
+@import "~bootstrap/scss/bootstrap";
+@import "./animation.scss";
+@import "./devise.scss";
+@import "./my-lists.scss";
+@import "./list-header.scss";
+@import "./my-list.scss";
+@import "./flash.scss";
+@import "./new-my-list.scss";
+
+body {
+  background-color: #f5ebdf;
+}
+.main {
+  margin-top: 40px;
+}
+
+.blackout {
+  position: fixed;
+  background-color: #000000;
+  opacity: 30%;
+  width: 100vw;
+  height: 100vw;
+  top: 0;
+  left: 0;
+}

@@ -30,6 +30,10 @@ Style/ClassAndModuleChildren:
 Style/FrozenStringLiteralComment:
     Enabled: false
 
+Style/RescueStandardError:
+    Exclude:
+        - 'app/models/**'
+
 # Layout #########################################
 
 # コメントの先頭にホワイトスペースを入れること

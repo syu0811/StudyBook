@@ -1,0 +1,67 @@
+.my-lists {
+  background-color: #ffffff;
+  padding: 0px 10px;
+  &__hr {
+    &--top {
+      margin-top: -5px;
+    }
+  }
+  &__my-list {
+    overflow: hidden;
+    padding: 5px 0;
+    border-top: 1px solid #333333;
+    &:first-of-type {
+      border-top: none;
+    }
+  }
+  &__my-list-main {
+    padding: 0 15px;
+  }
+  &__my-list-deleet-button {
+    @extend .btn, .btn-outline-dark;
+    float: right;
+    width: 58px;
+  }
+  &__my-list-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  &__my-list-link {
+    color: #000000;
+    &:hover {
+      color: #000000;
+    }
+  }
+  &__my-list-description {
+    font-size: 0.9em;
+    color: #464646;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: auto;
+  }
+  &__my-list-sub {
+    padding: 0 15px;
+    color: #6a6a6a;
+    font-size: 0.8em;
+  }
+  &__my-list-category {
+    display: inline-block;
+    background-color: #caffe6;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 30%;
+  }
+  &__my-list-user {
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 30%;
+  }
+}

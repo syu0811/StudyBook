@@ -1,0 +1,14 @@
+.blackout
+.new-my-list#new_my_list_pop_up
+  .new-my-list__existing
+    - my_lists.each do |my_list|
+      .new-my-list__my-list-row
+        %input.new-my-list__check-box{ id: "check_my_list_#{my_list.id}", type: 'checkbox', checked: my_list.my_list_notes.pluck(:note_id).include?(note_id.to_i), onClick: "window.addMyListNote(event, #{note_id}, #{my_list.id})"}
+        %label.new-my-list__title{ for: "check_my_list_#{my_list.id}" }
+          = my_list.title
+  .new-my-list__regist#new-my-list__regist
+    = form_with(model: my_list, url: my_lists_path(note_id: note_id), local: false) do |f|
+      = f.collection_select :category_id, @categories, :id, :name, {},{ class: "new-my-list__collection" }
+      = f.text_field :title, class: 'new-my-list__text-field'
+      = f.submit nil, class: 'new-my-list__submit-button'
+

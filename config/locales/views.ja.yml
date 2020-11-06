@@ -3,7 +3,20 @@ ja:
     navbar:
       admin: 管理者用ページ
       mypage: マイページ
+      notes: ノート
+      my_lists: マイリスト
       log_out: ログアウト
+  my_lists:
+    index:
+      my_lists: マイリスト
+      notes: ノート
+    show:
+      empty: ノートは存在しません
+  users:
+    my_lists:
+      index:
+        empty: マイリストは存在しません
+
   admin:
     index:
       title: 管理者用ページ
