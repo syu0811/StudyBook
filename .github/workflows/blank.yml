@@ -32,3 +32,57 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: run rubocop
         run: bundle exec rubocop
+  run_spec:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: groonga/pgroonga:latest
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+          LANG: ja_JP.utf8"
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: myapp_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
+      with:
+        ruby-version: 2.6.6
+    - name: Cache gems
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        bundle install --path vendor/bundle --without production
+        yarn install
+    - name: setup DB
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: postgresql://postgres@localhost:5432/postgres?encoding=utf8&pool=5&timeout=5000
+      run: |
+        bundle exec rails db:schema:load
+    - name: Run tests
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: postgresql://postgres@localhost:5432/postgres?encoding=utf8&pool=5&timeout=5000
+      run: bundle exec rspec
