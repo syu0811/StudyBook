@@ -11,8 +11,10 @@
   .my-lists
     %hr.my-lists__hr--top
     - @my_lists.each do |my_list|
-      .my_lists__my-list
+      .my-lists__my-list
         .my-lists__my-list-main
+          - if my_list.user_id == current_user.id
+            = link_to "削除", my_list_path(my_list.id), method: :delete, class: "my-lists__my-list-deleet-button"
           .my-lists__my-list-title
             = link_to my_list.title, my_list_path(my_list), class: "my-lists__my-list-link"
           .my-lists__my-list-description
@@ -22,4 +24,3 @@
             = "#{t('general.by')} #{my_list.user.nickname}"
           .my-lists__my-list-category
             = my_list.category.name
-      %hr.my-lists__hr

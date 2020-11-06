@@ -2,12 +2,18 @@
   .my-list
     .my-list__header#my_list_header
       = render partial: 'my_list_header', locals: { my_list: @my_list }
-    .my-list__notes#my_list_notes{ data: { sortable: "#{current_user.id == @my_list.user_id}" } }
-      - @my_list_notes.each do |my_list_note|
-        .my-list__note{data: { id: my_list_note.id }}
-          .my-list__note-main
-            .my-list__note-title
-              = my_list_note.note.title
-          .my-list__note-sub
-            .my-list__note-user
-              = "#{t('general.by')} #{my_list_note.note.user.nickname}"
+    - if @my_list_notes.empty?
+      .my-list__notes#my_list_notes
+        = t '.empty'
+    - else
+      .my-list__notes#my_list_notes{ data: { sortable: "#{current_user.id == @my_list.user_id}" } }
+        - @my_list_notes.each do |my_list_note|
+          .my-list__note{data: { id: my_list_note.id }}
+            .my-list__note-main
+              - if @my_list.user_id == current_user.id
+                = link_to "削除", destroy_my_list_note_path(my_list_id: my_list_note.my_list_id, note_id: my_list_note.note_id), method: :delete, remote: true, onClick: "removeMyListNote(event)", class: 'my-list__note-destroy-button'
+              .my-list__note-title
+                = my_list_note.note.title
+            .my-list__note-sub
+              .my-list__note-user
+                = "#{t('general.by')} #{my_list_note.note.user.nickname}"

@@ -82,9 +82,9 @@ RSpec.describe "MyListNotes", type: :request do
         let!(:my_list) { create(:my_list, user: login_user) }
         let!(:my_list_note) { create(:my_list_note, my_list: my_list) }
 
-        it 'no_contentが返る' do
+        it '200 OKが返る' do
           delete destroy_my_list_note_path, params: { my_list_id: my_list_note.my_list_id, note_id: my_list_note.note_id }, xhr: true
-          expect(response).to have_http_status(:no_content)
+          expect(response).to have_http_status(:ok)
         end
 
         context 'ログインユーザではないマイリストのものを削除する場合' do

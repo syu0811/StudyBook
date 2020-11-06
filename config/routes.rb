@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :admin, only: [:index]
   resources :notes, only: [:index]
-  resources :my_lists, only: [:index, :show, :create, :edit, :update]
+  resources :my_lists, only: [:index, :show, :create, :edit, :update, :destroy]
   get '/my_lists/new/:note_id', to: 'my_lists#new', as: :new_my_list
 
   resources :my_list_notes, only: [:update]
