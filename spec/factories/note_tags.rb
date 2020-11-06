@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :note_tag do
-    note
-    tag
+    association :note
+    association :tag
   end
 end
