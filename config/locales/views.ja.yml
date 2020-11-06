@@ -10,6 +10,10 @@ ja:
     index:
       my_lists: マイリスト
       notes: ノート
+  users:
+    my_lists:
+      index:
+        empty: マイリストは存在しません
   admin:
     index:
       title: 管理者用ページ

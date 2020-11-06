@@ -43,7 +43,7 @@
       margin-bottom: 10px;
     }
   }
-  &__header-description p{
+  &__header-description p {
     margin-bottom: 0;
   }
   &__header-sub {
@@ -93,8 +93,8 @@
   &__note {
     padding: 10px 0;
     border-top: 1px solid #333333;
-    &:first-child {
-    border-top: none;
+    &:first-of-type {
+      border-top: none;
     }
   }
   &__note-main {

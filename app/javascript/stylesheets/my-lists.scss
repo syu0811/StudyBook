@@ -1,6 +1,6 @@
 .my-lists {
   background-color: #ffffff;
-  padding: 5px 10px;
+  padding: 0px 10px;
   &__hr {
     &--top {
       margin-top: -5px;
@@ -8,10 +8,19 @@
   }
   &__my-list {
     overflow: hidden;
-    margin: 100px;
+    padding: 10px 0;
+    border-top: 1px solid #333333;
+    &:first-of-type {
+      border-top: none;
+    }
   }
   &__my-list-main {
     padding: 0 15px;
+  }
+  &__my-list-deleet-button {
+    @extend .btn, .btn-outline-dark;
+    float: right;
+    width: 58px;
   }
   &__my-list-title {
     font-weight: bold;
