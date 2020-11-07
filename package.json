@@ -23,7 +23,6 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "lint": "yarn run eslint --ext .js app/javascript --fix",
-    "lint:stylesheet": "stylelint --fix app/javascript/stylesheets/**/*.scss"
+    "lint": "yarn run eslint --ext .js app/javascript --fix; stylelint --fix app/javascript/stylesheets/**/*.scss;"
   }
 }
