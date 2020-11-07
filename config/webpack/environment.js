@@ -10,4 +10,11 @@ environment.plugins.prepend(
     })
 )
 
+
+// ESlint(Vueあり)の設定
+const eslint =  require('./loaders/eslint')
+
+environment.loaders.append('eslint', eslint)
+
+// エクスポート
 module.exports = environment
