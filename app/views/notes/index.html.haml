@@ -1,27 +1,29 @@
-%h1
-  ノート一覧表示
+.row
+  .left.col-2
+    = form_with(model: @notes, url: notes_path, local: true) do |f|
+      .form-group
+        = f.label :"カテゴリー"
+        = f.collection_select :category_id, Category.all, :id, :name, {include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control'}
+  .main.col-8
+    ノート一覧表示
 
-= form_with(model: @notes, url: notes_path, local: true) do |f|
-  = f.label :"カテゴリー"
-  = f.collection_select :category_id, Category.all, :id, :name, {include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);"}
+    %table.table.text-nowrap
+      %thead.thead-light
+        %tr
+          %th
+            タイトル　
+          %th
+            ユーザー名
+          %th
+      %tbody
+        - @notes.each do |note|
+          %tr
+            %td
+              = note.title
+            %td
+              = note.user.nickname
+            %td
+              = link_to '追加ボタン', new_my_list_path(note_id: note.id), remote: true
 
-%table.table.text-nowrap
-  %thead.thead-light
-    %tr
-      %th
-        タイトル　
-      %th
-        ユーザー名
-      %th
-  %tbody
-    - @notes.each do |note|
-      %tr
-        %td
-          = note.title
-        %td
-          = note.user.nickname
-        %td
-          = link_to '追加ボタン', new_my_list_path(note_id: note.id), remote: true
-
+.right.col-2
 #new_my_list_form
-

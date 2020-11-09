@@ -1,5 +1,6 @@
-%h1
-  = t('.title')
+.single_container
+  %h1
+    = t('.title')
 
-= link_to t('.tags'), admin_tags_path, class: 'btn btn-outline-dark'
-= link_to "カテゴリー", admin_categories_path, class: 'btn btn-outline-dark'
+  = link_to t('.tags'), admin_tags_path, class: 'btn btn-outline-dark'
+  = link_to "カテゴリー", admin_categories_path, class: 'btn btn-outline-dark'
