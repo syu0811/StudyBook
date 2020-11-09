@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :note do
     title { 'てすとタイトル' }
     text { 'テストテキスト' }
-    user
+    association :user
+    association :category
   end
 end

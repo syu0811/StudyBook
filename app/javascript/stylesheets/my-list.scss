@@ -1,0 +1,154 @@
+.my-list {
+  background-color: #a3dcca;
+  border-radius: 10px;
+  padding: 15px 25px;
+
+  &__header {
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    padding: 10px 30px;
+  }
+
+  &__header_title {
+    display: block;
+    white-space: nowrap;
+  }
+
+  &__header-title-text {
+    display: block;
+    font-size: 1.2em;
+    font-weight: bold;
+    word-wrap: break-word;
+    $element: #{&};
+
+    &--edit {
+      @extend .form-control, #{$element};
+
+      margin-bottom: 10px;
+      max-width: 100%;
+    }
+  }
+
+  &__header-edit-button {
+    @extend .btn, .btn-outline-dark;
+
+    float: right;
+    width: 58px;
+  }
+
+  &__header-description {
+    clear: both;
+    color: #464646;
+    font-size: 0.9em;
+    width: auto;
+    word-wrap: break-word;
+    $element: #{&};
+
+    &--edit {
+      @extend .form-control, #{$element};
+
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  }
+
+  &__header-description p {
+    margin-bottom: 0;
+  }
+
+  &__header-sub {
+    color: #6a6a6a;
+    font-size: 0.7em;
+    overflow: hidden;
+    padding: 3px 0;
+    white-space: nowrap;
+  }
+
+  &__header-user {
+    display: inline-block;
+    max-width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  &__header-category {
+    background-color: #caffe6;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 30%;
+    overflow: hidden;
+    padding: 2px 8px;
+    vertical-align: middle;
+    white-space: nowrap;
+    $element: #{&};
+
+    &--edit {
+      @extend .form-control, #{$element};
+
+      margin-right: 20px;
+      min-width: 10em;
+      width: 40%;
+    }
+  }
+
+  &__header-submit {
+    @extend .btn, .btn-success;
+
+    display: inline-block;
+    min-width: 4em;
+    width: 20%;
+  }
+
+  &__notes {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px 15px;
+  }
+
+  &__note {
+    border-top: 1px solid #333;
+    padding: 10px 0;
+
+    &:first-of-type {
+      border-top: none;
+    }
+  }
+
+  &__note-main {
+    padding: 0 15px;
+  }
+
+  &__note-destroy-button {
+    @extend .btn, .btn-danger;
+
+    float: right;
+    width: 58px;
+  }
+
+  &__note-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__note-user {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__note-sub {
+    color: #6a6a6a;
+    font-size: 0.8em;
+    overflow: hidden;
+    padding: 0 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

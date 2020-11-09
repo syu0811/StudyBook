@@ -9,10 +9,20 @@
     "bootstrap": "^4.5.2",
     "jquery": "^3.5.1",
     "marked": "^1.2.0",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "sortablejs": "1.10"
   },
   "version": "0.1.0",
   "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-loader": "^4.0.2",
+    "stylelint": "^13.7.2",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.18.0",
     "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "lint": "yarn run eslint --ext .js app/javascript --fix; stylelint --fix app/javascript/stylesheets/**/*.scss;"
   }
 }

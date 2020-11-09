@@ -9,9 +9,16 @@ RSpec.describe "Admin::Categories", type: :request do
     end
 
     describe 'GET /admin/categories' do
+      let!(:categories) { create_list(:category, 2) }
+
       it 'ステータス OK が返ってくる' do
         get admin_categories_path
         expect(response).to have_http_status(:ok)
+      end
+
+      it "一覧のデータ生成の成功" do
+        get admin_categories_path
+        expect(response.body).to include(categories[0].name, categories[1].name)
       end
     end
 

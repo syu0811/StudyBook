@@ -3,5 +3,8 @@ ja:
     attributes:
       tag:
         name: タグ名
+      category:
+        name: 'カテゴリー名'
     models:
       tag: タグ
+      category: 'カテゴリー'

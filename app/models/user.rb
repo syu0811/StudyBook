@@ -5,6 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :trackable, :confirmable, :lockable
 
+  has_many :notes
+  has_many :my_lists
+
+  has_many :user_subscribe_my_lists
+  has_many :subscribe_my_lists, through: :user_subscribe_my_lists, source: :my_lists
+
   # 名前は全角平仮名、漢字（鬼車）のみ許可
   VALID_NAME_REGEX = /\A(?:\p{Hiragana}|[ー－]|[一-龠々])+\z/.freeze
   validates :firstname, presence: true, format: { with: VALID_NAME_REGEX }
