@@ -36,4 +36,35 @@ RSpec.describe "Api::V1::Users", type: :request do
       end
     end
   end
+
+  describe 'GET /auth' do
+    # ?どういう場合に？
+    context "正常時" do
+      let!(:user) { create(:user) }
+
+      it ' ステータス OK が返ってくる' do
+        post api_v1_token_auth_path, params: { id: user.id, token: user.token }
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "idが存在しないとき" do
+      let!(:user) { create(:user) }
+
+      it 'ActiveRecord::RecordNotFoundが発生する' do
+        expect do
+          post api_v1_token_auth_path, params: { id: 2000, token: user.token }
+        end.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context "tokenが間違っているとき" do
+      let!(:user) { create(:user) }
+
+      it 'ステータス404が返ってくる' do
+        post api_v1_token_auth_path, params: { id: user.id, token: "testtoken" }
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+  end
 end
