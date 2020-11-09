@@ -1,33 +1,32 @@
-class Api::V1::UsersController < ApplicationController
-  skip_before_action :authenticate_user!
-  protect_from_forgery with: :null_session
+module Api
+  module V1
+    class UsersController < ApiBaseController
+      skip_before_action :authenticate_token!, only: [:token]
+      protect_from_forgery with: :null_session
 
-  def token
-    # トークンを発行する処理
-    @user = User.find_by!(email: params[:email])
-    hoge = @user.nil?
-    if hoge == true then
-      head :not_found
-    end
+      def token
+        # トークンを発行する処理
+        @user = User.find_by!(email: params[:email])
 
-    if @user.valid_password?(params[:password])
-      # 正しいときの処理
-      @token = SecureRandom.urlsafe_base64(10)
-      @user.update!(token: @token)
-    else # 404が帰ってきたとき（メアドがないとき)
-      head :not_found
-    end
-  end
+        if @user.valid_password?(params[:password])
+          # 正しいときの処理
+          @token = SecureRandom.urlsafe_base64(10)
+          @user.update!(token: @token)
+        else # 404が帰ってきたとき（メアドがないとき)
+          head :not_found
+        end
+      end
 
-  def auth
-    # トークン認証を行う
+      def auth
+        # トークン認証を行う
+        user = User.find(params[:id])
 
-    user = User.find(params[:id])
-
-    if user.token == params[:token]
-      head :ok
-    else
-      head :bad_request
+        if user.token == params[:token]
+          head :ok
+        else
+          head :bad_request
+        end
+      end
     end
   end
 end

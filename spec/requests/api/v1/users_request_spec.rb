@@ -7,7 +7,7 @@ RSpec.describe "Api::V1::Users", type: :request do
       let!(:user) { create(:user) }
 
       it ' ステータス OK が返ってくる' do
-        post api_v1_token_user_path, params: { email: user.email , password: user.password }
+        post api_v1_token_user_path, params: { email: user.email, password: user.password }
         expect(response).to have_http_status(:ok)
       end
 
@@ -19,19 +19,21 @@ RSpec.describe "Api::V1::Users", type: :request do
 
     context "パスワードが違う時" do
       let!(:user) { create(:user) }
+
       it 'ステータス404が返ってくる' do
-        post api_v1_token_user_path, params: { email: user.email, password: "test" }
+        post api_v1_token_user_path, params: { email: user.email, password: "not_password" }
         expect(response).to have_http_status(:not_found)
       end
     end
 
     context "メールアドレスが違うとき" do
       let!(:user) { create(:user) }
-      it 'ステータス404が返ってくる' do
-        post api_v1_token_user_path, params: { email: "test@example.com", password: user.password }
-        expect(response).to have_http_status(:not_found)
+
+      it 'ActiveRecord::RecordNotFoundが発生する' do
+        expect do
+          post api_v1_token_user_path, params: { email: "test@example.com", password: user.password }
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
-
   end
 end
