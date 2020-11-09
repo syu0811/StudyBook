@@ -11,6 +11,19 @@
 body {
   background-color: #f5ebdf;
 }
+.left {
+  background-color: #A3D2CA;
+  height: 100vh;
+}
+
+.single_container {
+  @extend .container;
+  background-color: #fff;
+  height: 100%;
+  padding: 30px;
+  border-radius: 20px;
+  margin-top: 30px;
+}
 
 .main {
   margin-top: 40px;
