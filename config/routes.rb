@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :admin, only: [:index]
   resources :notes, only: [:index], param: :category
   resources :my_lists, only: [:index, :show, :create, :edit, :update, :destroy]
   get '/my_lists/new/:note_id', to: 'my_lists#new', as: :new_my_list
@@ -16,6 +15,16 @@ Rails.application.routes.draw do
   post '/my_list_notes', to: 'my_list_notes#create', as: :create_my_list_note
   delete '/my_list_notes', to: 'my_list_notes#destroy', as: :destroy_my_list_note
 
+  namespace :api do
+    namespace :v1 do
+      defaults format: :json do
+        post 'users/token', to: 'users#token', as: 'token_user'
+        post 'users/auth', to: 'users#auth', as: 'token_auth'
+      end
+    end
+  end
+
+  resources :admin, only: [:index]
   namespace :admin do
     resources :tags, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :categories, only: [:index, :new, :create, :edit, :update, :destroy]
