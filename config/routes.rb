@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   resources :notes, only: [:index]
   namespace :api do
     namespace :v1 do
-      post 'users/:id/token', to: 'users#token', as: 'token_user'
-      post 'users/:id/auth', to: 'users#auth', as: 'token_auth'
+      defaults format: :json do
+        post 'users/token', to: 'users#token', as: 'token_user'
+        post 'users/auth', to: 'users#auth', as: 'token_auth'
+      end
     end
   end
   namespace :admin do

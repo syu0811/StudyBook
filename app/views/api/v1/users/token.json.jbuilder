@@ -1,3 +1,2 @@
-# json.text "テキスト"
-
-json.text @token.to_s
+json.token @token.to_s
+json.user_id @user.id
