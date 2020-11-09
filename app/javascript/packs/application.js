@@ -6,6 +6,8 @@
 require('@rails/ujs').start();
 require('@rails/activestorage').start();
 require('channels');
+// load images
+require.context('../images/', true);
 
 import 'bootstrap';
 import '../stylesheets/application';
