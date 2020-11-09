@@ -93,6 +93,7 @@ Metrics/BlockLength:
         # specファイルではブロック長を無視する
         - 'spec/**/*'
         - 'config/environments/development.rb'
+        - 'config/routes.rb'
 Metrics/MethodLength:
     Exclude:
         - 'db/migrate/20200910121553_devise_create_users.rb'
