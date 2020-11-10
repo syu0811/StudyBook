@@ -1,8 +1,7 @@
 module Users
-	class NotesController < ApplicationController
-		def index
-  	  @notes = Note.includes(:user)
-  	  @notes = @notes.where(user_id: current_user.id)
-  	end
-	end
+  class NotesController < ApplicationController
+    def index
+      @notes = current_user.notes
+    end
+  end
 end
