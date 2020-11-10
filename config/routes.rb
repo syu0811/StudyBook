@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :notes, only: [:index]
     end
   end
-  
+
   resources :admin, only: [:index]
   resources :notes, only: [:index], param: :category
   resources :my_lists, only: [:index, :show, :create, :edit, :update, :destroy]
