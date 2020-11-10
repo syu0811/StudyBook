@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show], param: :nickname do
     scope module: :users do
       resources :my_lists, only: [:index]
+      resources :notes, only: [:index]
     end
   end
 
