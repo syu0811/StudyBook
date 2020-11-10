@@ -14,5 +14,14 @@ RSpec.describe "Notes", type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    describe 'GET /notes/:id' do
+      let(:note) { create(:note) }
+
+      it 'note page is displayed' do
+        get note_path(note.id)
+        expect(response).to have_http_status(:ok)
+      end
+    end
   end
 end

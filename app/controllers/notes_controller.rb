@@ -7,7 +7,7 @@ class NotesController < ApplicationController
 
   private
 
-  def get_note 
+  def get_note
     @note = Note.includes(:user, :category, :tags)
     @note = Note.find(params[:id])
   end
