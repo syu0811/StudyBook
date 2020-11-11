@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       defaults format: :json do
         post 'users/token', to: 'users#token', as: 'token_user'
         post 'users/auth', to: 'users#auth', as: 'token_auth'
+
+        post 'notes/uploads', to: 'notes#uploads', as: 'upload_notes'
       end
     end
   end
