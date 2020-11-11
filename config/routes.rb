@@ -26,9 +26,12 @@ Rails.application.routes.draw do
         delete 'notes', to: 'notes#destroys', as: 'delete_notes'
         resources :tags, only: :index
         resources :categories, only: :index
+        post 'my_lists/response_mylists', to: 'my_lists#response_mylists', as: 'my_lists_response_mylists'
       end
     end
   end
+
+
 
   resources :admin, only: [:index]
   namespace :admin do

@@ -1,0 +1,1 @@
+json.text @category.to_s
