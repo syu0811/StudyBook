@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         resources :tags, only: :index
         resources :categories, only: :index
         post 'my_lists/response_mylists', to: 'my_lists#response_mylists', as: 'my_lists_response_mylists'
+        get 'my_lists/response_mylists', to: 'my_lists#response_mylists', as: 'my_lists_response_mylists'
       end
     end
   end

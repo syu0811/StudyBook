@@ -1,7 +1,7 @@
 json.list do
-  json.merge! @usermylists.attributes
+  json.merge! @my_lists.attributes
 end
 
 json.note do
-  json.merge! @usernotes.attributes
+  json.merge! @my_notes.attributes
 end
