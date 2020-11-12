@@ -5,4 +5,3 @@ end
 json.note do
   json.merge! @usernotes.attributes
 end
-

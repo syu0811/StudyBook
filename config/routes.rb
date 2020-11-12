@@ -31,8 +31,6 @@ Rails.application.routes.draw do
     end
   end
 
-
-
   resources :admin, only: [:index]
   namespace :admin do
     resources :tags, only: [:index, :new, :create, :edit, :update, :destroy]
