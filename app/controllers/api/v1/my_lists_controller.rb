@@ -4,8 +4,8 @@ module Api
       protect_from_forgery # これがないとCSRF対策でpostが弾かれるっぽい?
       def response_mylists
         if authenticate_token!() != :bad_request
-          @userdata = MyList.find(params[:id])
-          @category = @userdata.category_id
+          @usermylists = MyList.find(params[:id])
+          @usernotes = Note.find(params[:id])
         end
       end
     end
