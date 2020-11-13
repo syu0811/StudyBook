@@ -1,4 +1,4 @@
-CSV.foreach('db/seeds/development/csv/tags.csv', headers: true) do |row|
+CSV.foreach("db/seeds/#{Rails.env}/csv/tags.csv", headers: true) do |row|
   tag = Tag.new(
     name: row['name'],
   )

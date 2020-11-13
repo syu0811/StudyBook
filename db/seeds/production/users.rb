@@ -1,4 +1,4 @@
-CSV.foreach('db/seeds/development/csv/users.csv', headers: true) do |row|
+CSV.foreach("db/seeds/#{Rails.env}/csv/users.csv", headers: true) do |row|
   user = User.new(
     firstname: row['firstname'],
     lastname: row['lastname'],
