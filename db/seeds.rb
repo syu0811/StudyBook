@@ -11,7 +11,7 @@ def image_exist?(image_name, table_name: nil, extension: ".jpg")
     end
 end
 
-table_names = %w(users categories tags notes tags my_lists)
+table_names = %w(users categories tags notes my_lists)
 
 # ファイルの読み込み
 table_names.each do |table_name|
