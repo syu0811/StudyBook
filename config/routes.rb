@@ -22,6 +22,7 @@ Rails.application.routes.draw do
         post 'users/auth', to: 'users#auth', as: 'token_auth'
 
         post 'notes/uploads', to: 'notes#uploads', as: 'upload_notes'
+        get 'notes/downloads', to: 'notes#downloads', as: 'download_notes'
         delete 'notes', to: 'notes#destroys', as: 'delete_notes'
       end
     end
