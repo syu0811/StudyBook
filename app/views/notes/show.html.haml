@@ -1,0 +1,28 @@
+.note
+  .note__main
+    .note__title
+      = @note.title
+    .note__info
+      .note__info-row-1
+        .note__user
+          = current_user.nickname
+        .note__created_date
+          = l @note.created_at, format: :updated_at
+      .note__info-row-2
+        .note__category
+          .note__category-name
+            = @note.category.name
+        = link_to new_my_list_path(note_id: @note.id), class: "note__add-my-list", remote: true do
+          = image_pack_tag 'book_icon_plus.png'
+      .note__info-row-3
+        .note__tags
+          - @note.tags.each do |tag|
+            .note__tag
+              = tag.name
+    %hr
+    .note__body
+      #markdown_raw
+        = @note.text
+      #markdown_render
+
+#new_my_list_form
