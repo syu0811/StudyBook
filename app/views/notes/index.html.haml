@@ -19,7 +19,7 @@
         - @notes.each do |note|
           %tr
             %td
-              = note.title
+              = link_to note.title, note_path(note)
             %td
               = note.user.nickname
             %td
