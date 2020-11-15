@@ -1,7 +1,7 @@
-json.list do
-  json.merge! @my_lists.attributes
+json.lists do
+  json.array! @list, :id, :user_id, :category_id, :title, :description
 end
 
-json.note do
-  json.merge! @my_notes.attributes
+json.notes do
+  json.array! @my_list_notes, :id, :my_list_id, :index
 end
