@@ -1,6 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 @import './animation.scss';
 @import './devise.scss';
+@import './notes.scss';
 @import './note.scss';
 @import './my-lists.scss';
 @import './list-header.scss';
@@ -8,14 +9,10 @@
 @import './flash.scss';
 @import './new-my-list.scss';
 @import './navbar.scss';
+@import './left.scss';
 
 body {
   background-color: #f5ebdf;
-}
-
-.left {
-  background-color: #a3d2ca;
-  height: 100vh;
 }
 
 .single_container {
