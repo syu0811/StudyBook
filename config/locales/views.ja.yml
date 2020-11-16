@@ -16,6 +16,8 @@ ja:
     index:
       my_lists: マイリスト
       notes: ノート
+      category: カテゴリー
+      search_filter: 検索フィルタ
   users:
     my_lists:
       index:

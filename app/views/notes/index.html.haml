@@ -1,9 +1,14 @@
 .row
   .left.col-2
-    = form_with(model: @notes, url: notes_path, local: true) do |f|
-      .form-group
-        = f.label :"カテゴリー"
-        = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control'}
+    .left__header
+      .left__label
+        = t '.search_filter'
+    .left__form
+      = form_with(model: @notes, url: notes_path, local: true) do |f|
+        .left__label
+          = f.label :category_id, t('.category')
+        .left__select
+          = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
   .main.col-8
     .list-header
       .list-header__content--active
