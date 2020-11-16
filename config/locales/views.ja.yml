@@ -12,6 +12,10 @@ ja:
       notes: ノート
     show:
       empty: ノートは存在しません
+  notes:
+    index:
+      my_lists: マイリスト
+      notes: ノート
   users:
     my_lists:
       index:
