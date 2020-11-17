@@ -2,12 +2,21 @@
 %br
 = @note.text
 %br
-%button{type: "button", class:'btn', onclick: "onClick()"}
-  next
-%br
+
 - if params[:my_list_id].present?
   - @my_list_notes.each do |m|
-    = m.title
+    %button{type: "button", class:'btn', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
+      = m.title
+    %br
+
+  - if params[:index].to_i > 0
+    %button{type: "button", class:'btn', onclick: "changeIndex(#{params[:my_list_id]},#{params[:index]},false)"}
+      before
+
+  - if @my_list_notes.find_by(index: params[:index].to_i + 1).present?
+    %button{type: "button", class:'btn', onclick: "changeIndex(#{params[:my_list_id]},#{params[:index]},true)"}
+      next
+
 
 
   
