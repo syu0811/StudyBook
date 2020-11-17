@@ -17,8 +17,12 @@ ja:
       my_lists: マイリスト
       notes: ノート
       category: カテゴリー
-      search_filter: 検索フィルタ
   users:
+    notes:
+      index:
+        search_filter: 検索フィルタ
+        directory: ディレクトリ
+        category: カテゴリー
     my_lists:
       index:
         empty: マイリストは存在しません

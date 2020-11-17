@@ -1,14 +1,50 @@
 .directory-tree {
   @extend .overflow-auto;
+
   background-color: #fff;
-  text-align: left;
   border-radius: 10px;
   font-size: 1.1em;
-  color: #6a6a6a;
-  padding: 15px;
-  max-height: 60%;
-  ul {
-    padding-left: 15px;
-  }
   margin-bottom: 20px;
+  max-height: 60%;
+  padding: 15px 10px;
+  text-align: left;
+
+  .list {
+    align-items: center;
+    display: flex;
+  }
+
+  .leaf {
+    padding-left: 7px;
+  }
+
+  a {
+    color: #6a6a6a;
+    padding-left: 7px;
+
+    &:hover {
+      color: #000;
+      font-weight: 600;
+    }
+  }
+
+  img {
+    height: 21px;
+    margin-left: -10px;
+    position: relative;
+
+    &.close {
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 15px;
+
+    li {
+      margin-top: 5px;
+    }
+  }
 }
