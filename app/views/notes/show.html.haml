@@ -1,3 +1,13 @@
 = @note.title
 %br
 = @note.text
+%br
+%button{type: "button", class:'btn', onclick: "onClick()"}
+  next
+%br
+- if params[:my_list_id].present?
+  - @my_list_notes.each do |m|
+    = m.title
+
+
+  
