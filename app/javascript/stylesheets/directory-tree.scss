@@ -1,0 +1,14 @@
+.directory-tree {
+  @extend .overflow-auto;
+  background-color: #fff;
+  text-align: left;
+  border-radius: 10px;
+  font-size: 1.1em;
+  color: #6a6a6a;
+  padding: 15px;
+  max-height: 60%;
+  ul {
+    padding-left: 15px;
+  }
+  margin-bottom: 20px;
+}
