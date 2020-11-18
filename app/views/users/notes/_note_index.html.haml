@@ -11,6 +11,8 @@
         = note.category.name
       .notes__note-user
         = "#{t('general.by')} #{note.user.nickname}"
+      .notes__note-file-path
+        = note.file_path
     .notes__note-tags
       - note.tags.each do |tag|
         .notes__note-tag
