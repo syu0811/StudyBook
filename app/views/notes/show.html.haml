@@ -6,17 +6,14 @@
 - if params[:my_list_id].present?
   - @my_list_notes.each do |m|
     %button{type: "button", class:'btn', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
-      = m.title
+      = m.note.title
     %br
 
-  - if params[:index].to_i > 0
-    %button{type: "button", class:'btn', onclick: "changeIndex(#{params[:my_list_id]},#{params[:index]},false)"}
-      before
+  - @my_list_notes.each do |m|
+    - if params[:index].to_i > 0 and params[:index].to_i - 1 == m.index
+      %button{type: "button", class:'btn', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
+        before
 
-  - if @my_list_notes.find_by(index: params[:index].to_i + 1).present?
-    %button{type: "button", class:'btn', onclick: "changeIndex(#{params[:my_list_id]},#{params[:index]},true)"}
-      next
-
-
-
-  
+    - if @my_list_notes.find_by(index: params[:index].to_i + 1).present? and params[:index].to_i + 1 == m.index
+      %button{type: "button", class:'btn', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
+        next
