@@ -11,18 +11,20 @@
 body {
   background-color: #f5ebdf;
 }
+
 .left {
-  background-color: #A3D2CA;
+  background-color: #a3d2ca;
   height: 100vh;
 }
 
 .single_container {
   @extend .container;
+
   background-color: #fff;
-  height: 100%;
-  padding: 30px;
   border-radius: 20px;
+  height: 100%;
   margin-top: 30px;
+  padding: 30px;
 }
 
 .main {
