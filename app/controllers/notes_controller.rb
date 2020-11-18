@@ -8,7 +8,7 @@ class NotesController < ApplicationController
   private
 
   def get_list
-    @my_list_notes = MyListNote.includes(:note).where(my_list_id: params[:my_list_id]).order(index: "ASC")
+    @my_list_notes = MyListNote.includes(:note).where(my_list_id: params[:my_list_id]).order(:index)
   end
 
   def get_note
