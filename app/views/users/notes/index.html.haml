@@ -15,23 +15,7 @@
         .left__select
           = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
   .main.col-8
-    .notes
-      %hr.notes__hr--top
-      - @notes.each do |note|
-        .notes__note
-          .notes__note-main
-            = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
-              = image_pack_tag 'book_icon_plus.png'
-            .notes__note-title
-              = link_to note.title, note_path(note), class: 'notes__note-link'
-          .notes__note-sub
-            .notes__note-category
-              = note.category.name
-            .notes__note-user
-              = "#{t('general.by')} #{note.user.nickname}"
-          .notes__note-tags
-            - note.tags.each do |tag|
-              .notes__note-tag
-                = tag.name
+    .notes#notes
+      = render partial: 'note_index', locals: { notes: @notes }
   .right.col-1
 #new_my_list_form
