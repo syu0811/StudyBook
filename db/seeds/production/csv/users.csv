@@ -1,0 +1,7 @@
+firstname,lastname,nickname,admin,birthdate,email,password
+げすと,たろう,guest1,false,2000-01-01,guest1@example.com,password
+げすと,たろう,guest2,false,2000-01-01,guest2@example.com,password
+げすと,たろう,guest3,false,2000-01-01,guest3@example.com,password
+げすと,たろう,guest4,false,2000-01-01,guest4@example.com,password
+げすと,たろう,guest5,false,2000-01-01,guest5@example.com,password
+げすと,たろう,guest6,false,2000-01-01,guest6@example.com,password

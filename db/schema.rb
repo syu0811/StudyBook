@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_11_02_044042) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "pgroonga"
   enable_extension "plpgsql"
 
@@ -59,6 +60,8 @@ ActiveRecord::Schema.define(version: 2020_11_02_044042) do
     t.bigint "user_id", null: false
     t.string "title", null: false
     t.string "text", null: false
+    t.uuid "guid", null: false
+    t.string "file_path"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "category_id", null: false

@@ -51,6 +51,12 @@ RSpec.describe Note, type: :model do
         note.valid?
         expect(note.errors[:text]).to include("を入力してください")
       end
+
+      it "file_pathの文字数が255文字を超えている時にエラーが帰ること" do
+        note = build(:note, file_path: "a" * 256)
+        note.valid?
+        expect(note.errors[:file_path]).to include("は255文字以内で入力してください")
+      end
     end
   end
 end

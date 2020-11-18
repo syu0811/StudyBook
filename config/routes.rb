@@ -4,10 +4,12 @@ Rails.application.routes.draw do
   resources :users, only: [:show], param: :nickname do
     scope module: :users do
       resources :my_lists, only: [:index]
+      resources :notes, only: [:index]
     end
   end
 
   resources :notes, only: [:index, :show]
+  resources :admin, only: [:index]
   resources :my_lists, only: [:index, :show, :create, :edit, :update, :destroy]
   get '/my_lists/new/:note_id', to: 'my_lists#new', as: :new_my_list
 
@@ -20,6 +22,9 @@ Rails.application.routes.draw do
       defaults format: :json do
         post 'users/token', to: 'users#token', as: 'token_user'
         post 'users/auth', to: 'users#auth', as: 'token_auth'
+
+        post 'notes/uploads', to: 'notes#uploads', as: 'upload_notes'
+        delete 'notes', to: 'notes#destroys', as: 'delete_notes'
       end
     end
   end

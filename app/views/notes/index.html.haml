@@ -1,29 +1,42 @@
 .row
   .left.col-2
-    = form_with(model: @notes, url: notes_path, local: true) do |f|
-      .form-group
-        = f.label :"カテゴリー"
-        = f.collection_select :category_id, Category.all, :id, :name, {include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control'}
+    .left__header
+      .left__label
+        = t '.search_filter'
+    .left__form
+      = form_with(model: @notes, url: notes_path, local: true) do |f|
+        .left__label
+          = f.label :category_id, t('.category')
+        .left__select
+          = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
   .main.col-8
-    ノート一覧表示
+    .list-header
+      .list-header__content--active
+        = link_to notes_path, class: "list-header__link" do
+          %span.list-header__link-text--active
+            = t '.notes'
+      .list-header__content
+        = link_to my_lists_path, class: "list-header__link" do
+          %span.list-header__link-text
+            = t '.my_lists'
 
-    %table.table.text-nowrap
-      %thead.thead-light
-        %tr
-          %th
-            タイトル　
-          %th
-            ユーザー名
-          %th
-      %tbody
-        - @notes.each do |note|
-          %tr
-            %td
-              = note.title
-            %td
-              = note.user.nickname
-            %td
-              = link_to '追加ボタン', new_my_list_path(note_id: note.id), remote: true
-
-.right.col-2
+    .notes
+      %hr.notes__hr--top
+      - @notes.each do |note|
+        .notes__note
+          .notes__note-main
+            = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
+              = image_pack_tag 'book_icon_plus.png'
+            .notes__note-title
+              = link_to note.title, note_path(note), class: 'notes__note-link'
+          .notes__note-sub
+            .notes__note-category
+              = note.category.name
+            .notes__note-user
+              = "#{t('general.by')} #{note.user.nickname}"
+          .notes__note-tags
+            - note.tags.each do |tag|
+              .notes__note-tag
+                = tag.name
+  .right.col-2
 #new_my_list_form
