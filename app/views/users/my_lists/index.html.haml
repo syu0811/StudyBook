@@ -1,6 +1,16 @@
 .row
   .left.col-2
   .main.col-8
+    .list-header
+      .list-header__content
+        = link_to user_notes_path, class: "list-header__link" do
+          %span.list-header__link-text
+            = t '.notes'
+      .list-header__content--active
+        = link_to user_my_lists_path, class: "list-header__link" do
+          %span.list-header__link-text--active
+            = t '.my_lists'
+
     .my-lists
       - if @my_lists.empty?
         = t '.empty'
