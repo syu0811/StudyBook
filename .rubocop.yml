@@ -86,16 +86,18 @@ Lint/StructNewOverride:
 
 # # Abc Metric
 Metrics/AbcSize:
-    Max: 30
+    Max: 40
 
 Metrics/BlockLength:
     Exclude:
         # specファイルではブロック長を無視する
         - 'spec/**/*'
         - 'config/environments/development.rb'
+        - 'config/routes.rb'
 Metrics/MethodLength:
     Exclude:
         - 'db/migrate/20200910121553_devise_create_users.rb'
+        - 'app/helpers/directory_tree_helper.rb'
 
 # # Style ##########################################
 

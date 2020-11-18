@@ -46,13 +46,10 @@ RSpec.describe MyList, type: :model do
   end
 
   describe ".full_search" do
-    let(:user) { create(:user) }
-    let(:category) { create(:category) }
-    let(:my_list_a) { create(:my_list, user: user, category: category, title: "これはマイリストAです", description: "これはマイリストAの説明です") }
-    let(:my_list_b) { create(:my_list, user: user, category: category, title: "これはマイリストBです", description: "これはマイリストBの説明です") }
+    let(:my_list_a) { create(:my_list, title: "これはマイリストAです", description: "これはマイリストAの説明です") }
+    let(:my_list_b) { create(:my_list, title: "これはマイリストBです", description: "これはマイリストBの説明です") }
 
     before do
-      user
       my_list_a
       my_list_b
     end

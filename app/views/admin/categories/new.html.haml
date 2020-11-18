@@ -1,4 +1,5 @@
-%h1
-  = t '.title'
+.single_container
+  %h1
+    = t '.title'
 
-= render partial: '/admin/categories/shared/form', locals: {category: @category, path: admin_categories_path}
+  = render partial: '/admin/categories/shared/form', locals: {category: @category, path: admin_categories_path}

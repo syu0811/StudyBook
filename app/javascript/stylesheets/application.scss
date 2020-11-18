@@ -1,25 +1,41 @@
-@import "~bootstrap/scss/bootstrap";
-@import "./animation.scss";
-@import "./devise.scss";
-@import "./my-lists.scss";
-@import "./list-header.scss";
-@import "./my-list.scss";
-@import "./flash.scss";
-@import "./new-my-list.scss";
+@import '~bootstrap/scss/bootstrap';
+@import './animation.scss';
+@import './devise.scss';
+@import './notes.scss';
+@import './note.scss';
+@import './my-lists.scss';
+@import './list-header.scss';
+@import './my-list.scss';
+@import './flash.scss';
+@import './new-my-list.scss';
+@import './navbar.scss';
+@import './left.scss';
+@import './directory-tree.scss';
 
 body {
   background-color: #f5ebdf;
 }
+
+.single_container {
+  @extend .container;
+
+  background-color: #fff;
+  border-radius: 20px;
+  height: 100%;
+  margin-top: 30px;
+  padding: 30px;
+}
+
 .main {
   margin-top: 40px;
 }
 
 .blackout {
-  position: fixed;
-  background-color: #000000;
-  opacity: 30%;
-  width: 100vw;
+  background-color: #000;
   height: 100vw;
-  top: 0;
   left: 0;
+  opacity: 30%;
+  position: fixed;
+  top: 0;
+  width: 100vw;
 }

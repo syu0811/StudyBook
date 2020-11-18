@@ -1,0 +1,5 @@
+ja:
+  time:
+    formats:
+      default: "%Y %m-%d"
+      updated_at: "%Y年%m月%d日に更新"

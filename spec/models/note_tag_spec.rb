@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe NoteTag, type: :model do
   describe 'Validation' do
-    let!(:user) { create(:user) }
-    let!(:note) { create(:note, user: user) }
+    let!(:note) { create(:note) }
     let!(:tag) { create(:tag) }
 
     context '正常系' do
