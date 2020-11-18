@@ -16,6 +16,11 @@ body {
   background-color: #f5ebdf;
 }
 
+.left {
+  background-color: #a3d2ca;
+  height: 100vh;
+}
+
 .single_container {
   @extend .container;
 
