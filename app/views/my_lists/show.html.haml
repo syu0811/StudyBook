@@ -15,5 +15,11 @@
               .my-list__note-title
                 = link_to my_list_note.note.title, note_path(id: my_list_note.note.id, index: my_list_note.index, my_list_id: my_list_note.my_list_id)
             .my-list__note-sub
+              .my-list__note-category
+                = my_list_note.note.category.name
               .my-list__note-user
                 = "#{t('general.by')} #{my_list_note.note.user.nickname}"
+            .my-list__note-tags
+              - my_list_note.note.tags.each do |tag|
+                .my-list__note-tag
+                  = tag.name
