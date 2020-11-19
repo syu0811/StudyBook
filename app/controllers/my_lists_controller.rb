@@ -5,7 +5,7 @@ class MyListsController < ApplicationController
 
   def show
     @my_list = MyList.find(params[:id])
-    @my_list_notes = @my_list.my_list_notes.includes(note: :user).order("my_list_notes.index")
+    @my_list_notes = @my_list.my_list_notes.includes(note: [:user, :tags, :category]).order("my_list_notes.index")
   end
 
   def new
