@@ -1,7 +1,17 @@
-json.lists do
-  json.array! @list, :id, :user_id, :category_id, :title, :description
+json.array! @my_lists.each do |my_list|
+  json.title my_list.title
+  json.notes do
+    json.array! my_list.my_list_notes.each do |my_list_note|
+      json.index my_list_note.index
+      json.title my_list_note.note.title
+      json.nickname my_list_note.note.user.nickname
+      json.tags do
+        json.array! my_list_note.note.tags.each do |tag|
+          json.id tag.id
+          json.name tag.name
+        end
+      end
+    end
+  end
 end
 
-json.notes do
-  json.array! @my_list_notes, :id, :my_list_id, :index
-end
