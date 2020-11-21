@@ -25,6 +25,7 @@ Rails.application.routes.draw do
         get 'notes/downloads', to: 'notes#downloads', as: 'download_notes'
         delete 'notes', to: 'notes#destroys', as: 'delete_notes'
         resources :tags, only: :index
+        resources :categories, only: :index
       end
     end
   end
