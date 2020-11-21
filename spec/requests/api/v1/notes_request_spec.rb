@@ -162,7 +162,7 @@ RSpec.describe "Api::V1::Notes", type: :request do
         let(:updated_at) { "2020-4-01 11:00" }
 
         it "ノート一覧が返る" do
-          expect(response_json).to eq({ notes: [{ guid: note.guid, title: note.title, text: note.text, category_id: note.category_id, tags: [{ id: note_tag.tag.id, name: note_tag.tag.name }] }], deleted_notes: [{ guid: deleted_note.guid }] })
+          expect(response_json).to eq({ notes: [{ guid: note.guid, title: note.title, text: note.text, file_path: note.file_path, category_id: note.category_id, tags: [{ id: note_tag.tag.id, name: note_tag.tag.name }] }], deleted_notes: [{ guid: deleted_note.guid }] })
         end
       end
 
