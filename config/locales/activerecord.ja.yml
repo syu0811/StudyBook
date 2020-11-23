@@ -8,3 +8,4 @@ ja:
     models:
       tag: タグ
       category: 'カテゴリー'
+      user: ユーザー
