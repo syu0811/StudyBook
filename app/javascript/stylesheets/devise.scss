@@ -1,9 +1,11 @@
 .devise {
   @extend .container;
+
   padding: 50px 50px;
+
   &__container {
-    padding: 30px 40px;
     background-color: #fff;
     border-radius: 20px;
+    padding: 30px 40px;
   }
 }
