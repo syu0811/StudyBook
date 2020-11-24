@@ -1,7 +1,11 @@
 .left {
   background-color: #a3d2ca;
-  height: 100vw;
-  padding: 40px 10px 20px 25px;
+  float: left;
+  height: 100vh;
+  min-height: 100vh;
+  min-width: 200px;
+  padding: 40px 20px 20px 20px;
+  position: relative;
   text-align: center;
 
   &__header {

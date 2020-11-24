@@ -18,6 +18,9 @@ ja:
       notes: ノート
       category: カテゴリー
   users:
+    show:
+      notes: ノート
+      my_lists: マイリスト
     notes:
       index:
         search_filter: 検索フィルタ

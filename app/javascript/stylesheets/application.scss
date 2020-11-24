@@ -11,14 +11,10 @@
 @import './navbar.scss';
 @import './left.scss';
 @import './directory-tree.scss';
+@import './user.scss';
 
 body {
   background-color: #f5ebdf;
-}
-
-.left {
-  background-color: #a3d2ca;
-  height: 100vh;
 }
 
 .single_container {
@@ -43,4 +39,8 @@ body {
   position: fixed;
   top: 0;
   width: 100vw;
+}
+
+.row {
+  min-width: 720px;
 }

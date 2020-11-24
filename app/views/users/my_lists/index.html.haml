@@ -1,5 +1,5 @@
-.row
-  .left.col-2
+.row.m-0.p-0
+  .left.col-3
   .main.col-8
     .list-header
       .list-header__content
@@ -28,7 +28,7 @@
                 = "#{t('general.by')} #{my_list.user.nickname}"
               .my-lists__my-list-category
                 = my_list.category.name
-.right.col-2
+.right.col-1
 
 = form_with(model: @my_lists, url: user_my_lists_path, local: true) do |f|
   .left__label
