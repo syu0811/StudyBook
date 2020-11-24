@@ -27,18 +27,25 @@
         #markdown_render
 
   - if params[:my_list_id].present?
-    .note-mylist.col-3
-      - @my_list_notes.each do |m|
-        %button{type: "button", class:'btn', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
-          = m.note.title
-        %br
+    .note-my-list.col-3
+      .note-my-list__main
+        .note-my-list__header
+          .note-my-list__header-title
+            = @my_list_notes[0].my_list.title
+          .note-my-list__move-button
+            - @my_list_notes.each do |m|
+              - if params[:index].to_i > 0 and params[:index].to_i - 1 == m.index
+                .note-my-list__header-button.note-my-list__header-prev{href: '', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
+                  = t '.prev'
+              - if @my_list_notes.find_by(index: params[:index].to_i + 1).present? and params[:index].to_i + 1 == m.index
+                .note-my-list__header-button.note-my-list__header-next{href: '', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
+                  = t '.next'
+        .note-my-list__body
+          - @my_list_notes.each do |m|
+            .note-my-list__note{href: '', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})", class: "#{m.note_id == @note.id ? 'note-my-list__note--active' : ''}"}
+              .note-my-list__note-index
+                = m.index + 1
+              .note-my-list__note-title
+                = m.note.title
 
-      - @my_list_notes.each do |m|
-        - if params[:index].to_i > 0 and params[:index].to_i - 1 == m.index
-          %button{type: "button", class:'btn', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
-            before
-
-        - if @my_list_notes.find_by(index: params[:index].to_i + 1).present? and params[:index].to_i + 1 == m.index
-          %button{type: "button", class:'btn', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
-            next
 #new_my_list_form
