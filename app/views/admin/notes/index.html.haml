@@ -1,0 +1,20 @@
+.single_container
+  %h1
+    = t '.title'
+
+  = link_to '登録', new_admin_note_path, class: 'btn btn-success mb-3'
+
+  %table.table.text-nowrap
+    %thead.thead-light
+      %tr
+        %th.col-7
+          = t '.note_title'
+        %th.col-5
+    %tbody
+      - @notes.each do |note|
+        %tr
+          %td
+            = link_to note.title, note_path(note.id)
+          %td
+            = link_to '編集', edit_admin_note_path(note.id), class: 'btn btn-outline-dark'
+            = link_to '削除', admin_note_path(note.id), method: :delete, data: {confirm: '削除しますか？'}, class: 'btn btn-danger'
