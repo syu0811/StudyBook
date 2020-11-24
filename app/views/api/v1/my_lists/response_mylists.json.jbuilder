@@ -1,4 +1,3 @@
-
 json.array! @my_lists.each do |my_list|
   json.title my_list.title
   json.category_id my_list.category_id
@@ -19,4 +18,3 @@ json.array! @my_lists.each do |my_list|
     end
   end
 end
-
