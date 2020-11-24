@@ -1,12 +1,12 @@
 .note {
   @extend .container;
 
-  margin-top: 20px;
+  margin: 50px 0;
+  padding-left: 50px;
 
   &__main {
     background-color: #fff;
     border-radius: 20px;
-    margin: 30px 0;
     padding: 20px 30px;
   }
 
