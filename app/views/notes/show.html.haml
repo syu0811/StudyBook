@@ -1,43 +1,51 @@
-.note
-  .note__main
-    .note__title
-      = @note.title
-    .note__info
-      .note__info-row-1
-        .note__user
-          = "#{t('general.by')} #{current_user.nickname}"
-        .note__created_date
-          = l @note.created_at, format: :updated_at
-      .note__info-row-2
-        .note__category
-          .note__category-name
-            = @note.category.name
-        = link_to new_my_list_path(note_id: @note.id), class: "note__add-my-list", remote: true do
-          = image_pack_tag 'book_icon_plus.png'
-      .note__info-row-3
-        .note__tags
-          - @note.tags.each do |tag|
-            .note__tag
-              = tag.name
-    %hr
-    .note__body
-      #markdown_raw
-        = @note.text
-      #markdown_render
+.row.m-0.p-0
+  .note.col-9
+    .note__main
+      .note__title
+        = @note.title
+      .note__info
+        .note__info-row-1
+          .note__user
+            = "#{t('general.by')} #{current_user.nickname}"
+          .note__created_date
+            = l @note.created_at, format: :updated_at
+        .note__info-row-2
+          .note__category
+            .note__category-name
+              = @note.category.name
+          = link_to new_my_list_path(note_id: @note.id), class: "note__add-my-list", remote: true do
+            = image_pack_tag 'book_icon_plus.png'
+        .note__info-row-3
+          .note__tags
+            - @note.tags.each do |tag|
+              .note__tag
+                = tag.name
+      %hr
+      .note__body
+        #markdown_raw
+          = @note.text
+        #markdown_render
 
-- if params[:my_list_id].present?
-  - @my_list_notes.each do |m|
-    %button{type: "button", class:'btn', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
-      = m.note.title
-    %br
-
-  - @my_list_notes.each do |m|
-    - if params[:index].to_i > 0 and params[:index].to_i - 1 == m.index
-      %button{type: "button", class:'btn', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
-        before
-
-    - if @my_list_notes.find_by(index: params[:index].to_i + 1).present? and params[:index].to_i + 1 == m.index
-      %button{type: "button", class:'btn', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
-        next
+  - if params[:my_list_id].present?
+    .note-my-list.col-3
+      .note-my-list__main
+        .note-my-list__header
+          .note-my-list__header-title
+            = @my_list_notes[0].my_list.title
+          .note-my-list__move-button
+            - @my_list_notes.each do |m|
+              - if params[:index].to_i > 0 and params[:index].to_i - 1 == m.index
+                .note-my-list__header-button.note-my-list__header-prev{href: '', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
+                  = t '.prev'
+              - if @my_list_notes.find_by(index: params[:index].to_i + 1).present? and params[:index].to_i + 1 == m.index
+                .note-my-list__header-button.note-my-list__header-next{href: '', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})"}
+                  = t '.next'
+        .note-my-list__body
+          - @my_list_notes.each do |m|
+            .note-my-list__note{href: '', onclick: "changePage(#{m.note_id},#{m.my_list_id},#{m.index})", class: "#{m.note_id == @note.id ? 'note-my-list__note--active' : ''}"}
+              .note-my-list__note-index
+                = m.index + 1
+              .note-my-list__note-title
+                = m.note.title
 
 #new_my_list_form

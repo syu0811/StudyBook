@@ -17,6 +17,9 @@ ja:
       my_lists: マイリスト
       notes: ノート
       category: カテゴリー
+    show:
+      next: 次へ
+      prev: 前へ
   users:
     show:
       notes: ノート

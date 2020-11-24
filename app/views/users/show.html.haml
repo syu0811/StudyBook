@@ -8,11 +8,11 @@
   .user__main-box.col-7
     .user__header
       .user__header-box.mr-2
-        = link_to user_my_lists_path(user_nickname: current_user.nickname), class: "" do
+        = link_to user_notes_path(user_nickname: current_user.nickname), class: "" do
           .user__header-link
             = t '.notes'
       .user__header-box
-        = link_to user_notes_path(user_nickname: current_user.nickname), class: "" do
+        = link_to user_my_lists_path(user_nickname: current_user.nickname), class: "" do
           .user__header-link
             = t '.my_lists'
     .user__body
