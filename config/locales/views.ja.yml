@@ -41,6 +41,8 @@ ja:
     index:
       title: 管理者用ページ
       tags: タグ一覧
+      categories: カテゴリー一覧
+      notes: ノート一覧
     categories:
       index:
         title: 'カテゴリー一覧'
@@ -53,3 +55,15 @@ ja:
         title: 'カテゴリー登録'
       edit:
         title: 'カテゴリー編集'
+    notes:
+      index:
+        title: ノート一覧
+        edit: '編集'
+        delete: '削除'
+        confirm: '削除しますか？'
+        note_title: タイトル
+      new:
+        title: ノート登録
+      edit:
+        title: ノート編集
+
