@@ -59,4 +59,46 @@ RSpec.describe Note, type: :model do
       end
     end
   end
+
+  describe ".full_search" do
+    let(:note_a) { create(:note, title: "これはマイリストAです", body: "これはマイリストAの説明です") }
+    let(:note_b) { create(:note, title: "これはマイリストBです", body: "これはマイリストBの説明です") }
+
+    before do
+      note_a
+      note_b
+    end
+
+    context "これはで検索" do
+      let(:q) { "これは" }
+
+      it "全てのマイリストが返る" do
+        expect(described_class.full_search(q).size).to eq(2)
+      end
+    end
+
+    context "Aで検索" do
+      let(:q) { "A" }
+
+      it "Aのマイリストが返る" do
+        expect(described_class.full_search(q)).to eq([note_a])
+      end
+    end
+
+    context "これは 説明 Aで検索" do
+      let(:q) { "これは 説明 A" }
+
+      it "Aのマイリストが返る" do
+        expect(described_class.full_search(q)).to eq([note_a])
+      end
+    end
+
+    context "Bです 説明ですで検索" do
+      let(:q) { "Bです 説明です" }
+
+      it "結果が0件であること" do
+        expect(described_class.full_search(q).size).to eq(0)
+      end
+    end
+  end
 end

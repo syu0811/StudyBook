@@ -16,6 +16,8 @@ class Note < ApplicationRecord
   before_create :add_guid
   before_destroy :move_deleted_note
 
+  scope :full_search, ->(query) { where('notes.title @@ ? OR notes.body @@ ?', query, query) }
+
   def add_guid
     self.guid = SecureRandom.uuid
   end
