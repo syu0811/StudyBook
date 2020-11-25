@@ -18,7 +18,7 @@ class Note < ApplicationRecord
 
   scope :high_light_full_search, ->(query) do
     full_search(query)
-    .select("*, pgroonga_snippet_html(notes.body, ARRAY['#{query}']) AS high_light_body")
+    .select("*, pgroonga_snippet_html(notes.body, pgroonga_query_extract_keywords('#{query}')) AS high_light_body")
   end
   scope :full_search, ->(query) do
     where('notes.title @@ ? OR notes.body @@ ?', query, query)
