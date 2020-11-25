@@ -67,9 +67,9 @@ ActiveRecord::Schema.define(version: 2020_11_13_135855) do
   create_table "notes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title", null: false
-    t.string "text", null: false
+    t.string "body", null: false
     t.uuid "guid", null: false
-    t.string "file_path"
+    t.string "directory_path"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "category_id", null: false

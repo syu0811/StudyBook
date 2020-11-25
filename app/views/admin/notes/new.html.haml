@@ -17,10 +17,10 @@
     .form-group
       = f.collection_select :user_id, User.all, :id, :nickname, {},{ class: "form-control" }
     .form-group
-      = f.label :file_path
-      = f.text_field :file_path, class: 'form-control'
+      = f.label :directory_path
+      = f.text_field :directory_path, class: 'form-control'
     .form-group
-      = f.label :text
-      = f.text_area :text, required: true, class: 'form-control', rows: 10
+      = f.label :body
+      = f.text_area :body, required: true, class: 'form-control', rows: 10
     .form-group
       = f.submit nil, class: 'btn btn-success'
