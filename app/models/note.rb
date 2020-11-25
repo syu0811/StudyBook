@@ -13,10 +13,15 @@ class Note < ApplicationRecord
   validates :text, presence: true, length: { maximum: 30000 }
   validates :file_path, length: { maximum: 255 }
 
-  before_create :add_uuid
+  before_create :add_guid
+  before_destroy :move_deleted_note
 
-  def add_uuid
+  def add_guid
     self.guid = SecureRandom.uuid
+  end
+
+  def move_deleted_note
+    throw(:abort) unless DeletedNote.note_save(guid, user_id)
   end
 
   def create_note_tags(tags)

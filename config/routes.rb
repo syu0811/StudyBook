@@ -24,7 +24,11 @@ Rails.application.routes.draw do
         post 'users/auth', to: 'users#auth', as: 'token_auth'
 
         post 'notes/uploads', to: 'notes#uploads', as: 'upload_notes'
+        get 'notes/downloads', to: 'notes#downloads', as: 'download_notes'
         delete 'notes', to: 'notes#destroys', as: 'delete_notes'
+        resources :tags, only: :index
+        resources :categories, only: :index
+        get 'my_lists/response_mylists', to: 'my_lists#response_mylists', as: 'my_lists_response_mylists'
       end
     end
   end

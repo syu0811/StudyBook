@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :trackable, :lockable
 
   has_many :notes
+  has_many :deleted_notes
   has_many :my_lists
 
   has_many :user_subscribe_my_lists

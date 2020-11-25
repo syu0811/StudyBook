@@ -11,6 +11,11 @@ module Api
         end
       end
 
+      def downloads
+        @notes = @user.notes.includes(:category, :tags).where('notes.updated_at >= ?', params[:updated_at])
+        @deleted_notes = @user.deleted_notes
+      end
+
       def destroys
         @notes = @user.notes.where(guid: (destroy_note_params[:notes].map { |note| note[:guid] })).destroy_all
       end
