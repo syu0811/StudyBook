@@ -192,19 +192,20 @@ RSpec.describe "Api::V1::Notes", type: :request do
     end
 
     describe "異常時" do
-      context "ユーザのノートでは無いノートを削除するとき"
-      let!(:notes) { create_list(:note, 5) }
+      context "ユーザのノートでは無いノートを削除するとき" do
+        let!(:notes) { create_list(:note, 5) }
 
-      before do
-        delete api_v1_delete_notes_path, params: { id: user.id, token: user.token, notes: notes.map { |note| { guid: note.guid } } }
-      end
+        before do
+          delete api_v1_delete_notes_path, params: { id: user.id, token: user.token, notes: notes.map { |note| { guid: note.guid } } }
+        end
 
-      it "ノートが削除されていないこと" do
-        expect(Note.all.size).to eq(5)
-      end
+        it "ノートが削除されていないこと" do
+          expect(Note.all.size).to eq(5)
+        end
 
-      it "レスポンスが空なこと" do
-        expect(response_json).to eq([])
+        it "レスポンスが空なこと" do
+          expect(response_json).to eq([])
+        end
       end
     end
   end
