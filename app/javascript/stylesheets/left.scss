@@ -1,0 +1,43 @@
+.left {
+  background-color: #a3d2ca;
+  float: left;
+  height: 100vh;
+  min-height: 100vh;
+  min-width: 200px;
+  padding: 40px 20px 20px 20px;
+  position: relative;
+  text-align: center;
+
+  &__header {
+    font-size: 1.2em;
+    font-weight: 700;
+    margin: 0 -8px 10px -8px;
+    text-align: center;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  &__form {
+    text-align: center;
+  }
+
+  &__select {
+    padding: 10px;
+  }
+
+  &__pull-list {
+    display: inline-block;
+    text-align: center;
+  }
+
+  &__label {
+    background-color: #fff;
+    border-radius: 20px;
+    font-size: 1em;
+    font-weight: 700;
+    padding: 4px 20px;
+
+    label {
+      margin: 0;
+    }
+  }
+}

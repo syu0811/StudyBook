@@ -5,6 +5,10 @@ ja:
         name: タグ名
       category:
         name: 'カテゴリー名'
+      note:
+        title: タイトル
+        text: 内容
     models:
       tag: タグ
       category: 'カテゴリー'
+      user: ユーザー

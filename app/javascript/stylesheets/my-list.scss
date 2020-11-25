@@ -135,12 +135,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
 
-  &__note-user {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    a {
+      color: #000;
+    }
   }
 
   &__note-sub {
@@ -150,5 +148,35 @@
     padding: 0 15px;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  &__note-category {
+    background-color: #caffe6;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 30%;
+    overflow: hidden;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+
+  &__note-user {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__note-tags {
+    color: #6a6a6a;
+    font-size: 0.75em;
+    padding: 0 15px;
+  }
+
+  &__note-tag {
+    background-color: #ddd;
+    border-radius: 13px;
+    display: inline-block;
+    padding: 1px 10px;
   }
 }

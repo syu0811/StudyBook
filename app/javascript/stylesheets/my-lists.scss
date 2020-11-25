@@ -9,9 +9,9 @@
   }
 
   &__my-list {
-    border-top: 1px solid #333;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    padding: 5px 0;
+    padding: 10px 0;
 
     &:first-of-type {
       border-top: none;
@@ -33,6 +33,7 @@
     font-size: 1.2em;
     font-weight: bold;
     overflow: hidden;
+    padding-left: 8px;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -49,6 +50,7 @@
     color: #464646;
     font-size: 0.9em;
     overflow: hidden;
+    padding-left: 8px;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: auto;
@@ -57,6 +59,7 @@
   &__my-list-sub {
     color: #6a6a6a;
     font-size: 0.8em;
+    margin-top: 5px;
     padding: 0 15px;
   }
 

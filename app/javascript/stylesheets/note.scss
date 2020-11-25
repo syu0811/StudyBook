@@ -1,0 +1,110 @@
+.note {
+  @extend .container;
+
+  margin: 50px 0;
+  padding-left: 50px;
+
+  &__main {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px 30px;
+  }
+
+  &__info-row-1 {
+    margin-top: 10px;
+    padding-left: 4px;
+  }
+
+  &__user {
+    display: inline-block;
+    font-size: 1.08em;
+  }
+
+  &__created_date {
+    color: #6a6a6a;
+    display: inline-block;
+    font-size: 0.9em;
+    height: 1.3em;
+    margin-left: 20px;
+  }
+
+  &__info-row-2 {
+    align-items: center;
+    display: flex;
+    height: 36px;
+    margin-top: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__category {
+    background-color: #caffe6;
+    border-radius: 10px;
+    padding: 4px 0;
+  }
+
+  &__category-name {
+    color: #555;
+    display: inline;
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 4px 12px;
+    vertical-align: middle;
+  }
+
+  &__add-my-list {
+    background-color: #d7fffd;
+    border-radius: 5px;
+    margin-left: 15px;
+    padding: 5px;
+
+    img {
+      display: inline;
+      height: 23px;
+      padding-bottom: 2px;
+      vertical-align: middle;
+    }
+  }
+
+  &__add-my-list-btn {
+    color: #555;
+    display: inline;
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 4px 12px 4px 0;
+  }
+
+  &__info-row-3 {
+    font-size: 0.7em;
+    font-size: 1.05em;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  &__tags {
+    color: #6a6a6a;
+  }
+
+  &__tag {
+    background-color: #ddd;
+    border-radius: 13px;
+    display: inline-block;
+    margin-top: 5px;
+    padding: 1px 10px;
+  }
+
+  &__title {
+    font-size: 36px;
+    font-weight: 700;
+  }
+
+  &__body {
+    margin-top: 20px;
+
+    h1,
+    h2 {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+  }
+}
