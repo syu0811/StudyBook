@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :note do
     title { 'てすとタイトル' }
-    text { 'テストテキスト' }
+    body { 'テストテキスト' }
     association :user
     association :category
   end

@@ -4,9 +4,9 @@ class CreateNotes < ActiveRecord::Migration[6.0]
     create_table :notes do |t|
       t.references :user, foreign_key: true, null: false
       t.string :title, null: false
-      t.string :text, null: false
+      t.text :body, null: false
       t.uuid :guid, null: false, unique: true
-      t.string :file_path
+      t.string :directory_path
       t.timestamps
     end
   end

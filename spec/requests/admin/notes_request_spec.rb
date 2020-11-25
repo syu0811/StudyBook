@@ -34,7 +34,7 @@ RSpec.describe "Admin::Notes", type: :request do
       let(:note) { build(:note) }
 
       it '一覧ページへリダイレクトすること' do
-        post admin_notes_path, params: { note: { title: note.title, text: note.text, file_path: note.file_path, category_id: category.id, user_id: login_user.id } }
+        post admin_notes_path, params: { note: { title: note.title, body: note.body, directory_path: note.directory_path, category_id: category.id, user_id: login_user.id } }
         expect(response).to redirect_to admin_notes_path
       end
     end
@@ -71,7 +71,7 @@ RSpec.describe "Admin::Notes", type: :request do
 
     context '正常系' do
       it '一覧ページへリダイレクトすること' do
-        put admin_note_path(note.id), params: { note: { title: note.title, text: note.text, file_path: note.file_path, category_id: category.id, user_id: login_user.id } }
+        put admin_note_path(note.id), params: { note: { title: note.title, body: note.body, directory_path: note.directory_path, category_id: category.id, user_id: login_user.id } }
         expect(response).to redirect_to admin_notes_path
       end
     end

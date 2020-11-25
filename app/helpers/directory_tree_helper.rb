@@ -5,7 +5,7 @@ module DirectoryTreeHelper
         content_tag(:li) do
           concat(content_tag(:div, class: "list") do
             concat(image_pack_tag('folder_icon.png', onClick: "toggleDirectory(event)"))
-            concat(link_to('ノート', user_notes_path(params.permit(:category).merge(file_path: nil)), remote: true))
+            concat(link_to('ノート', user_notes_path(params.permit(:category).merge(directory_path: nil)), remote: true))
           end)
           concat(create_tree(directory_tree))
         end,
@@ -24,11 +24,11 @@ module DirectoryTreeHelper
               if tree[:children]
                 concat(content_tag(:div, class: "list") do
                   concat(image_pack_tag('folder_icon.png', onClick: "toggleDirectory(event)"))
-                  concat(link_to(tree[:name], user_notes_path(params.permit(:category).merge(file_path: tree[:path])), remote: true))
+                  concat(link_to(tree[:name], user_notes_path(params.permit(:category).merge(directory_path: tree[:path])), remote: true))
                 end)
               else
                 concat(content_tag(:div, class: "list leaf") do
-                  concat(link_to(tree[:name], user_notes_path(params.permit(:category).merge(file_path: tree[:path])), remote: true))
+                  concat(link_to(tree[:name], user_notes_path(params.permit(:category).merge(directory_path: tree[:path])), remote: true))
                 end)
               end
               concat(content_tag(:div, create_tree(tree[:children]))) if tree[:children]

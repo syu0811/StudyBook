@@ -1,5 +1,4 @@
 window.toggleDirectory = function (e) {
-  // var ulist = e.srcElement.parentNode.parentNode.getElementsByTagName('ul');
   var ulist = e.srcElement.parentNode.parentNode.children;
   if (e.srcElement.classList.contains('close') == true) {
     for (let i = 1; i < ulist.length; i++) {
