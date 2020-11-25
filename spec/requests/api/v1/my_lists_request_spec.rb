@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::MyLists", type: :request do
   describe 'GET /response_mylists' do
-    # ?どういう場合に？
     context "正常時" do
       let!(:user) { create(:user) }
 
