@@ -14,5 +14,25 @@ RSpec.describe "Notes", type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    describe 'GET /notes/:id' do
+      let(:note) { create(:note) }
+
+      it 'note page is displayed' do
+        get note_path(note.id)
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    describe 'GET /notes/:id?index=?&my_list_id=?' do
+      let!(:my_list) { create(:my_list) }
+      let!(:note) { create(:note) }
+      let(:my_list_note) { create(:my_list_note, my_list: my_list, note: note) }
+
+      it 'マイリストを取得できているか' do
+        get note_path(id: my_list_note.note.id, index: my_list_note.index, my_list_id: my_list_note.my_list_id)
+        expect(response.body).to include(my_list_note.note.title)
+      end
+    end
   end
 end

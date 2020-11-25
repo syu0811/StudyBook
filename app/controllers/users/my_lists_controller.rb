@@ -7,6 +7,7 @@ module Users
 
     def get_my_lists
       @my_lists = MyList.includes(:category, :user).where(user: current_user)
+      @my_lists = @my_lists.where(category_id: params[:category]) if params[:category].present?
     end
   end
 end

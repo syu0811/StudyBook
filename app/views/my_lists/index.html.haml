@@ -1,12 +1,12 @@
-.row
+.row.m-0.p-0
   .left.col-2
   .main.col-8
     .list-header
-      .list-header__content--active
+      .list-header__content
         = link_to notes_path, class: "list-header__link" do
           %span.list-header__link-text
             = t '.notes'
-      .list-header__content
+      .list-header__content--active
         = link_to my_lists_path, class: "list-header__link" do
           %span.list-header__link-text--active
             = t '.my_lists'
@@ -22,8 +22,14 @@
             .my-lists__my-list-description
               = my_list.description
           .my-lists__my-list-sub
-            .my-lists__my-list-user
-              = "#{t('general.by')} #{my_list.user.nickname}"
             .my-lists__my-list-category
               = my_list.category.name
+            .my-lists__my-list-user
+              = "#{t('general.by')} #{my_list.user.nickname}"
   .right.col-2
+
+= form_with(model: @my_lists, url: my_lists_path, local: true) do |f|
+  .left__label
+  = f.label :category_id, t('.category')
+  .left__select
+  = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}

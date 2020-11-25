@@ -1,0 +1,12 @@
+.devise
+  .devise__container
+    %h1
+      プロフィールの編集
+    = form_with(model: @user, url: user_path(nickname: @user.nickname), local: true) do |f|
+      = render "devise/shared/error_messages", resource: @user
+      .form-group
+        = f.label :nickname
+        %br/
+        = f.text_field :nickname, class: 'form-control'
+      .form-group
+        = f.submit nil, class: 'btn btn-primary'

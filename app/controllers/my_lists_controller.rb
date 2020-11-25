@@ -5,7 +5,7 @@ class MyListsController < ApplicationController
 
   def show
     @my_list = MyList.find(params[:id])
-    @my_list_notes = @my_list.my_list_notes.includes(note: :user).order("my_list_notes.index")
+    @my_list_notes = @my_list.my_list_notes.includes(note: [:user, :tags, :category]).order("my_list_notes.index")
   end
 
   def new
@@ -52,6 +52,7 @@ class MyListsController < ApplicationController
 
   def get_my_lists
     @my_lists = MyList.includes(:category, :user)
+    @my_lists = @my_lists.where(category_id: params[:category]) if params[:category].present?
   end
 
   def get_current_user_my_list

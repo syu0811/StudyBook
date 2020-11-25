@@ -6,8 +6,8 @@
   .my-list__header-description
     = simple_format(h my_list.description)
 .my-list__header-sub
-  .my-list__header-user
-    = "#{t('general.by')} #{my_list.user.nickname}"
   .my-list__header-category
     = my_list.category.name
+  .my-list__header-user
+    = "#{t('general.by')} #{my_list.user.nickname}"
 
