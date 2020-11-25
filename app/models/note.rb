@@ -16,7 +16,13 @@ class Note < ApplicationRecord
   before_create :add_guid
   before_destroy :move_deleted_note
 
-  scope :full_search, ->(query) { where('notes.title @@ ? OR notes.body @@ ?', query, query) }
+  scope :high_light_full_search, ->(query) do
+    full_search(query)
+    .select("*, pgroonga_snippet_html(notes.body, ARRAY['#{query}']) AS high_light_body")
+  end
+  scope :full_search, ->(query) do
+    where('notes.title @@ ? OR notes.body @@ ?', query, query)
+  end
 
   def add_guid
     self.guid = SecureRandom.uuid

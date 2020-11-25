@@ -1,15 +1,16 @@
 .row.m-0.p-0
   .left.col-2
-    .left__header
-      .left__label
-        = t '.search_filter'
-    .left__form
-      = form_with(model: @notes, url: notes_path, local: true) do |f|
+    .left__content
+      .left__header
         .left__label
-          = f.label :category_id, t('.category')
-        .left__select
-          = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
-  .main.col-8
+          = t '.search_filter'
+      .left__form
+        = form_with(model: @notes, url: notes_path, local: true) do |f|
+          .left__label
+            = f.label :category_id, t('.category')
+          .left__select
+            = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
+  .main.col-8.overflow-auto
     .list-header
       .list-header__content--active
         = link_to notes_path, class: "list-header__link" do
@@ -38,5 +39,10 @@
             - note.tags.each do |tag|
               .notes__note-tag
                 = tag.name
+          .notes_note-body
+            - if note.try(:high_light_body) && note.high_light_body[0].present?
+              = raw note.high_light_body[0]
+            - else
+              = note.body[0..100]
   .right.col-2
 #new_my_list_form
