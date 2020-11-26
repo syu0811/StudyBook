@@ -66,5 +66,13 @@ RSpec.describe "Api::V1::Users", type: :request do
         expect(response).to have_http_status(:bad_request)
       end
     end
+
+    context "tokenが登録されていないとき" do
+      let(:user) { create(:user, token: nil) }
+      it 'ステータス404が返ってくる' do
+        post api_v1_token_auth_path, params: { id: user.id, token: nil }
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
   end
 end
