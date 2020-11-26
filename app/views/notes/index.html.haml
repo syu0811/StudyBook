@@ -9,6 +9,10 @@
           = f.label :category_id, t('.category')
         .left__select
           = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
+        .left__label
+          = f.label :order, "並び替え"
+        .left__select
+          = f.select :order,[["更新時間", "update"], ["作成時間", "create"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
   .main.col-8
     .list-header
       .list-header__content--active
