@@ -11,6 +11,10 @@
           .left__select
             = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
   .main.col-8.overflow-auto
+    .search
+      = form_with(url: notes_path, local: true, method: :get, class: "search__container") do |f|
+        = f.text_field :q, value: params[:q], place_holder: 'キーワード検索', class: "search__text-field"
+        = f.submit "\uF002", class: "search__icon"
     .list-header
       .list-header__content--active
         = link_to notes_path, class: "list-header__link" do
@@ -20,29 +24,7 @@
         = link_to my_lists_path, class: "list-header__link" do
           %span.list-header__link-text
             = t '.my_lists'
-
-    .notes
-      %hr.notes__hr--top
-      - @notes.each do |note|
-        .notes__note
-          .notes__note-main
-            = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
-              = image_pack_tag 'book_icon_plus.png'
-            .notes__note-title
-              = link_to note.title, note_path(note), class: 'notes__note-link'
-          .notes__note-sub
-            .notes__note-category
-              = note.category.name
-            .notes__note-user
-              = "#{t('general.by')} #{note.user.nickname}"
-          .notes__note-tags
-            - note.tags.each do |tag|
-              .notes__note-tag
-                = tag.name
-          .notes_note-body
-            - if note.try(:high_light_body) && note.high_light_body[0].present?
-              = raw note.high_light_body[0]
-            - else
-              = note.body[0..100]
+    .notes#notes
+      = render partial: 'note_index', locals: { notes: @notes }
   .right.col-2
 #new_my_list_form
