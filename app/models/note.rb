@@ -21,7 +21,7 @@ class Note < ApplicationRecord
       .select("*, pgroonga_snippet_html(notes.body, pgroonga_query_extract_keywords('#{query}')) AS high_light_body")
   }
   scope :full_search, lambda { |query|
-    where('notes.title &@~| pgroonga_query_extract_keywords(?) OR notes.body &@~ ?', query, query)
+    where('notes.title &@~ ? OR notes.body &@~ ?', query, query)
   }
 
   def add_guid

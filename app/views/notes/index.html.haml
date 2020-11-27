@@ -10,11 +10,15 @@
             = f.label :category_id, t('.category')
           .left__select
             = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
+          .left__label
+            = f.label :order, "並び替え"
+          .left__select
+            = f.select :order,[["更新時間", "update"], ["作成時間", "create"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
   .main.col-8.overflow-auto
     .search
-      = form_with(url: notes_path, local: true, method: :get, class: "search__container") do |f|
-        = f.text_field :q, value: params[:q], place_holder: 'キーワード検索', class: "search__text-field"
-        = f.submit "\uF002", class: "search__icon"
+      %form.search__container{ onsubmit: 'setSearchParams(event);' }
+        %input#search_field{ type: 'text',  value: params[:q], place_holder: 'キーワード検索', class: "search__text-field"}
+        %input.search__icon{ type: 'submit', value: "\uF002"}
     .list-header
       .list-header__content--active
         = link_to notes_path, class: "list-header__link" do

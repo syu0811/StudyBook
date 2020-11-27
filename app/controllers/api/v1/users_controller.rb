@@ -20,8 +20,10 @@ module Api
       def auth
         # トークン認証を行う
         user = User.find(params[:id])
-
-        if user.token == params[:token]
+        if user.token.blank?
+          # tokenがnilのとき
+          head :bad_request
+        elsif user.token == params[:token]
           head :ok
         else
           head :bad_request
