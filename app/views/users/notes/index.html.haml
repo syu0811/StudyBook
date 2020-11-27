@@ -1,19 +1,20 @@
 .row.m-0.p-0
   .left.col-3
-    .left__header
-      .left__label
-        = t '.directory'
-    .directory-tree
-      = directory_tree(@directory_tree)
-    .left__header
-      .left__label
-        = t '.search_filter'
-    .left__form
-      = form_with(model: @notes, url: notes_path, local: true) do |f|
+    .left__content
+      .left__header
         .left__label
-          = f.label :category_id, t('.category')
-        .left__select
-          = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
+          = t '.directory'
+      .directory-tree
+        = directory_tree(@directory_tree)
+      .left__header
+        .left__label
+          = t '.search_filter'
+      .left__form
+        = form_with(model: @notes, url: notes_path, local: true) do |f|
+          .left__label
+            = f.label :category_id, t('.category')
+          .left__select
+            = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
   .main.col-8
     .list-header
       .list-header__content--active

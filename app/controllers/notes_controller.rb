@@ -3,6 +3,7 @@ class NotesController < ApplicationController
   def index
     @notes = Note.includes(:user, :category, :tags)
     @notes = @notes.where(category_id: params[:category]) if params[:category].present?
+    @notes = @notes.high_light_full_search(params[:q]) if params[:q].present?
     @notes = @notes.order(created_at: "DESC") if params[:order] == 'create'
     @notes = @notes.order(updated_at: "DESC")
   end

@@ -1,0 +1,39 @@
+.search {
+  display: block;
+  padding: 0 20px;
+  padding-bottom: 20px;
+  width: 100%;
+
+  &__text-field {
+    border-radius: 20px 0 0 20px;
+    border-width: 1px;
+    display: inline-block;
+    height: 2.5em;
+    margin: 0 -6px 0 0;
+    overflow: auto;
+    padding: 5px 10px;
+    vertical-align: middle;
+    white-space: normal;
+    width: 70%;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  &__icon {
+    background: #3879d9;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: FontAwesome, sans-serif;
+    height: 2.5em;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    vertical-align: middle;
+    width: 28%;
+  }
+}

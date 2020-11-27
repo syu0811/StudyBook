@@ -14,6 +14,7 @@
 @import './directory-tree.scss';
 @import './user.scss';
 @import './note-my-list.scss';
+@import './search.scss';
 
 body {
   background-color: #f5ebdf;
@@ -30,7 +31,7 @@ body {
 }
 
 .main {
-  margin-top: 40px;
+  padding-top: 40px;
 }
 
 .blackout {
