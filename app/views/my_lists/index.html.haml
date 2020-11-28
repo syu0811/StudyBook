@@ -18,6 +18,12 @@
           .my-lists__my-list-main
             - if my_list.user_id == current_user.id
               = link_to "削除", my_list_path(my_list.id), method: :delete, class: "my-lists__my-list-deleet-button"
+            - elsif @user_subscribe_my_list_ids.include?(my_list.id)
+              = "存在"
+              = link_to "削除(仮)", user_delete_subscribe_my_list_path(user_nickname: current_user.nickname, my_list_id: my_list.id), method: :delete, remote: true
+            - else
+              = "存在しない"
+              = link_to "追加(仮)", user_create_subscribe_my_list_path(user_nickname: current_user.nickname, my_list_id: my_list.id), method: :post, remote: true
             .my-lists__my-list-title
               = link_to my_list.title, my_list_path(my_list), class: "my-lists__my-list-link"
             .my-lists__my-list-description

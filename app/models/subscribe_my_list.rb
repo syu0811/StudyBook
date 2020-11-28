@@ -1,4 +1,4 @@
-class UserSubscribeMyList < ApplicationRecord
+class SubscribeMyList < ApplicationRecord
   belongs_to :user
   belongs_to :my_list
 
