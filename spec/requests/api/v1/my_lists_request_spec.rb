@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe "Api::V1::MyLists", type: :request do
   let(:user) { create(:user) }
 
-  describe 'GET /response_mylists' do
+  describe 'GET /my_lists' do
     context "マイリストだけが存在する場合" do
       let(:my_lists) { create_list(:my_list, 2, user: user) }
 
       before do
         my_lists
-        get api_v1_my_lists_response_mylists_path, params: { id: user.id, token: user.token }
+        get api_v1_my_lists_path, params: { id: user.id, token: user.token }
       end
 
       it 'ステータス OK が返ってくる' do
@@ -28,7 +28,7 @@ RSpec.describe "Api::V1::MyLists", type: :request do
       before do
         my_lists
         subscribe_my_list
-        get api_v1_my_lists_response_mylists_path, params: { id: user.id, token: user.token }
+        get api_v1_my_lists_path, params: { id: user.id, token: user.token }
       end
 
       it ' ステータス OK が返ってくる' do
