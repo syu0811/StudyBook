@@ -19,7 +19,8 @@
         - @my_lists.each do |my_list|
           .my-lists__my-list
             .my-lists__my-list-main
-              = link_to "削除", my_list_path(id: my_list.id, redirect_to_user_my_lists: true), method: :delete, class: "my-lists__my-list-deleet-button"
+              = link_to my_list_path(my_list.id), method: :delete, data: {confirm: t('.confirm')}, class: "my-lists__my-list-delete-button" do
+                = image_pack_tag 'trust.png'
               .my-lists__my-list-title
                 = link_to my_list.title, my_list_path(my_list), class: "my-lists__my-list-link"
               .my-lists__my-list-description

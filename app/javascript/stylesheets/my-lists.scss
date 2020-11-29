@@ -22,11 +22,17 @@
     padding: 0 15px;
   }
 
-  &__my-list-deleet-button {
-    @extend .btn, .btn-outline-dark;
-
+  &__my-list-delete-button {
+    background-color: #dc3545;
+    border-radius: 5px;
     float: right;
-    width: 58px;
+    height: 32px;
+    width: 32px;
+
+    img {
+      padding: 5px;
+      width: 32px;
+    }
   }
 
   &__my-list-title {

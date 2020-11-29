@@ -5,12 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :trackable, :lockable
 
-  has_many :notes
-  has_many :deleted_notes
-  has_many :my_lists
+  has_many :notes, dependent: :destroy
+  has_many :deleted_notes, dependent: :destroy
+  has_many :my_lists, dependent: :destroy
 
-  has_many :user_subscribe_my_lists
-  has_many :subscribe_my_lists, through: :user_subscribe_my_lists, source: :my_lists
+  has_many :subscribe_my_lists, dependent: :destroy
+  has_many :subscribe_my_list_my_lists, through: :subscribe_my_lists, source: :my_lists
 
   # 名前は全角平仮名、漢字（鬼車）のみ許可
   VALID_NAME_REGEX = /\A(?:\p{Hiragana}|[ー－]|[一-龠々])+\z/.freeze
