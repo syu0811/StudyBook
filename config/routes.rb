@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resources :my_lists, only: [:index]
       resources :notes, only: [:index]
       post '/subscribe_my_lists/:my_list_id', to: "subscribe_my_lists#create", as: :create_subscribe_my_list
-      delete '/subscribe_my_lists/:my_list_id', to: "subscribe_my_lists#destroy", as: :delete_subscribe_my_list
+      delete '/subscribe_my_lists/:my_list_id', to: "subscribe_my_lists#destroy", as: :destroy_subscribe_my_list
     end
   end
 
