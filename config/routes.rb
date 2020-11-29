@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :top, onlu: [:index]
+
   resources :notes, only: [:index, :show]
   resources :admin, only: [:index]
   resources :my_lists, only: [:index, :show, :create, :edit, :update, :destroy]
@@ -42,5 +44,5 @@ Rails.application.routes.draw do
     resources :notes, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 
-  root 'users#show'
+  root 'top#index'
 end
