@@ -4,7 +4,7 @@ class MyList < ApplicationRecord
 
   has_many :my_list_notes, dependent: :destroy
   has_many :notes, through: :my_list_notes
-  has_many :subscribe_my_lists
+  has_many :subscribe_my_lists, dependent: :destroy
   has_many :subscribe_user_my_lists, through: :subscribe_my_lists, source: :users
 
   validates :user_id, presence: true

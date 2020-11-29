@@ -57,7 +57,7 @@ class MyListsController < ApplicationController
   end
 
   def get_current_user_my_list
-    @my_list = current_user.my_lists.find(params[:my_list_id])
+    @my_list = current_user.my_lists.find(params[:id])
   end
 
   def get_categories
