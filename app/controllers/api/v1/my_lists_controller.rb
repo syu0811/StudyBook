@@ -5,8 +5,8 @@ module Api
       MY_LIST_INCLUDES = [{ notes: [:user, :tags, :my_list_notes] }, :subscribe_my_lists].freeze
       def index
         @my_lists = MyList.includes(MY_LIST_INCLUDES)
-                          .where(user_id: params[:id])
-                          .or(MyList.includes(MY_LIST_INCLUDES).where(subscribe_my_lists: { user_id: params[:id] }))
+                          .where(user_id: params[:user_id])
+                          .or(MyList.includes(MY_LIST_INCLUDES).where(subscribe_my_lists: { user_id: params[:user_id] }))
       end
     end
   end

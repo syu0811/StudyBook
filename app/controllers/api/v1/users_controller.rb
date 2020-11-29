@@ -19,7 +19,7 @@ module Api
 
       def auth
         # トークン認証を行う
-        user = User.find(params[:id])
+        user = User.find(params[:user_id])
         if user.token.blank?
           # tokenがnilのとき
           head :bad_request
