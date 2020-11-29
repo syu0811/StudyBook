@@ -15,15 +15,13 @@
       %hr.my-lists__hr--top
       - @my_lists.each do |my_list|
         .my-lists__my-list
-          .my-lists__my-list-main
+          .my-lists__my-list-main{ id: "my_list_id_#{my_list.id}" }
             - if my_list.user_id == current_user.id
-              = link_to "削除", my_list_path(my_list.id), method: :delete, class: "my-lists__my-list-deleet-button"
-            - elsif @user_subscribe_my_list_ids.include?(my_list.id)
-              = "存在"
-              = link_to "削除(仮)", user_delete_subscribe_my_list_path(user_nickname: current_user.nickname, my_list_id: my_list.id), method: :delete, remote: true
+              = link_to my_list_path(my_list.id), method: :delete, data: {confirm: t('.confirm')}, class: "my-lists__my-list-delete-button" do
+                = image_pack_tag 'trust.png'
             - else
-              = "存在しない"
-              = link_to "追加(仮)", user_create_subscribe_my_list_path(user_nickname: current_user.nickname, my_list_id: my_list.id), method: :post, remote: true
+              .subscribe
+                .subscribe__button{ class: "#{@user_subscribe_my_list_ids.include?(my_list.id) ? 'subscribe__destroy' : 'subscribe__create'}", data: { isCreate: "#{@user_subscribe_my_list_ids.include?(my_list.id) ? 'false' : 'true'}" }, onclick: "subscribeMyList(event, '#{current_user.nickname}', #{my_list.id})" }
             .my-lists__my-list-title
               = link_to my_list.title, my_list_path(my_list), class: "my-lists__my-list-link"
             .my-lists__my-list-description
