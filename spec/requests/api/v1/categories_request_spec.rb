@@ -12,7 +12,7 @@ RSpec.describe "Api::V1::Categories", type: :request do
     end
 
     it "タグの一覧が返ってくる" do
-      get api_v1_categories_path(id: user.id, token: user.token, updated_at: "2020-4-01 11:00")
+      get api_v1_categories_path(user_id: user.id, token: user.token, updated_at: "2020-4-01 11:00")
       expect(response_json).to eq([{ id: categories[0].id, name: categories[0].name }, { id: categories[1].id, name: categories[1].name }])
     end
 
@@ -25,7 +25,7 @@ RSpec.describe "Api::V1::Categories", type: :request do
       end
 
       it "範囲外のものを除いたタグの一覧が返ってくる" do
-        get api_v1_categories_path(id: user.id, token: user.token, updated_at: "2020-4-01 13:00")
+        get api_v1_categories_path(user_id: user.id, token: user.token, updated_at: "2020-4-01 13:00")
         expect(response_json).to eq([{ id: category.id, name: category.name }])
       end
     end
