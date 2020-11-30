@@ -31,7 +31,7 @@ RSpec.describe "Api::V1::MyLists", type: :request do
         get api_v1_my_lists_path, params: { user_id: user.id, token: user.token }
       end
 
-      it ' ステータス OK が返ってくる' do
+      it 'ステータス OK が返ってくる' do
         expect(response).to have_http_status(:ok)
       end
 
