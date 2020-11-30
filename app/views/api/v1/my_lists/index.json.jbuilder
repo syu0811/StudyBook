@@ -1,4 +1,5 @@
 json.array! @my_lists.each do |my_list|
+  json.id my_list.id
   json.title my_list.title
   json.category_id my_list.category_id
   json.description my_list.description

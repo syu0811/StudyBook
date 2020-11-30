@@ -17,7 +17,7 @@ RSpec.describe "Api::V1::MyLists", type: :request do
       end
 
       it "タグの一覧が返ってくる" do
-        expect(response_json).to include({ title: my_lists[0].title, category_id: my_lists[0].category_id, description: my_lists[0].description, notes: [] }, { title: my_lists[1].title, category_id: my_lists[1].category_id, description: my_lists[1].description, notes: [] })
+        expect(response_json).to include({ id: my_lists[0].id, title: my_lists[0].title, category_id: my_lists[0].category_id, description: my_lists[0].description, notes: [] }, { id: my_lists[1].id, title: my_lists[1].title, category_id: my_lists[1].category_id, description: my_lists[1].description, notes: [] })
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe "Api::V1::MyLists", type: :request do
       end
 
       it "タグの一覧が返ってくる" do
-        expect(response_json).to include({ title: subscribe_my_list.my_list.title, category_id: subscribe_my_list.my_list.category_id, description: subscribe_my_list.my_list.description, notes: [] }, { title: my_lists[0].title, category_id: my_lists[0].category_id, description: my_lists[0].description, notes: [] }, { title: my_lists[1].title, category_id: my_lists[1].category_id, description: my_lists[1].description, notes: [] })
+        expect(response_json).to include({ id: subscribe_my_list.my_list_id, title: subscribe_my_list.my_list.title, category_id: subscribe_my_list.my_list.category_id, description: subscribe_my_list.my_list.description, notes: [] }, { id: my_lists[0].id, title: my_lists[0].title, category_id: my_lists[0].category_id, description: my_lists[0].description, notes: [] }, { id: my_lists[1].id, title: my_lists[1].title, category_id: my_lists[1].category_id, description: my_lists[1].description, notes: [] })
       end
     end
   end
