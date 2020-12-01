@@ -28,8 +28,6 @@ git clone git@github.com:BMuscle/StudyBook.git
 ```bash
 cd StudyBook
 docker-compose build
-docker-compose up
-# 一旦yarnエラーが出るので ctrl+c
 docker-compose run web yarn install
 # 再度起動
 docker-compose up
