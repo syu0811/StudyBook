@@ -23,6 +23,14 @@ class Note < ApplicationRecord
   scope :full_search, lambda { |query|
     where('notes.title &@~ ? OR notes.body &@~ ?', query, query)
   }
+  scope :tags_search, lambda { |tag_params|
+    tags = tag_params.split(',')
+    tag_ids = Tag.where(name: tags).ids
+    return none unless tags.size == tag_ids.size
+
+    note_ids = NoteTag.where(tag_id: tag_ids).group(:note_id).having('count(*) = ?', tag_ids.size).pluck(:note_id)
+    where(id: note_ids)
+  }
 
   def add_guid
     self.guid = SecureRandom.uuid
