@@ -72,3 +72,28 @@ lint
 ```bash
 rspec
 ```
+
+## 本番環境構築(現状不備の可能性あり)
+CentOS 7 にて確認
+現状、docker-compose.prcへパスワード直書きなので注意。(後々修正)
+webpackerのコンパイルでエラーが出ているので、コンパイル方式が、開発環境と同等の状態で動かしている。(後々修正)
+
+1. docker-compose.ymlを削除し、docker-compose.prc.ymlへ置き換え
+```bash
+rm docker-compose.yml
+mv docker-compose.prc.yml docker-compose.yml
+```
+2. build
+```bash
+docker-compose build
+```
+3. 起動
+```bash
+docker-compose up
+```
+4. DB作成・初期データ投入(別ターミナル or 上記コマンドにて -d オプション)
+```
+docker-compose exec app bash
+# コンテナに接続後
+rails db:create db:migrate db:seed
+```
