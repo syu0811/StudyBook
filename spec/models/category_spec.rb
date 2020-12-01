@@ -31,4 +31,24 @@ RSpec.describe Category, type: :model do
       end
     end
   end
+
+  describe ".default_category" do
+    context 'デフォルトカテゴリーが存在する場合' do
+      let(:category) { create(:category, name: Category::DEFAULT_CATEGORY_NAME) }
+
+      before do
+        category
+      end
+
+      it "デフォルトカテゴリーが返ること" do
+        expect(described_class.default_category).to eq(category)
+      end
+    end
+
+    context 'デフォルトカテゴリーが存在しない場合' do
+      it "nilが返ること" do
+        expect(described_class.default_category).to eq(nil)
+      end
+    end
+  end
 end
