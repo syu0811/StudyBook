@@ -16,7 +16,10 @@ class Note < ApplicationRecord
   before_create :add_guid
   before_destroy :move_deleted_note
 
+  ORDER_LIST = { "create" => "created_at DESC", "update" => "updated_at DESC", "name" => "title" }.freeze
+
   scope :full_search, ->(query) { where('notes.title @@ ? OR notes.body @@ ?', query, query) }
+  scope :specified_order, ->(sort_key) { order(sort_key.present? ? ​ORDER_LIST[sort_key] : ORDER_LIST["update"]) }
 
   def add_guid
     self.guid = SecureRandom.uuid
