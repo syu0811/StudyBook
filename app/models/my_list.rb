@@ -12,7 +12,10 @@ class MyList < ApplicationRecord
   validates :title, presence: true, length: { maximum: 50 }
   validates :description, length: { maximum: 300 }
 
+  ORDER_LIST = { "create" => "created_at DESC", "update" => "updated_at DESC", "name" => "title" }.freeze
+
   scope :full_search, ->(query) { where('my_lists.title @@ ? OR my_lists.description @@ ?', query, query) }
+  scope :specified_order, ->(sort_key) { order(sort_key.present? ? MyList::ORDER_LIST[sort_key] : MyList::ORDER_LIST["update"]) }
 
   def self.regist(my_list_params, note_id)
     transaction do
