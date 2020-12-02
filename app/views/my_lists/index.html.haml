@@ -1,5 +1,6 @@
 .row.m-0.p-0
   .left.col-2
+    .left__content
   .main.col-8
     .list-header
       .list-header__content
@@ -14,9 +15,13 @@
       %hr.my-lists__hr--top
       - @my_lists.each do |my_list|
         .my-lists__my-list
-          .my-lists__my-list-main
+          .my-lists__my-list-main{ id: "my_list_id_#{my_list.id}" }
             - if my_list.user_id == current_user.id
-              = link_to "削除", my_list_path(my_list.id), method: :delete, class: "my-lists__my-list-deleet-button"
+              = link_to my_list_path(my_list.id), method: :delete, data: {confirm: t('.confirm')}, class: "my-lists__my-list-delete-button" do
+                = image_pack_tag 'trust.png'
+            - else
+              .subscribe
+                .subscribe__button{ class: "#{@user_subscribe_my_list_ids.include?(my_list.id) ? 'subscribe__destroy' : 'subscribe__create'}", data: { isCreate: "#{@user_subscribe_my_list_ids.include?(my_list.id) ? 'false' : 'true'}" }, onclick: "subscribeMyList(event, '#{current_user.nickname}', #{my_list.id})" }
             .my-lists__my-list-title
               = link_to my_list.title, my_list_path(my_list), class: "my-lists__my-list-link"
             .my-lists__my-list-description

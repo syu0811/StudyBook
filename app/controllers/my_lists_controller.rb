@@ -2,6 +2,7 @@ class MyListsController < ApplicationController
   before_action :get_my_lists, only: [:index]
   before_action :get_current_user_my_list, only: [:edit, :update, :destroy]
   before_action :get_categories, only: [:new, :edit]
+  before_action :get_user_subscribe_my_list_ids, only: [:index]
 
   def show
     @my_list = MyList.find(params[:id])
@@ -61,5 +62,9 @@ class MyListsController < ApplicationController
 
   def get_categories
     @categories = Category.all
+  end
+
+  def get_user_subscribe_my_list_ids
+    @user_subscribe_my_list_ids = current_user.subscribe_my_lists.pluck(:my_list_id)
   end
 end

@@ -6,7 +6,7 @@
       .note__info
         .note__info-row-1
           .note__user
-            = "#{t('general.by')} #{current_user.nickname}"
+            = "#{t('general.by')} #{@note.user.nickname}"
           .note__created_date
             = l @note.created_at, format: :updated_at
         .note__info-row-2
