@@ -5,6 +5,7 @@ module Users
       @directory_tree = @notes.directory_tree
       @notes = @notes.where(category_id: params[:category]) if params[:category].present?
       @notes = @notes.where('notes.directory_path LIKE ?', "#{params[:directory_path]}%")
+      @notes = @notes.specified_order(params[:order])
     end
   end
 end

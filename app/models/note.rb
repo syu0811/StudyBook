@@ -16,6 +16,10 @@ class Note < ApplicationRecord
   before_create :add_guid
   before_destroy :move_deleted_note
 
+  ORDER_LIST = { "create" => "created_at DESC", "update" => "updated_at DESC", "name" => "title" }.freeze
+
+  scope :specified_order, ->(sort_key) { order(sort_key.present? ? Note::ORDER_LIST[sort_key] : Note::ORDER_LIST["update"]) }
+  scope :full_search, ->(query) { where('notes.title @@ ? OR notes.body @@ ?', query, query) }
   scope :high_light_full_search, lambda { |query|
     full_search(query)
       .select("*, pgroonga_snippet_html(notes.body, pgroonga_query_extract_keywords('#{query}')) AS high_light_body")
