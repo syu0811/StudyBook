@@ -94,6 +94,16 @@ ActiveRecord::Schema.define(version: 2020_11_28_112633) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "user_subscribe_my_lists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "my_list_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["my_list_id"], name: "index_user_subscribe_my_lists_on_my_list_id"
+    t.index ["user_id", "my_list_id"], name: "index_user_subscribe_my_lists_on_user_id_and_my_list_id", unique: true
+    t.index ["user_id"], name: "index_user_subscribe_my_lists_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "firstname", null: false
     t.string "lastname", null: false
@@ -137,4 +147,6 @@ ActiveRecord::Schema.define(version: 2020_11_28_112633) do
   add_foreign_key "notes", "users"
   add_foreign_key "subscribe_my_lists", "my_lists"
   add_foreign_key "subscribe_my_lists", "users"
+  add_foreign_key "user_subscribe_my_lists", "my_lists"
+  add_foreign_key "user_subscribe_my_lists", "users"
 end

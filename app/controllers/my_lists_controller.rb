@@ -54,6 +54,7 @@ class MyListsController < ApplicationController
   def get_my_lists
     @my_lists = MyList.includes(:category, :user)
     @my_lists = @my_lists.where(category_id: params[:category]) if params[:category].present?
+    @my_lists = @my_lists.specified_order(params[:order])
   end
 
   def get_current_user_my_list
