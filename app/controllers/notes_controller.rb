@@ -4,6 +4,7 @@ class NotesController < ApplicationController
     @notes = Note.includes(:user, :category, :tags)
     @notes = @notes.where(category_id: params[:category]) if params[:category].present?
     @notes = @notes.high_light_full_search(params[:q]) if params[:q].present?
+    @notes = @notes.tags_search(params[:tags]) if params[:tags].present?
     @notes = @notes.specified_order(params[:order])
   end
 

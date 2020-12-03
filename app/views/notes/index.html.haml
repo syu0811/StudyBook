@@ -10,6 +10,16 @@
             = f.label :category_id, t('.category')
           .left__select
             = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
+      .left__form
+        .left__label
+          = 'タグ'
+        .left__tags
+          .tag-search
+            %form.tag-search__form{ onsubmit: 'addSearchTag(event)' }
+              %input.tag-search__input{ type: 'text', wrap: 'soft' }
+            .tag-search__tags.overflow-auto#search_tags
+      .left__form
+        = form_with(model: @notes, url: notes_path, local: true) do |f|
           .left__label
             = f.label :order, "並び替え"
           .left__select
