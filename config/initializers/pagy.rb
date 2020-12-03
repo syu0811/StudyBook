@@ -1,1 +1,1 @@
-Pagy::VARS[:items] = 5
+require 'pagy/extras/bootstrap'
