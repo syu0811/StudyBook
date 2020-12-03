@@ -30,5 +30,8 @@
             = t '.my_lists'
     .notes#notes
       = render partial: 'note_index', locals: { notes: @notes }
+
+
+      != pagy_nav(@pagy)
   .right.col-2
 #new_my_list_form
