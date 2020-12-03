@@ -101,4 +101,32 @@ RSpec.describe Note, type: :model do
       end
     end
   end
+
+  describe '.tags_search' do
+    let(:tags) { create_list(:tag, 2) }
+    let(:note) { create(:note) }
+
+    before do
+      create(:note_tag, note: note, tag: tags[0])
+      create(:note_tag, note: note, tag: tags[1])
+    end
+
+    context '存在するタグ1つを指定する場合' do
+      it "結果が1件であること" do
+        expect(described_class.tags_search(tags[0].name).size).to eq(1)
+      end
+    end
+
+    context '存在するタグ2つを指定する場合' do
+      it "結果が1件であること" do
+        expect(described_class.tags_search("#{tags[0].name},#{tags[1].name}").size).to eq(1)
+      end
+    end
+
+    context '存在しないタグ1つを指定する場合' do
+      it "結果が0件であること" do
+        expect(described_class.tags_search("NotName").size).to eq(0)
+      end
+    end
+  end
 end
