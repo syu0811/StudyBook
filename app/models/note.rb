@@ -10,11 +10,23 @@ class Note < ApplicationRecord
   validates :user_id, presence: true
   validates :category_id, presence: true
   validates :title, presence: true, length: { maximum: 50 }
-  validates :text, presence: true, length: { maximum: 30000 }
-  validates :file_path, length: { maximum: 255 }
+  validates :body, presence: true, length: { maximum: 30000 }
+  validates :directory_path, length: { maximum: 255 }
 
   before_create :add_guid
   before_destroy :move_deleted_note
+
+  ORDER_LIST = { "create" => "created_at DESC", "update" => "updated_at DESC", "name" => "title" }.freeze
+
+  scope :specified_order, ->(sort_key) { order(sort_key.present? ? Note::ORDER_LIST[sort_key] : Note::ORDER_LIST["update"]) }
+  scope :full_search, ->(query) { where('notes.title @@ ? OR notes.body @@ ?', query, query) }
+  scope :high_light_full_search, lambda { |query|
+    full_search(query)
+      .select("*, pgroonga_snippet_html(notes.body, pgroonga_query_extract_keywords('#{query}')) AS high_light_body")
+  }
+  scope :full_search, lambda { |query|
+    where('notes.title &@~ ? OR notes.body &@~ ?', query, query)
+  }
 
   def add_guid
     self.guid = SecureRandom.uuid
@@ -52,7 +64,7 @@ class Note < ApplicationRecord
 
     def directory_tree
       directory_tree = {}
-      pluck(:file_path).uniq.sort.each do |path|
+      pluck(:directory_path).uniq.sort.each do |path|
         create_folders(path, directory_tree)
       end
       directory_tree

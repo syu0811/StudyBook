@@ -5,8 +5,12 @@ Rails.application.routes.draw do
     scope module: :users do
       resources :my_lists, only: [:index]
       resources :notes, only: [:index]
+      post '/subscribe_my_lists/:my_list_id', to: "subscribe_my_lists#create", as: :create_subscribe_my_list
+      delete '/subscribe_my_lists/:my_list_id', to: "subscribe_my_lists#destroy", as: :destroy_subscribe_my_list
     end
   end
+
+  resources :top, onlu: [:index]
 
   resources :notes, only: [:index, :show]
   resources :admin, only: [:index]
@@ -28,7 +32,7 @@ Rails.application.routes.draw do
         delete 'notes', to: 'notes#destroys', as: 'delete_notes'
         resources :tags, only: :index
         resources :categories, only: :index
-        get 'my_lists/response_mylists', to: 'my_lists#response_mylists', as: 'my_lists_response_mylists'
+        get 'my_lists', to: 'my_lists#index', as: 'my_lists'
       end
     end
   end
@@ -40,5 +44,5 @@ Rails.application.routes.draw do
     resources :notes, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 
-  root 'users#show'
+  root 'top#index'
 end

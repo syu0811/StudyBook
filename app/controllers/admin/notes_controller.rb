@@ -33,7 +33,7 @@ module Admin
     private
 
     def note_params
-      params.require(:note).permit(:title, :text, :category_id, :user_id, :file_path)
+      params.require(:note).permit(:title, :body, :category_id, :user_id, :directory_path)
     end
 
     def get_notes

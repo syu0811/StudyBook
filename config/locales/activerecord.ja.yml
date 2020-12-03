@@ -7,7 +7,7 @@ ja:
         name: 'カテゴリー名'
       note:
         title: タイトル
-        text: 内容
+        body: 内容
     models:
       tag: タグ
       category: 'カテゴリー'

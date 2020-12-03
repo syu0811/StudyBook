@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :user_subscribe_my_list do
+  factory :subscribe_my_list do
     association :user
     association :my_list
   end

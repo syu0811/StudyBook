@@ -1,15 +1,24 @@
 .row.m-0.p-0
   .left.col-2
-    .left__header
-      .left__label
-        = t '.search_filter'
-    .left__form
-      = form_with(model: @notes, url: notes_path, local: true) do |f|
+    .left__content
+      .left__header
         .left__label
-          = f.label :category_id, t('.category')
-        .left__select
-          = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
-  .main.col-8
+          = t '.search_filter'
+      .left__form
+        = form_with(model: @notes, url: notes_path, local: true) do |f|
+          .left__label
+            = f.label :category_id, t('.category')
+          .left__select
+            = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
+          .left__label
+            = f.label :order, "並び替え"
+          .left__select
+            = f.select :order,[["更新時間", "update"], ["作成時間", "create"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
+  .main.col-8.overflow-auto
+    .search
+      %form.search__container{ onsubmit: 'setSearchParams(event);' }
+        %input#search_field{ type: 'text',  value: params[:q], place_holder: 'キーワード検索', class: "search__text-field"}
+        %input.search__icon{ type: 'submit', value: "\uF002"}
     .list-header
       .list-header__content--active
         = link_to notes_path, class: "list-header__link" do
@@ -19,24 +28,7 @@
         = link_to my_lists_path, class: "list-header__link" do
           %span.list-header__link-text
             = t '.my_lists'
-
-    .notes
-      %hr.notes__hr--top
-      - @notes.each do |note|
-        .notes__note
-          .notes__note-main
-            = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
-              = image_pack_tag 'book_icon_plus.png'
-            .notes__note-title
-              = link_to note.title, note_path(note), class: 'notes__note-link'
-          .notes__note-sub
-            .notes__note-category
-              = note.category.name
-            .notes__note-user
-              = "#{t('general.by')} #{note.user.nickname}"
-          .notes__note-tags
-            - note.tags.each do |tag|
-              .notes__note-tag
-                = tag.name
+    .notes#notes
+      = render partial: 'note_index', locals: { notes: @notes }
   .right.col-2
 #new_my_list_form

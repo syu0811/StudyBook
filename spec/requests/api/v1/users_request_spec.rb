@@ -43,7 +43,7 @@ RSpec.describe "Api::V1::Users", type: :request do
       let!(:user) { create(:user) }
 
       it ' ステータス OK が返ってくる' do
-        post api_v1_token_auth_path, params: { id: user.id, token: user.token }
+        post api_v1_token_auth_path, params: { user_id: user.id, token: user.token }
         expect(response).to have_http_status(:ok)
       end
     end
@@ -53,7 +53,7 @@ RSpec.describe "Api::V1::Users", type: :request do
 
       it 'ActiveRecord::RecordNotFoundが発生する' do
         expect do
-          post api_v1_token_auth_path, params: { id: 2000, token: user.token }
+          post api_v1_token_auth_path, params: { user_id: 2000, token: user.token }
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -62,7 +62,16 @@ RSpec.describe "Api::V1::Users", type: :request do
       let!(:user) { create(:user) }
 
       it 'ステータス404が返ってくる' do
-        post api_v1_token_auth_path, params: { id: user.id, token: "testtoken" }
+        post api_v1_token_auth_path, params: { user_id: user.id, token: "testtoken" }
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+
+    context "tokenが登録されていないとき" do
+      let(:user) { create(:user, token: nil) }
+
+      it 'ステータス404が返ってくる' do
+        post api_v1_token_auth_path, params: { user_id: user.id, token: nil }
         expect(response).to have_http_status(:bad_request)
       end
     end

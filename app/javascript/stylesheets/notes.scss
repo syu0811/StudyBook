@@ -101,6 +101,20 @@
     padding: 1px 10px;
   }
 
+  &_note-body {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.8em;
+    overflow: hidden;
+    padding: 0 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    span {
+      color: #000;
+      font-weight: 700;
+    }
+  }
+
   &__add-my-list {
     background-color: #d7fffd;
     border-radius: 5px;

@@ -1,5 +1,19 @@
 .row.m-0.p-0
   .left.col-3
+    .left__content
+      .left__header
+        .left__label
+          = t '.search_filter'
+      .left__form
+        = form_with(model: @notes, url: notes_path, local: true) do |f|
+          .left__label
+            = f.label :category_id, t('.category')
+          .left__select
+            = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
+          .left__label
+            = f.label :order, "並び替え"
+          .left__select
+            = f.select :order,[["更新時間", "update"], ["作成時間", "create"], ["名前", "name"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
   .main.col-8
     .list-header
       .list-header__content
@@ -18,7 +32,8 @@
         - @my_lists.each do |my_list|
           .my-lists__my-list
             .my-lists__my-list-main
-              = link_to "削除", my_list_path(id: my_list.id, redirect_to_user_my_lists: true), method: :delete, class: "my-lists__my-list-deleet-button"
+              = link_to my_list_path(my_list.id), method: :delete, data: {confirm: t('.confirm')}, class: "my-lists__my-list-delete-button" do
+                = image_pack_tag 'trust.png'
               .my-lists__my-list-title
                 = link_to my_list.title, my_list_path(my_list), class: "my-lists__my-list-link"
               .my-lists__my-list-description
@@ -30,8 +45,4 @@
                 = my_list.category.name
 .right.col-1
 
-= form_with(model: @my_lists, url: user_my_lists_path, local: true) do |f|
-  .left__label
-  = f.label :category_id, t('.category')
-  .left__select
-  = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
+
