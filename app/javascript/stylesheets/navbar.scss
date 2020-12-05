@@ -5,6 +5,7 @@
 
   &__icon-image {
     background-color: #ccc;
+    background-image: url('../images/upload_image.png');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -12,15 +13,10 @@
     border-radius: 50%;
     cursor: pointer;
     height: 39px;
+    margin-left: 20px;
     margin-right: 10px;
     user-select: none;
     width: 39px;
-  }
-
-  &__icon-image--not-upload {
-    @extend .navbar__icon-image;
-
-    background-image: url('../images/upload_image.png');
   }
 
   &__user-pull-list {
