@@ -1,6 +1,10 @@
 .user.row
-  .col-2
-  .user__left-box.col-2
+  .col-1{ style: 'user-select: none' }
+  .user__left-box.col-3
+    - if current_user.image.attached?
+      .user__image{ style: "background-image: url(#{rails_blob_path(current_user.image)})" }
+    - else
+      .user__image
     .user__name
       = @user.nickname
     .user__profile
@@ -16,4 +20,4 @@
           .user__header-link
             = t '.my_lists'
     .user__body
-  .col-1
+  .col-1{ style: 'user-select: none' }

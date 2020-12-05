@@ -1,6 +1,34 @@
 .user {
   margin: 50px 0;
 
+  &__image {
+    background-color: #ccc;
+    background-image: url('../images/upload_image.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: solid 1px #ccc;
+    border-radius: 50%;
+    height: 150px;
+    margin: 0 auto;
+    width: 150px;
+  }
+
+  &__name {
+    font-size: 1.7em;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  &__profile {
+    margin: 0 auto;
+
+    a {
+      width: 100%;
+    }
+  }
+
   &__header {
     background-color: #beede5;
     border-radius: 15px 15px 0 0;
@@ -24,34 +52,5 @@
       color: rgba(0, 0, 0, 1);
       font-weight: 700;
     }
-  }
-
-  &__title {
-    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
-  }
-
-  &__image-field {
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    user-select: none;
-  }
-
-  &__prev-image {
-    background-color: #ccc;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: solid 1px #ccc;
-    border-radius: 50%;
-    height: 300px;
-    width: 300px;
-  }
-
-  &__prev-image--not-upload {
-    @extend .user__prev-image;
-
-    background-image: url('../images/upload_image.png');
   }
 }

@@ -12,11 +12,12 @@
     border-radius: 50%;
     height: 39px;
     margin-right: 10px;
+    user-select: none;
     width: 39px;
   }
 
   &__icon-image--not-upload {
-    @extend .user__prev-image;
+    @extend .navbar__icon-image;
 
     background-image: url('../images/upload_image.png');
   }
