@@ -12,3 +12,18 @@ window.userImageLoad = function(e) {
     reader.readAsDataURL(file);
   }
 };
+
+window.toggleUserList = function() {
+  let userPullList = document.getElementById('navbar_user_pull_list');
+  console.log(userPullList.dataset.open);
+  if(userPullList.dataset.open == 'true') {
+    // 閉じる classをnone
+    userPullList.style.display = 'none';
+    userPullList.dataset.open = 'false';
+  } else {
+    // 開く classをblock
+    userPullList.style.display = 'block';
+    userPullList.dataset.open = 'true';
+    console.log(userPullList.dataset.open);
+  }
+};

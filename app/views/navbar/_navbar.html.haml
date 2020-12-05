@@ -10,7 +10,14 @@
         = link_to t('.notes'), notes_path, class: 'nav-link'
       %li{ class:  "#{'active' if controller.controller_name == 'my_lists'}"}
         = link_to t('.my_lists'), my_lists_path, class: 'nav-link'
-      %li{ class:  "#{'active' if controller.controller_name == 'users'}"}
-        = link_to t('.mypage'), user_path(current_user.nickname), class: 'nav-link'
-      %li
-        = link_to t('.log_out'), destroy_user_session_path, method: :delete, class: 'nav-link'
+    - if current_user.image.attached?
+      .navbar__icon-image#navbar_user{ onclick: 'toggleUserList()', style: "background-image: url(#{rails_blob_path(current_user.image)})" }
+    - else
+      .navbar__icon-image--no-uploaded#navbar_user
+    .navbar__user-pull-list#navbar_user_pull_list{ data: { open: "false" }}
+      = link_to t('.mypage'), user_path(nickname: current_user.nickname), class: 'navbar__user-pull-item'
+      .navbar__user-pull-item
+        アプリを開く
+      .navbar__user-pull-item
+        後で見る
+      = link_to t('.log_out'), destroy_user_session_path, method: :delete, class: 'navbar__user-pull-item'
