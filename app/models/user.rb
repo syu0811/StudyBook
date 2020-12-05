@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :trackable, :lockable
 
+  has_one_attached :image
+
   has_many :notes, dependent: :destroy
   has_many :deleted_notes, dependent: :destroy
   has_many :my_lists, dependent: :destroy
@@ -21,6 +23,20 @@ class User < ApplicationRecord
   validates :birthdate, presence: true
   validate :birthdate_cannot_be_in_the_future
   validates :admin, inclusion: { in: [true, false] }
+  validate :image_size, if: :was_attached?
+
+  private
+
+  IMAGE_EXTENSION = ['image/png', 'image/jpg', 'image/jpeg'].freeze
+
+  def was_attached?
+    image.attached?
+  end
+
+  def image_size
+    errors.add(:image, "の拡張子が間違っています") unless image.content_type.in?(IMAGE_EXTENSION)
+    errors.add(:image, 'のサイズは10MB以下です') if image.blob.byte_size > 10000000
+  end
 
   def birthdate_cannot_be_in_the_future
     # 生年月日が入力済かつ未来日ではない
