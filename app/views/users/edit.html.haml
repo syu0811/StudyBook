@@ -1,5 +1,5 @@
 .devise
-  .devise__container.user
+  .devise__container.user-edit
     %h2.user-edit__title
       プロフィールの編集
     = form_with(model: @user, url: user_path(nickname: @user.nickname), local: true) do |f|
