@@ -18,6 +18,25 @@
     }
   }
 
+  &__my-list-user-image {
+    float: left;
+    height: 100%;
+    padding: 13px 10px;
+  }
+
+  &__my-list-user-image-icon {
+    background-color: #ccc;
+    background-image: url('../images/no_image_icon.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: solid 1px #ccc;
+    border-radius: 50%;
+    height: 50px;
+    user-select: none;
+    width: 50px;
+  }
+
   &__my-list-main {
     padding: 0 15px;
   }
