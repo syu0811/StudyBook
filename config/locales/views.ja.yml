@@ -5,6 +5,7 @@ ja:
       mypage: マイページ
       notes: ノート
       my_lists: マイリスト
+      setting: 設定
       log_out: ログアウト
   my_lists:
     index:
