@@ -11,6 +11,29 @@
     padding: 10px 30px;
   }
 
+  &__header-main {
+    overflow: hidden;
+  }
+
+  &__header-user-image {
+    float: left;
+    height: 100%;
+    padding: 0 10px 0 0;
+  }
+
+  &__header-user-image-icon {
+    background-color: #ccc;
+    background-image: url('../images/no_image_icon.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: solid 1px #ccc;
+    border-radius: 50%;
+    height: 50px;
+    user-select: none;
+    width: 50px;
+  }
+
   &__header_title {
     display: block;
     white-space: nowrap;
@@ -39,9 +62,8 @@
   }
 
   &__header-description {
-    clear: both;
     color: #464646;
-    font-size: 0.9em;
+    font-size: 1.2em;
     width: auto;
     word-wrap: break-word;
     $element: #{&};
@@ -58,7 +80,7 @@
     margin-bottom: 0;
   }
 
-  &__header-sub {
+  &__header-info {
     color: #6a6a6a;
     font-size: 0.7em;
     overflow: hidden;
@@ -111,6 +133,7 @@
 
   &__note {
     border-top: 1px solid #333;
+    cursor: grab;
     padding: 10px 0;
 
     &:first-of-type {
@@ -119,7 +142,27 @@
   }
 
   &__note-main {
+    overflow: hidden;
     padding: 0 15px;
+  }
+
+  &__note-user-image {
+    float: left;
+    height: 100%;
+    padding: 5px 0;
+  }
+
+  &__note-user-image-icon {
+    background-color: #ccc;
+    background-image: url('../images/no_image_icon.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: solid 1px #ccc;
+    border-radius: 50%;
+    height: 40px;
+    user-select: none;
+    width: 40px;
   }
 
   &__note-destroy-button {
@@ -141,11 +184,10 @@
     }
   }
 
-  &__note-sub {
+  &__note-info {
     color: #6a6a6a;
     font-size: 0.8em;
     overflow: hidden;
-    padding: 0 15px;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -170,7 +212,6 @@
   &__note-tags {
     color: #6a6a6a;
     font-size: 0.75em;
-    padding: 0 15px;
   }
 
   &__note-tag {

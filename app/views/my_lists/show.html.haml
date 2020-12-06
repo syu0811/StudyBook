@@ -9,17 +9,23 @@
       .my-list__notes#my_list_notes{ data: { sortable: "#{current_user.id == @my_list.user_id}" } }
         - @my_list_notes.each do |my_list_note|
           .my-list__note{data: { id: my_list_note.id }}
+            .my-list__note-user-image
+              - if my_list_note.note.user.image.attached?
+                .my-list__note-user-image-icon{ style: "background-image: url(#{rails_blob_path(my_list_note.note.user.image)})" }
+              - else
+                .my-list__note-user-image-icon
             .my-list__note-main
               - if @my_list.user_id == current_user.id
                 = link_to "削除", destroy_my_list_note_path(my_list_id: my_list_note.my_list_id, note_id: my_list_note.note_id), method: :delete, remote: true, onClick: "removeMyListNote(event)", class: 'my-list__note-destroy-button'
               .my-list__note-title
                 = link_to my_list_note.note.title, note_path(id: my_list_note.note.id, index: my_list_note.index, my_list_id: my_list_note.my_list_id)
-            .my-list__note-sub
-              .my-list__note-category
-                = my_list_note.note.category.name
-              .my-list__note-user
-                = "#{t('general.by')} #{my_list_note.note.user.nickname}"
-            .my-list__note-tags
-              - my_list_note.note.tags.each do |tag|
-                .my-list__note-tag
-                  = tag.name
+              .my-list__note-info
+                .my-list__note-category
+                  = my_list_note.note.category.name
+                .my-list__note-user
+                  = "#{t('general.by')} #{my_list_note.note.user.nickname}"
+              .my-list__note-tags
+                - my_list_note.note.tags.each do |tag|
+                  .my-list__note-tag
+                    = tag.name
+              .clear
