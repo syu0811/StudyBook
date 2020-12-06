@@ -1,6 +1,44 @@
 .user {
   margin: 50px 0;
 
+  &__image {
+    background-color: #ccc;
+    background-image: url('../images/no_image_icon.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: solid 1px #ccc;
+    border-radius: 50%;
+    height: 150px;
+    margin: 0 auto;
+    user-select: none;
+    width: 150px;
+  }
+
+  &__name {
+    font-size: 1.7em;
+    font-weight: 600;
+    height: 37px;
+    height: 36px;
+    margin-top: 20px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__profile {
+    height: 36px;
+    margin: 20px auto 0 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    a {
+      width: 100%;
+    }
+  }
+
   &__header {
     background-color: #beede5;
     border-radius: 15px 15px 0 0;

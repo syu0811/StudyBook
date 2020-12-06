@@ -1,0 +1,32 @@
+.user-edit {
+  min-width: 440px;
+
+  &__title {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  }
+
+  &__image-field {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    user-select: none;
+  }
+
+  &__prev-image {
+    background-color: #ccc;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: solid 1px #ccc;
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+  }
+
+  &__prev-image--not-upload {
+    @extend .user-edit__prev-image;
+
+    background-image: url('../images/upload_image.png');
+  }
+}
