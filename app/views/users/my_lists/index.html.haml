@@ -1,5 +1,5 @@
 .row.m-0.p-0
-  .left.col-3
+  .left.col-2
     .left__content
       .left__header
         .left__label
@@ -26,11 +26,17 @@
             = t '.my_lists'
 
     .my-lists
+      %hr.my-lists__hr--top
       - if @my_lists.empty?
         = t '.empty'
       - else
         - @my_lists.each do |my_list|
           .my-lists__my-list
+            .my-lists__my-list-user-image
+              - if my_list.user.image.attached?
+                .my-lists__my-list-user-image-icon{ style: "background-image: url(#{rails_blob_path(my_list.user.image)})" }
+              - else
+                .my-lists__my-list-user-image-icon
             .my-lists__my-list-main
               = link_to my_list_path(my_list.id), method: :delete, data: {confirm: t('.confirm')}, class: "my-lists__my-list-delete-button" do
                 = image_pack_tag 'trust.png'
@@ -39,10 +45,10 @@
               .my-lists__my-list-description
                 = my_list.description
             .my-lists__my-list-sub
-              .my-lists__my-list-user
-                = "#{t('general.by')} #{my_list.user.nickname}"
               .my-lists__my-list-category
                 = my_list.category.name
-.right.col-1
+              .my-lists__my-list-user
+                = "#{t('general.by')} #{my_list.user.nickname}"
+.right.col-2
 
 
