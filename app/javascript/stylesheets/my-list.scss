@@ -64,6 +64,7 @@
   &__header-description {
     color: #464646;
     font-size: 1.2em;
+    white-space: normal;
     width: auto;
     word-wrap: break-word;
     $element: #{&};
