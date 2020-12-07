@@ -11,9 +11,9 @@
           .left__select
             = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
           .left__label
-            = f.label :order, "並び替え"
+            = f.label :order, t('.order')
           .left__select
-            = f.select :order,[["更新時間", "update"], ["作成時間", "create"], ["名前", "name"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
+            = f.select :order,[[t('.update'), "update"], [t('.create'), "create"], [t('.name'), "name"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
   .main.col-8
     .list-header
       .list-header__content
