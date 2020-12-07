@@ -14,7 +14,7 @@ ja:
       order: 並び替え
       update: 更新時間の降順
       create: 作成時間の降順
-      name: 名前の昇順
+      name: 名前順
     show:
       empty: ノートは存在しません
   notes:
@@ -43,7 +43,7 @@ ja:
         order: 並び替え
         update: 更新時間の降順
         create: 作成時間の降順
-        name: 名前の昇順
+        name: 名前順
     my_lists:
       index:
         notes: ノート
@@ -53,7 +53,7 @@ ja:
         order: 並び替え
         update: 更新時間の降順
         create: 作成時間の降順
-        name: 名前の昇順
+        name: 名前順
 
   admin:
     index:
