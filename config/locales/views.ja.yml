@@ -11,6 +11,10 @@ ja:
     index:
       my_lists: マイリスト
       notes: ノート
+      order: 並び替え
+      update: 更新時間の降順
+      create: 作成時間の降順
+      name: 名前の昇順
     show:
       empty: ノートは存在しません
   notes:
@@ -19,6 +23,9 @@ ja:
       notes: ノート
       category: カテゴリー
       search_filter: 検索フィルタ
+      order: 並び替え
+      update: 更新時間の降順
+      create: 作成時間の降順
     show:
       next: 次へ
       prev: 前へ
@@ -33,12 +40,20 @@ ja:
         category: カテゴリー
         notes: ノート
         my_lists: マイリスト
+        order: 並び替え
+        update: 更新時間の降順
+        create: 作成時間の降順
+        name: 名前の昇順
     my_lists:
       index:
         notes: ノート
         my_lists: マイリスト
         empty: マイリストは存在しません
         confirm: 本当にマイリストを削除しますか？
+        order: 並び替え
+        update: 更新時間の降順
+        create: 作成時間の降順
+        name: 名前の昇順
 
   admin:
     index:
