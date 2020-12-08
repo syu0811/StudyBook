@@ -1,5 +1,10 @@
 
-= link_to "編集", edit_my_list_path, remote: true, class: "my-list__header-edit-button"
+- if my_list.user_id == current_user.id
+  = link_to "編集", edit_my_list_path, remote: true, class: "my-list__header-edit-button"
+- else
+  .subscribe
+    - is_my_list_subscribe = my_list.user_subscribe?(current_user.id)
+    .subscribe__button{ class: "#{is_my_list_subscribe ? 'subscribe__destroy' : 'subscribe__create'}", data: { isCreate: "#{is_my_list_subscribe ? 'false' : 'true'}" }, onclick: "subscribeMyList(event, '#{current_user.nickname}', #{my_list.id})" }
 .my-list__header-main
   .my-list__header-title
     .my-list__header-title-text
