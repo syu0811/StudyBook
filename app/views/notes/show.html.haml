@@ -3,6 +3,11 @@
     .note__main
       .note__title
         = @note.title
+      .note__user-image
+        - if @note.user.image.attached?
+          .note__user-image-icon{ style: "background-image: url(#{rails_blob_path(@note.user.image)})" }
+        - else
+          .note__user-image-icon
       .note__info
         .note__info-row-1
           .note__user

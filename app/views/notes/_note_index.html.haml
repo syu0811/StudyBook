@@ -1,6 +1,11 @@
 %hr.notes__hr--top
 - notes.each do |note|
   .notes__note
+    .notes__note-user-image
+      - if note.user.image.attached?
+        .notes__note-user-image-icon{ style: "background-image: url(#{rails_blob_path(note.user.image)})" }
+      - else
+        .notes__note-user-image-icon
     .notes__note-main
       = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
         = image_pack_tag 'book_icon_plus.png'

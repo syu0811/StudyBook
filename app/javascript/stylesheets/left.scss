@@ -44,4 +44,23 @@
       margin: 0;
     }
   }
+
+  &__option-check {
+    align-items: center;
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    overflow: hidden;
+    padding: 5px 8px;
+    white-space: nowrap;
+  }
+
+  &__option-check-label {
+    font-size: 0.75em;
+    font-weight: 600;
+    margin: 0 5px 0 0;
+    vertical-align: middle;
+  }
 }

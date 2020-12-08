@@ -18,6 +18,25 @@
     }
   }
 
+  &__note-user-image {
+    float: left;
+    height: 100%;
+    padding: 20px 10px;
+  }
+
+  &__note-user-image-icon {
+    background-color: #ccc;
+    background-image: url('../images/no_image_icon.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: solid 1px #ccc;
+    border-radius: 50%;
+    height: 50px;
+    user-select: none;
+    width: 50px;
+  }
+
   &__note-main {
     padding: 0 15px;
   }
@@ -105,7 +124,6 @@
     color: rgba(0, 0, 0, 0.5);
     font-size: 0.8em;
     overflow: hidden;
-    padding: 0 15px;
     text-overflow: ellipsis;
     white-space: nowrap;
 

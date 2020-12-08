@@ -1,5 +1,5 @@
 .row.m-0.p-0
-  .left.col-3
+  .left.col-2
     .left__content
       .left__header
         .left__label
@@ -11,9 +11,14 @@
           .left__select
             = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
           .left__label
-            = f.label :order, "並び替え"
+            = f.label :order, t('.order')
           .left__select
-            = f.select :order,[["更新時間", "update"], ["作成時間", "create"], ["名前", "name"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
+            = f.select :order,[[t('.update'), "update"], [t('.create'), "create"], [t('.name'), "name"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
+          .left__label
+            = t '.option'
+          .left__option-check
+            = f.label :user, t('.only_user_mylist'), class: 'left__option-check-label'
+            = f.check_box :user, { checked: params[:user] == 'true', class: 'left__option-check-box', onclick: "setUserMyListParams(event)"}, true, false
   .main.col-8
     .list-header
       .list-header__content
@@ -26,23 +31,33 @@
             = t '.my_lists'
 
     .my-lists
+      %hr.my-lists__hr--top
       - if @my_lists.empty?
         = t '.empty'
       - else
         - @my_lists.each do |my_list|
           .my-lists__my-list
+            .my-lists__my-list-user-image
+              - if my_list.user.image.attached?
+                .my-lists__my-list-user-image-icon{ style: "background-image: url(#{rails_blob_path(my_list.user.image)})" }
+              - else
+                .my-lists__my-list-user-image-icon
             .my-lists__my-list-main
-              = link_to my_list_path(my_list.id), method: :delete, data: {confirm: t('.confirm')}, class: "my-lists__my-list-delete-button" do
-                = image_pack_tag 'trust.png'
+              - if my_list.user_id == current_user.id
+                = link_to my_list_path(my_list.id), method: :delete, data: {confirm: t('.confirm')}, class: "my-lists__my-list-delete-button" do
+                  = image_pack_tag 'trust.png'
+              - else
+                .subscribe
+                  .subscribe__button{ class: "#{@user_subscribe_my_list_ids.include?(my_list.id) ? 'subscribe__destroy' : 'subscribe__create'}", data: { isCreate: "#{@user_subscribe_my_list_ids.include?(my_list.id) ? 'false' : 'true'}" }, onclick: "subscribeMyList(event, '#{current_user.nickname}', #{my_list.id})" }
               .my-lists__my-list-title
                 = link_to my_list.title, my_list_path(my_list), class: "my-lists__my-list-link"
               .my-lists__my-list-description
                 = my_list.description
             .my-lists__my-list-sub
-              .my-lists__my-list-user
-                = "#{t('general.by')} #{my_list.user.nickname}"
               .my-lists__my-list-category
                 = my_list.category.name
-.right.col-1
+              .my-lists__my-list-user
+                = "#{t('general.by')} #{my_list.user.nickname}"
+.right.col-2
 
 

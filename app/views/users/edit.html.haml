@@ -1,12 +1,20 @@
 .devise
-  .devise__container
-    %h1
+  .devise__container.user-edit
+    %h2.user-edit__title
       プロフィールの編集
     = form_with(model: @user, url: user_path(nickname: @user.nickname), local: true) do |f|
       = render "devise/shared/error_messages", resource: @user
       .form-group
+        = f.label :image, class: "user-edit__image-field" do
+          - if @user.image.attached?
+            .user-edit__prev-image#user_image_upload{ style: "background-image: url(#{rails_blob_path(@user.image)})" }
+          - else
+            .user-edit__prev-image--not-upload#user_image_upload
+          = f.file_field :image, accept: 'image/png,image/jpeg', style: 'display: none', onchange: 'userImageLoad(event)'
+      .form-group
         = f.label :nickname
         %br/
         = f.text_field :nickname, class: 'form-control'
+
       .form-group
         = f.submit nil, class: 'btn btn-primary'

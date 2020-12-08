@@ -27,6 +27,14 @@ class Note < ApplicationRecord
   scope :full_search, lambda { |query|
     where('notes.title &@~ ? OR notes.body &@~ ?', query, query)
   }
+  scope :tags_search, lambda { |tag_params|
+    tags = tag_params.split(',')
+    tag_ids = Tag.where(name: tags).ids
+    return none unless tags.size == tag_ids.size
+
+    note_ids = NoteTag.where(tag_id: tag_ids).group(:note_id).having('count(*) = ?', tag_ids.size).pluck(:note_id)
+    where(id: note_ids)
+  }
 
   def add_guid
     self.guid = SecureRandom.uuid
@@ -74,6 +82,8 @@ class Note < ApplicationRecord
 
     def create_folders(directory_path, directory_tree, relative_path = Pathname(''))
       dir_name, child_path = directory_path.split('/', 2)
+      return unless dir_name
+
       relative_path = relative_path.join(dir_name)
       directory_tree[dir_name.to_sym] ||= { path: relative_path.to_path, name: dir_name }
       return unless child_path

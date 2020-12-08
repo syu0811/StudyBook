@@ -10,10 +10,20 @@
             = f.label :category_id, t('.category')
           .left__select
             = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
+      .left__form
+        .left__label
+          = 'タグ'
+        .left__tags
+          .tag-search
+            %form.tag-search__form{ onsubmit: 'addSearchTag(event)' }
+              %input.tag-search__input{ type: 'text', wrap: 'soft' }
+            .tag-search__tags.overflow-auto#search_tags
+      .left__form
+        = form_with(model: @notes, url: notes_path, local: true) do |f|
           .left__label
-            = f.label :order, "並び替え"
+            = f.label :order, t('.order')
           .left__select
-            = f.select :order,[["更新時間", "update"], ["作成時間", "create"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
+            = f.select :order,[[t('.update'), "update"], [t('.create'), "create"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
   .main.col-8.overflow-auto
     .search
       %form.search__container{ onsubmit: 'setSearchParams(event);' }
@@ -30,5 +40,12 @@
             = t '.my_lists'
     .notes#notes
       = render partial: 'note_index', locals: { notes: @notes }
+
+
+    /  != pagy_nav(@pagy)
+    .d-flex.justify-content-center.mb-2
+      != pagy_bootstrap_nav(@pagy)
+
+
   .right.col-2
 #new_my_list_form

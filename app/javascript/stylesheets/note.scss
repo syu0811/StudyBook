@@ -10,9 +10,35 @@
     padding: 20px 30px;
   }
 
+  &__info {
+    overflow: hidden;
+  }
+
+  &__user-image {
+    float: left;
+    height: 100%;
+    padding: 10px 10px 8px 0;
+  }
+
+  &__user-image-icon {
+    background-color: #ccc;
+    background-image: url('../images/no_image_icon.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: solid 1px #ccc;
+    border-radius: 50%;
+    flex: 0 1 auto;
+    height: 60px;
+    user-select: none;
+    width: 60px;
+  }
+
   &__info-row-1 {
     margin-top: 10px;
+    overflow: hidden;
     padding-left: 4px;
+    white-space: nowrap;
   }
 
   &__user {

@@ -16,6 +16,8 @@
 @import './note-my-list.scss';
 @import './search.scss';
 @import './subscribe.scss';
+@import './tag-search.scss';
+@import './user-edit.scss';
 
 body {
   background-color: #f5ebdf;
@@ -47,4 +49,8 @@ body {
 
 .row {
   min-width: 720px;
+}
+
+.clear {
+  clear: both;
 }
