@@ -9,6 +9,7 @@ module Users
     def get_my_lists
       @my_lists = MyList.includes(:category, :user).where(user: current_user).or(MyList.includes(:category, :user).where(id: SubscribeMyList.where(user: current_user).pluck(:my_list_id)))
       @my_lists = @my_lists.where(category_id: params[:category]) if params[:category].present?
+      @my_lists = @my_lists.where(user_id: current_user.id) if params[:user] == 'true'
       @my_lists = @my_lists.specified_order(params[:order])
     end
 

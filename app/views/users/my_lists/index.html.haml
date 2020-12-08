@@ -14,6 +14,11 @@
             = f.label :order, t('.order')
           .left__select
             = f.select :order,[[t('.update'), "update"], [t('.create'), "create"], [t('.name'), "name"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
+          .left__label
+            = t '.option'
+          .left__option-check
+            = f.label :user, t('.only_user_mylist'), class: 'left__option-check-label'
+            = f.check_box :user, { checked: params[:user] == 'true', class: 'left__option-check-box', onclick: "setUserMyListParams(event)"}, true, false
   .main.col-8
     .list-header
       .list-header__content

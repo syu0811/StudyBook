@@ -44,3 +44,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+window.setUserMyListParams = function(e) {
+  let url = new URL(location);
+  console.log(e.target.checked);
+  url.searchParams.set('user', e.target.checked);
+  location.href = url.toString();
+};

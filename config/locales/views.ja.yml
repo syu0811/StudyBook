@@ -54,6 +54,8 @@ ja:
         update: 更新時間の降順
         create: 作成時間の降順
         name: 名前順
+        option: オプション
+        only_user_mylist: ユーザのマイリストのみ
 
   admin:
     index:
