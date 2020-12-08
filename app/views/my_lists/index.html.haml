@@ -14,7 +14,11 @@
             = f.label :order, "並び替え"
           .left__select
             = f.select :order,[["更新時間", "update"], ["作成時間", "create"], ["名前", "name"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
-  .main.col-8
+  .main.col-8.overflow-auto
+    .search
+      %form.search__container{ onsubmit: 'setSearchParams(event);' }
+        %input#search_field{ type: 'text',  value: params[:q], place_holder: 'キーワード検索', class: "search__text-field"}
+        %input.search__icon{ type: 'submit', value: "\uF002"}
     .list-header
       .list-header__content
         = link_to notes_path, class: "list-header__link" do
