@@ -82,6 +82,8 @@ class Note < ApplicationRecord
 
     def create_folders(directory_path, directory_tree, relative_path = Pathname(''))
       dir_name, child_path = directory_path.split('/', 2)
+      return unless dir_name
+
       relative_path = relative_path.join(dir_name)
       directory_tree[dir_name.to_sym] ||= { path: relative_path.to_path, name: dir_name }
       return unless child_path
