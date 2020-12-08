@@ -86,4 +86,25 @@ RSpec.describe MyList, type: :model do
       end
     end
   end
+
+  describe "#user_subscribe?" do
+    subject { my_list.user_subscribe?(user.id) }
+
+    let(:user) { create(:user) }
+    let(:my_list) { create(:my_list, user: user) }
+
+    context "サブスクライブが存在しない場合" do
+      it { is_expected.to eq(false) }
+    end
+
+    context "サブスクライブが存在する場合" do
+      let(:subscribe_my_list) { create(:subscribe_my_list, user: user, my_list: my_list) }
+
+      before do
+        subscribe_my_list
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
 end
