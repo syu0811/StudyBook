@@ -167,10 +167,17 @@
   }
 
   &__note-destroy-button {
-    @extend .btn, .btn-danger;
-
+    background-color: #dc3545;
+    border-radius: 5px;
     float: right;
-    width: 58px;
+    height: 32px;
+    width: 32px;
+
+    img {
+      height: 32px;
+      padding: 5px;
+      width: 32px;
+    }
   }
 
   &__note-title {
