@@ -24,10 +24,6 @@ class NotesController < ApplicationController
   end
 
   def read_user_registration
-    if NoteReadUser.regist(params[:note_id].to_i, current_user.id)
-      flash.now[:notice] = '登録に成功しました'
-    else
-      flash.now[:danger] = '登録に失敗しました'
-    end
+    NoteReadUser.user_save(params[:note_id].to_i, current_user.id)
   end
 end
