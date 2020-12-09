@@ -1,5 +1,6 @@
 class NotesController < ApplicationController
   before_action :get_note, only: [:show]
+  before_action :read_user_registration, only: [:show]
   include Pagy::Backend   # Pagyを使えるようになる魔法の呪文
   ITEMS_PER_PAGE = 20
   def index
@@ -20,5 +21,13 @@ class NotesController < ApplicationController
   def get_note
     @note = Note.includes(:user, :category, :tags).find(params[:id])
     get_list if params[:my_list_id].present?
+  end
+
+  def read_user_registration
+    if NoteReadUser.regist(params[:note_id].to_i, current_user.id)
+      flash.now[:notice] = '登録に成功しました'
+    else
+      flash.now[:danger] = '登録に失敗しました'
+    end
   end
 end
