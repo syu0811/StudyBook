@@ -8,6 +8,7 @@ class Note < ApplicationRecord
   has_many :my_lists, through: :my_list_notes
 
   has_many :note_read_users
+  has_many :users, through: :note_read_users
 
   validates :user_id, presence: true
   validates :category_id, presence: true

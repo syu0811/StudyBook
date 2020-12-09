@@ -7,14 +7,13 @@ class User < ApplicationRecord
 
   has_one_attached :image
 
-  has_many :notes, dependent: :destroy
+  has_many :note_read_users
+  has_many :notes, dependent: :destroy, through: :note_read_users
   has_many :deleted_notes, dependent: :destroy
   has_many :my_lists, dependent: :destroy
 
   has_many :subscribe_my_lists, dependent: :destroy
   has_many :subscribe_my_list_my_lists, through: :subscribe_my_lists, source: :my_lists
-
-  has_many :note_read_users
 
   # 名前は全角平仮名、漢字（鬼車）のみ許可
   VALID_NAME_REGEX = /\A(?:\p{Hiragana}|[ー－]|[一-龠々])+\z/.freeze
