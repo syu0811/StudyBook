@@ -21,21 +21,7 @@ class NotesController < ApplicationController
   def get_note
     @note = Note.includes(:user, :category, :tags).find(params[:id])
     get_list if params[:my_list_id].present?
-  end
-
-  def get_related_notes_list
-    #ログインしているユーザーが見ているノートを見たことがあるユーザー一覧を取得
-    @looked_users = NoteReadUser.where(note_id: params[:id])
-
-    #取得したユーザー一覧からそのユーザーたちが見ていたノート一覧を取得
-    @looked_notes = NoteReadUser.where(user_id: @looked_users.user_id)
-
-    #さらに取得したノート一覧から同じカテゴリーのノート一覧を取得
-    @related_notes = Note.includes(:user, :category, :tags).where(id: @looked_notes.note_id, category_id: @note.category_id)
-
-    #同じカテゴリーのノート一覧からタグが一致しているノート一覧を取得
-    @tags = NoteTag.where(note_id: params[:id])
-    @related_notes = NoteTag.where(note_id: @related_notes.id, tag_id: @tags.tag_id)
+    @related_notes = NoteReadUser.get_related_notes_list(params[:id])
   end
 
   def read_user_registration
