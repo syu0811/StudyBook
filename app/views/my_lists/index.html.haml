@@ -14,7 +14,11 @@
             = f.label :order, t('.order')
           .left__select
             = f.select :order,[[t('.update'), "update"], [t('.create'), "create"], [t('.name'), "name"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
-  .main.col-8
+  .main.col-8.overflow-auto
+    .search
+      %form.search__container{ onsubmit: 'setSearchParams(event);' }
+        %input#search_field{ type: 'text',  value: params[:q], place_holder: 'キーワード検索', class: "search__text-field"}
+        %input.search__icon{ type: 'submit', value: "\uF002"}
     .list-header
       .list-header__content
         = link_to notes_path, class: "list-header__link" do
@@ -43,7 +47,10 @@
             .my-lists__my-list-title
               = link_to my_list.title, my_list_path(my_list), class: "my-lists__my-list-link"
             .my-lists__my-list-description
-              = my_list.description
+              - if my_list.try(:high_light_description) && my_list.high_light_description[0].present?
+                = raw my_list.high_light_description[0]
+              - else
+                = my_list.description[0..100]
           .my-lists__my-list-sub
             .my-lists__my-list-category
               = my_list.category.name
