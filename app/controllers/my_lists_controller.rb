@@ -39,9 +39,9 @@ class MyListsController < ApplicationController
     end
 
     if params[:redirect_to_user_my_lists] == 'true'
-      redirect_to user_my_lists_path(current_user.nickname, destroy_redirect_params)
+      redirect_to user_my_lists_path(current_user.nickname, query_params)
     else
-      redirect_to my_lists_path(destroy_redirect_params)
+      redirect_to my_lists_path(query_params)
     end
   end
 
@@ -67,9 +67,5 @@ class MyListsController < ApplicationController
 
   def get_user_subscribe_my_list_ids
     @user_subscribe_my_list_ids = current_user.subscribe_my_lists.pluck(:my_list_id)
-  end
-
-  def destroy_redirect_params
-    params.permit(:category, :order, :page, :user)
   end
 end

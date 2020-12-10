@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
   def authenticate_admin!
     redirect_to user_path(current_user.nickname) unless current_user.admin
   end
+
+  def query_params
+    params.permit(:category, :order, :page, :user)
+  end
 end
