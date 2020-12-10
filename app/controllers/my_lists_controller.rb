@@ -39,9 +39,9 @@ class MyListsController < ApplicationController
     end
 
     if params[:redirect_to_user_my_lists] == 'true'
-      redirect_to user_my_lists_path(current_user.nickname)
+      redirect_to user_my_lists_path(current_user.nickname, query_params)
     else
-      redirect_to my_lists_path
+      redirect_to my_lists_path(query_params)
     end
   end
 

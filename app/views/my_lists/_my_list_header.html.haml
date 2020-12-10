@@ -1,6 +1,9 @@
 
 - if my_list.user_id == current_user.id
-  = link_to "編集", edit_my_list_path, remote: true, class: "my-list__header-edit-button"
+  = link_to my_list_path(my_list.id, redirect_to_user_my_lists: params[:redirect_to_user_my_lists]), method: :delete, data: {confirm: t('.confirm')}, class: 'my-list__header-destroy-button' do
+    = image_pack_tag 'trust.png'
+  = link_to edit_my_list_path, remote: true, class: "my-list__header-edit-button" do
+    = image_pack_tag 'edit_icon.png'
 - else
   .subscribe
     - is_my_list_subscribe = my_list.user_subscribe?(current_user.id)
