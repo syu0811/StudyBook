@@ -29,4 +29,8 @@ class MyList < ApplicationRecord
   rescue
     false
   end
+
+  def user_subscribe?(user_id)
+    subscribe_my_lists.where(user_id: user_id).exists?
+  end
 end
