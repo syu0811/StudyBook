@@ -50,7 +50,7 @@
               - if my_list.try(:high_light_description) && my_list.high_light_description[0].present?
                 = raw my_list.high_light_description[0]
               - else
-                = my_list.description[0..100]
+                = my_list&.description ? my_list.description[0..100] : ""
           .my-lists__my-list-sub
             .my-lists__my-list-category
               = my_list.category.name
