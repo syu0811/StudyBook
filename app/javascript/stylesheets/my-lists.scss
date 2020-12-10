@@ -73,14 +73,16 @@
   }
 
   &__my-list-description {
-    color: #464646;
-    font-size: 0.9em;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.8em;
     overflow: hidden;
-    padding-left: 8px;
-    padding-right: 10px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: auto;
+
+    span {
+      color: #000;
+      font-weight: 700;
+    }
   }
 
   &__my-list-sub {
