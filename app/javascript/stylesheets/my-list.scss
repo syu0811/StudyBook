@@ -11,6 +11,20 @@
     padding: 10px 30px;
   }
 
+  &__header-destroy-button {
+    background-color: #dc3545;
+    border-radius: 5px;
+    float: right;
+    height: 40px;
+    width: 40px;
+
+    img {
+      height: 40px;
+      padding: 5px;
+      width: 40px;
+    }
+  }
+
   &__header-main {
     overflow: hidden;
   }

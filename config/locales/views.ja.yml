@@ -15,8 +15,11 @@ ja:
       update: 更新時間の降順
       create: 作成時間の降順
       name: 名前順
+      confirm: 本当にマイリストを削除しますか？
     show:
       empty: ノートは存在しません
+    my_list_header:
+      confirm: 本当にマイリストを削除しますか？
   notes:
     index:
       my_lists: マイリスト
