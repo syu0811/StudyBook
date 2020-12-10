@@ -69,10 +69,18 @@
   }
 
   &__header-edit-button {
-    @extend .btn, .btn-outline-dark;
-
+    background-color: #3c6;
+    border-radius: 5px;
     float: right;
-    width: 58px;
+    height: 40px;
+    margin-right: 5px;
+    width: 40px;
+
+    img {
+      height: 40px;
+      padding: 5px;
+      width: 40px;
+    }
   }
 
   &__header-description {
