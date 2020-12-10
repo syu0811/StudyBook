@@ -8,6 +8,9 @@ ja:
       note:
         title: タイトル
         body: 内容
+      my_list:
+        title: タイトル
+        description: 説明
     models:
       tag: タグ
       category: 'カテゴリー'
