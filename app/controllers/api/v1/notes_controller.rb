@@ -23,7 +23,7 @@ module Api
       private
 
       def put_note_params
-        params.permit(notes: [:local_id, :guid, :title, :body, :category_id, { tags: [:id, :name] }])
+        params.permit(notes: [:local_id, :guid, :title, :body, :category_id, :directory_path, { tags: [:id, :name] }])
       end
 
       def permit_note_params(note_params)
