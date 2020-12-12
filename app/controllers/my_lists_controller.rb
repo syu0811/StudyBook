@@ -39,9 +39,9 @@ class MyListsController < ApplicationController
     end
 
     if params[:redirect_to_user_my_lists] == 'true'
-      redirect_to user_my_lists_path(current_user.nickname)
+      redirect_to user_my_lists_path(current_user.nickname, query_params)
     else
-      redirect_to my_lists_path
+      redirect_to my_lists_path(query_params)
     end
   end
 
@@ -54,6 +54,7 @@ class MyListsController < ApplicationController
   def get_my_lists
     @my_lists = MyList.includes(:category, :user)
     @my_lists = @my_lists.where(category_id: params[:category]) if params[:category].present?
+    @my_lists = @my_lists.high_light_full_search(params[:q]) if params[:q].present?
     @my_lists = @my_lists.specified_order(params[:order])
   end
 
