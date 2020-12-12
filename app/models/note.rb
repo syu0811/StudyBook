@@ -50,7 +50,7 @@ class Note < ApplicationRecord
     errors = []
     note_tags.destroy_all
     tags.each do |tag|
-      tag_id = tag[:id].present? ? tag[:id] : Tag.create_or_find_by(name: tag[:name]).id
+      tag_id = tag[:id].present? ? tag[:id] : Tag.find_or_create_by(name: tag[:name]).id
       errors.push(tag) unless note_tags.new(tag_id: tag_id).save
     end
     errors
