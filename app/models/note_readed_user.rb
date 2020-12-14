@@ -13,14 +13,12 @@ class NoteReadedUser < ApplicationRecord
     @related_notes = Note.includes(:user, :category, :tags).where(id: @looked_notes.pluck(:note_id), category_id: looking_note.category_id).where.not(id: looking_note.id)
 
     # 同じカテゴリーのノート一覧からタグが一致しているノート一覧を取得
-    @tag_notes = NoteTag.where(note_id: looking_note.id)
-    @tag_notes = NoteTag.where(tag_id: @tag_notes.pluck(:tag_id)) if @tag_notes.present?
+    @tag_notes = NoteTag.where(tag_id: NoteTag.where(note_id: looking_note.id))
     @related_notes = @related_notes.where(id: @tag_notes.pluck(:note_id)) if @tag_notes.present?
     @related_notes
   rescue  # 今見ているノートを見たことがあるユーザーが一人もいなかった場合、全体のノートをもとに関連ノートを取得する
     @related_notes = Note.includes(:user, :category, :tags).where(category_id: looking_note.category_id).where.not(id: looking_note.id)
-    @tag_notes = NoteTag.where(note_id: looking_note.id)
-    @tag_notes = NoteTag.where(tag_id: @tag_notes.pluck(:tag_id)) if @tag_notes.present?
+    @tag_notes = NoteTag.where(tag_id: NoteTag.where(note_id: looking_note.id))
     @related_notes = @related_notes.where(id: @tag_notes.pluck(:note_id)) if @tag_notes.present?
     @related_notes
   end
