@@ -20,6 +20,10 @@
           .left__select
             = f.select :order,[[t('.update'), "update"], [t('.create'), "create"], [t('.name'), "name"]], {selected: params[:order]},{ onchange: "setSortParamsAjax(this.value);", class: 'form-control left-pull-list'}
   .main.col-8
+    .search
+      %form.search__container{ onsubmit: 'setSearchParams(event);' }
+        %input#search_field{ type: 'text',  value: params[:q], place_holder: 'キーワード検索', class: "search__text-field"}
+        %input.search__icon{ type: 'submit', value: "\uF002"}
     .list-header
       .list-header__content--active
         = link_to user_notes_path, class: "list-header__link" do
