@@ -10,8 +10,9 @@ class NoteReadedUser < ApplicationRecord
     @related_notes = Note.includes(:user, :category, :tags).where(category_id: looking_note.category_id).where.not(id: looking_note.id)
     @related_notes = Note.includes(:user, :category, :tags).where(id: @looked_notes.pluck(:note_id), category_id: looking_note.category_id).where.not(id: looking_note.id) if @looked_notes.present?
     @tag_notes = NoteTag.where(tag_id: NoteTag.where(note_id: looking_note.id))
-    @related_notes = @related_notes.where(id: @tag_notes.pluck(:note_id)) if @tag_notes.present?
-
+    @related_tag_notes = @related_notes.where(id: @tag_notes.pluck(:note_id)) if @tag_notes.present?
+    @related_notes += @related_tag_notes if @tag_notes.present?
+    
     @related_notes
   end
 end
