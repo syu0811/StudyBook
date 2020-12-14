@@ -52,5 +52,7 @@
                 = m.index + 1
               .note-my-list__note-title
                 = m.note.title
-
+  - @related_notes.each do |note|
+    = note.title
+    %br
 #new_my_list_form
