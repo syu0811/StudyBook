@@ -3,6 +3,8 @@ module Users
     before_action :authenticate_user_nickname!, only: [:index]
     before_action :get_my_lists, only: [:index]
     before_action :get_user_subscribe_my_list_ids, only: [:index]
+    include Pagy::Backend
+    ITEMS_PER_PAGE = 20
 
     private
 
@@ -11,6 +13,7 @@ module Users
       @my_lists = @my_lists.where(category_id: params[:category]) if params[:category].present?
       @my_lists = @my_lists.where(user_id: current_user.id) if params[:user] == 'true'
       @my_lists = @my_lists.specified_order(params[:order])
+      @pagy, @my_lists = pagy(@my_lists, items: ITEMS_PER_PAGE)
     end
 
     def get_user_subscribe_my_list_ids

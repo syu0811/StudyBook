@@ -1,7 +1,8 @@
 class NotesController < ApplicationController
   before_action :get_note, only: [:show]
-  include Pagy::Backend   # Pagyを使えるようになる魔法の呪文
+  include Pagy::Backend
   ITEMS_PER_PAGE = 20
+
   def index
     @notes = Note.includes(:category, :tags, user: { image_attachment: :blob })
     @notes = @notes.where(category_id: params[:category]) if params[:category].present?
