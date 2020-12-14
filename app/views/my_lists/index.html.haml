@@ -7,7 +7,7 @@
       .left__form
         = form_with(model: @my_lists, url: my_lists_path, local: true) do |f|
           .left__label
-            = f.label :category_id, t('.category')
+            = f.label :category_id, Category.model_name.human
           .left__select
             = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
           .left__label
