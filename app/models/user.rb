@@ -7,8 +7,8 @@ class User < ApplicationRecord
 
   has_one_attached :image
 
-  has_many :note_read_users
-  has_many :notes, dependent: :destroy, through: :note_read_users
+  has_many :note_readed_users
+  has_many :notes, dependent: :destroy, through: :note_readed_users
   has_many :deleted_notes, dependent: :destroy
   has_many :my_lists, dependent: :destroy
 

@@ -21,10 +21,14 @@ class NotesController < ApplicationController
   def get_note
     @note = Note.includes(:user, :category, :tags).find(params[:id])
     get_list if params[:my_list_id].present?
-    @related_notes = NoteReadUser.get_related_notes_list(params[:id])
+    get_reladed_notes_list
+  end
+
+  def get_reladed_notes_list
+    @related_notes = NoteReadedUser.get_reladed_notes_list(@note)
   end
 
   def read_user_registration
-    NoteReadUser.new(note_id: params[:id], user_id: current_user.id).save
+    NoteReadedUser.new(note_id: params[:id], user_id: current_user.id).save
   end
 end

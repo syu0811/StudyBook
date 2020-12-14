@@ -7,8 +7,8 @@ class Note < ApplicationRecord
   has_many :my_list_notes, dependent: :destroy
   has_many :my_lists, through: :my_list_notes
 
-  has_many :note_read_users
-  has_many :users, through: :note_read_users
+  has_many :note_readed_users
+  has_many :users, through: :note_readed_users
 
   validates :user_id, presence: true
   validates :category_id, presence: true

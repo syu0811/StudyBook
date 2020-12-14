@@ -75,14 +75,14 @@ ActiveRecord::Schema.define(version: 2020_12_07_073231) do
     t.index ["user_id"], name: "index_my_lists_on_user_id"
   end
 
-  create_table "note_read_users", force: :cascade do |t|
+  create_table "note_readed_users", force: :cascade do |t|
     t.bigint "note_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["note_id", "user_id"], name: "index_note_read_users_on_note_id_and_user_id", unique: true
-    t.index ["note_id"], name: "index_note_read_users_on_note_id"
-    t.index ["user_id"], name: "index_note_read_users_on_user_id"
+    t.index ["note_id", "user_id"], name: "index_note_readed_users_on_note_id_and_user_id", unique: true
+    t.index ["note_id"], name: "index_note_readed_users_on_note_id"
+    t.index ["user_id"], name: "index_note_readed_users_on_user_id"
   end
 
   create_table "note_tags", force: :cascade do |t|
@@ -173,8 +173,8 @@ ActiveRecord::Schema.define(version: 2020_12_07_073231) do
   add_foreign_key "my_list_notes", "notes"
   add_foreign_key "my_lists", "categories"
   add_foreign_key "my_lists", "users"
-  add_foreign_key "note_read_users", "notes"
-  add_foreign_key "note_read_users", "users"
+  add_foreign_key "note_readed_users", "notes"
+  add_foreign_key "note_readed_users", "users"
   add_foreign_key "note_tags", "notes"
   add_foreign_key "note_tags", "tags"
   add_foreign_key "notes", "categories"
