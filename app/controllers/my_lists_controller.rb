@@ -3,6 +3,8 @@ class MyListsController < ApplicationController
   before_action :get_current_user_my_list, only: [:edit, :update, :destroy]
   before_action :get_categories, only: [:new, :edit]
   before_action :get_user_subscribe_my_list_ids, only: [:index]
+  include Pagy::Backend
+  ITEMS_PER_PAGE = 20
 
   def show
     @my_list = MyList.find(params[:id])
@@ -56,6 +58,7 @@ class MyListsController < ApplicationController
     @my_lists = @my_lists.where(category_id: params[:category]) if params[:category].present?
     @my_lists = @my_lists.high_light_full_search(params[:q]) if params[:q].present?
     @my_lists = @my_lists.specified_order(params[:order])
+    @pagy, @my_lists = pagy(@my_lists, items: ITEMS_PER_PAGE)
   end
 
   def get_current_user_my_list
