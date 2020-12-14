@@ -3,7 +3,7 @@ class NotesController < ApplicationController
   include Pagy::Backend   # Pagyを使えるようになる魔法の呪文
   ITEMS_PER_PAGE = 20
   def index
-    @notes = Note.includes(:user, :category, :tags)
+    @notes = Note.includes(:category, :tags, user: { image_attachment: :blob })
     @notes = @notes.where(category_id: params[:category]) if params[:category].present?
     @notes = @notes.high_light_full_search(params[:q]) if params[:q].present?
     @notes = @notes.tags_search(params[:tags]) if params[:tags].present?
