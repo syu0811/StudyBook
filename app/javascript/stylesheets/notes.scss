@@ -11,7 +11,7 @@
   &__note {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    padding: 10px 0;
+    padding: 4px 0;
 
     &:first-of-type {
       border-top: none;
@@ -75,15 +75,20 @@
   }
 
   &__note-sub {
+    align-items: center;
     color: #6a6a6a;
+    display: flex;
     font-size: 0.8em;
-    padding: 0 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__note-category {
     background-color: #caffe6;
     border-radius: 10px;
     display: inline-block;
+    margin-right: 3px;
     max-width: 30%;
     overflow: hidden;
     padding: 2px 8px;
@@ -92,6 +97,16 @@
 
   &__note-user {
     display: inline-block;
+    margin-right: 3px;
+    max-width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__note-updated-at {
+    display: inline-block;
+    margin-right: 3px;
     max-width: 30%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -100,7 +115,7 @@
 
   &__note-file-path {
     display: inline-block;
-    margin-left: 10px;
+    margin-right: 3px;
     max-width: 40%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -110,6 +125,7 @@
   &__note-tags {
     color: #6a6a6a;
     font-size: 0.75em;
+    margin-top: 2px;
     padding: 0 15px;
   }
 
@@ -124,6 +140,7 @@
     color: rgba(0, 0, 0, 0.5);
     font-size: 0.8em;
     overflow: hidden;
+    padding-left: 8px;
     text-overflow: ellipsis;
     white-space: nowrap;
 
@@ -147,5 +164,25 @@
       padding-bottom: 2px;
       vertical-align: middle;
     }
+  }
+
+  &__user-note-sub {
+    align-items: center;
+    color: #6a6a6a;
+    display: flex;
+    font-size: 0.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__user-note-tags {
+    color: #6a6a6a;
+    font-size: 0.75em;
+    margin-top: 2px;
+  }
+
+  &__note-no-tags {
+    margin-top: 10px;
   }
 }
