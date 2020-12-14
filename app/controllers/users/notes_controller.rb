@@ -9,7 +9,7 @@ module Users
       @notes = @notes.where(category_id: params[:category]) if params[:category].present?
       @notes = @notes.where('notes.directory_path LIKE ?', "#{params[:directory_path]}%")
       @notes = @notes.specified_order(params[:order])
-      @pagy, @notes = pagy(@notes, items: ITEMS_PER_PAGE)
+      @pagy, @notes = pagy(@notes, items: ITEMS_PER_PAGE, link_extra: 'data-remote="true"')
     end
   end
 end

@@ -1,4 +1,5 @@
 import Sortable from 'sortablejs';
+import { resetPage } from './search';
 
 window.addMyListNote = function (e, note_id, my_list_id) {
   const type = e.srcElement.checked ? 'POST' : 'DELETE';
@@ -49,5 +50,6 @@ window.setUserMyListParams = function(e) {
   let url = new URL(location);
   console.log(e.target.checked);
   url.searchParams.set('user', e.target.checked);
+  resetPage(url);
   location.href = url.toString();
 };
