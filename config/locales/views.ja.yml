@@ -9,6 +9,7 @@ ja:
       log_out: ログアウト
   my_lists:
     index:
+      search_filter: 検索フィルタ
       my_lists: マイリスト
       notes: ノート
       order: 並び替え
@@ -49,6 +50,7 @@ ja:
         name: 名前順
     my_lists:
       index:
+        search_filter: 検索フィルタ
         notes: ノート
         my_lists: マイリスト
         empty: マイリストは存在しません
