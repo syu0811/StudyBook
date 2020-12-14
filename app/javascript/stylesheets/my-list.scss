@@ -148,6 +148,15 @@
     width: 20%;
   }
 
+  &__header-updated-date {
+    display: inline-block;
+    max-width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
   &__notes {
     background-color: #fff;
     border-radius: 10px;
