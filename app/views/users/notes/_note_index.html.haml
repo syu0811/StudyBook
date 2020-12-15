@@ -20,6 +20,11 @@
         - note.tags.each do |tag|
           .notes__note-tag
             = tag.name
+      .notes_note-body
+        - if note.try(:high_light_body) && note.high_light_body[0].present?
+          = raw note.high_light_body[0]
+        - else
+          = note.body[0..100]
 
 .d-flex.justify-content-center.mb-2
   != pagy_bootstrap_nav(pagy)
