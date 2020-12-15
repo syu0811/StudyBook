@@ -13,16 +13,23 @@ RSpec.describe NoteReadedUser, type: :model do
     end
 
     context '異常系' do
-      it "user_idがない時にエラーが返ること" do
+      it "user_idが無ければ失敗する" do
         note_readed_user = build(:note_readed_user, note: note, user_id: nil)
         note_readed_user.valid?
         expect(note_readed_user.errors[:user_id]).to include("を入力してください")
       end
 
-      it "note_idがない時にエラーが返ること" do
+      it "note_idが無ければ失敗する" do
         note_readed_user = build(:note_readed_user, note_id: nil, user: user)
         note_readed_user.valid?
         expect(note_readed_user.errors[:note_id]).to include("を入力してください")
+      end
+
+      it "note_idとuser_idが重複している場合" do
+        create(:note_readed_user, note: note, user: user)
+        note_readed_user = build(:note_readed_user, note: note, user: user)
+        note_readed_user.valid?
+        expect(note_readed_user.errors[:user_id]).to include("はすでに存在します")
       end
     end
   end
@@ -49,12 +56,14 @@ RSpec.describe NoteReadedUser, type: :model do
     end
 
     context "タグがある場合" do
-      let(:tag_a) { create(:tag) }
-      let(:tag_b) { create(:tag) }
-      let(:note_ab) { create(:note, category: category_a) }
+      let!(:tag_a) { create(:tag) }
+      let!(:tag_b) { create(:tag) }
+      let!(:note_ab) { create(:note, category: category_a) }
+      let!(:note_ba) { create(:note, category: category_b) }
       let(:note_tag) { create(:note_tag, note: note, tag: tag_a) }
       let(:note_tag_a) { create(:note_tag, note: note_a, tag: tag_a) }
       let(:note_tag_ab) { create(:note_tag, note: note_ab, tag: tag_b) }
+      let(:note_tag_ba) { create(:note_tag, note: note_b, tag: tag_a) }
       let(:note_tag_b) { create(:note_tag, note: note_b, tag: tag_b) }
 
       it "同じカテゴリーのノートを取得できているか" do
@@ -71,6 +80,10 @@ RSpec.describe NoteReadedUser, type: :model do
 
       it "同じカテゴリーでタグが一致していないノートが含まれているか" do
         expect(described_class.get_reladed_notes_list(note_a)).to include(note_ab)
+      end
+
+      it "違うカテゴリーでタグが一致しているノートが含まれていないか" do
+        expect(described_class.get_reladed_notes_list(note_a)).not_to include(note_ba)
       end
     end
   end

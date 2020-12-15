@@ -12,7 +12,7 @@ class NoteReadedUser < ApplicationRecord
     @tag_notes = NoteTag.where(tag_id: NoteTag.where(note_id: looking_note.id))
     @related_tag_notes = @related_notes.where(id: @tag_notes.pluck(:note_id)) if @tag_notes.present?
     @related_notes += @related_tag_notes if @tag_notes.present?
-
+    @related_notes = @related_notes.joins(:note_tags).group(:tag_id, :id, :title).order(count: "DESC").count if @tag_notes.present?
     @related_notes
   end
 end
