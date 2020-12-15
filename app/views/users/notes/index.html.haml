@@ -14,11 +14,11 @@
           .left__label
             = f.label :category_id, Category.model_name.human
           .left__select
-            = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
+            = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "setCategoryParamsAjax(this.value);", class: 'form-control left-pull-list'}
           .left__label
             = f.label :order, t('.order')
           .left__select
-            = f.select :order,[[t('.update'), "update"], [t('.create'), "create"], [t('.name'), "name"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
+            = f.select :order,[[t('.update'), "update"], [t('.create'), "create"], [t('.name'), "name"]], {selected: params[:order]},{ onchange: "setSortParamsAjax(this.value);", class: 'form-control left-pull-list'}
   .main.col-8
     .list-header
       .list-header__content--active
@@ -30,9 +30,7 @@
           %span.list-header__link-text
             = t '.my_lists'
 
-    .notes#notes
-      = render partial: 'note_index', locals: { notes: @notes }
-    .d-flex.justify-content-center.mb-2
-      != pagy_bootstrap_nav(@pagy)
+    .notes.user-notes#notes
+      = render partial: 'note_index', locals: { notes: @notes, pagy: @pagy }
   .right.col-1
 #new_my_list_form

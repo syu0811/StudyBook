@@ -1,3 +1,13 @@
+.user-notes {
+  background-color: rgba(0, 0, 0, 0) !important;
+  padding: 0 !important;
+
+  .notes-body {
+    background-color: #fff !important;
+    padding: 0 10px;
+  }
+}
+
 .notes {
   background-color: #fff;
   padding: 0 10px;
