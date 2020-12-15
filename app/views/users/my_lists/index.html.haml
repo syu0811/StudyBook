@@ -20,6 +20,10 @@
             = f.label :user, t('.only_user_mylist'), class: 'left__option-check-label'
             = f.check_box :user, { checked: params[:user] == 'true', class: 'left__option-check-box', onclick: "setUserMyListParams(event)"}, true, false
   .main.col-8
+    .search
+      %form.search__container{ onsubmit: 'setSearchParams(event);' }
+        %input#search_field{ type: 'text',  value: params[:q], place_holder: 'キーワード検索', class: "search__text-field"}
+        %input.search__icon{ type: 'submit', value: "\uF002"}
     .list-header
       .list-header__content
         = link_to user_notes_path, class: "list-header__link" do
