@@ -47,7 +47,7 @@ RSpec.describe NoteReadedUser, type: :model do
       end
 
       it "関連ノートに現在見ているノートがない" do
-        expect(described_class.get_reladed_notes_list(note)).not_to include(note)
+        expect(described_class.get_reladed_notes_list(note)).not_to eq(note)
       end
 
       it "違うカテゴリーのノートが含まれていないか" do
@@ -59,9 +59,11 @@ RSpec.describe NoteReadedUser, type: :model do
       let!(:tag_a) { create(:tag) }
       let!(:tag_b) { create(:tag) }
       let!(:note_ab) { create(:note, category: category_a) }
+      let!(:note_aa) { create(:note, category: category_a) }
       let!(:note_ba) { create(:note, category: category_b) }
       let(:note_tag) { create(:note_tag, note: note, tag: tag_a) }
       let(:note_tag_a) { create(:note_tag, note: note_a, tag: tag_a) }
+      let(:note_tag_aa) { create(:note_tag, note: note_aa, tag: tag_a) }
       let(:note_tag_ab) { create(:note_tag, note: note_ab, tag: tag_b) }
       let(:note_tag_ba) { create(:note_tag, note: note_b, tag: tag_a) }
       let(:note_tag_b) { create(:note_tag, note: note_b, tag: tag_b) }
@@ -71,7 +73,7 @@ RSpec.describe NoteReadedUser, type: :model do
       end
 
       it "関連ノートに現在見ているノートがない" do
-        expect(described_class.get_reladed_notes_list(note)).not_to include(note)
+        expect(described_class.get_reladed_notes_list(note)).not_to eq(note)
       end
 
       it "違うカテゴリーのノートが含まれていないか" do
@@ -84,6 +86,10 @@ RSpec.describe NoteReadedUser, type: :model do
 
       it "違うカテゴリーでタグが一致しているノートが含まれていないか" do
         expect(described_class.get_reladed_notes_list(note_a)).not_to include(note_ba)
+      end
+
+      it "カテゴリーが存在しているノートが上位に来るようにソートできているか" do
+        expect(described_class.get_reladed_notes_list(note_a)).to match [note_aa, note_ab, note]
       end
     end
   end
