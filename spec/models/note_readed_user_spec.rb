@@ -35,11 +35,27 @@ RSpec.describe NoteReadedUser, type: :model do
   end
 
   describe ".get_reladed_notes_list" do
-    let!(:category_a) { create(:category) }
-    let!(:category_b) { create(:category) }
-    let!(:note) { create(:note, category: category_a) }
-    let!(:note_a) { create(:note, category: category_a) }
-    let!(:note_b) { create(:note, category: category_b) }
+    let(:category_a) { create(:category) }
+    let(:category_b) { create(:category) }
+
+    let(:note) { create(:note, user: user_a, category: category_a) }
+    let(:note_a) { create(:note, user: user_b, category: category_a) }
+    let(:note_b) { create(:note, user: user_b, category: category_b) }
+
+    let(:user_a) { create(:user) }
+    let(:user_b) { create(:user) }
+
+    before do
+      category_a
+      category_b
+
+      user_a
+      user_b
+
+      note
+      note_a
+      note_b
+    end
 
     context "タグがない場合" do
       it "同じカテゴリーのノートを取得できているか" do
@@ -51,29 +67,45 @@ RSpec.describe NoteReadedUser, type: :model do
       end
 
       it "違うカテゴリーのノートが含まれていないか" do
-        expect(described_class.get_reladed_notes_list(note_a)).not_to include(note_b)
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note_b)
       end
     end
 
     context "タグがある場合" do
-      let!(:tag_a) { create(:tag) }
-      let!(:tag_b) { create(:tag) }
-      let!(:note_ab) { create(:note, category: category_a) }
-      let!(:note_aa) { create(:note, category: category_a) }
-      let!(:note_ba) { create(:note, category: category_b) }
-      let(:note_tag) { create(:note_tag, note: note, tag: tag_a) }
+      let(:tag_a) { create(:tag) }
+      let(:tag_b) { create(:tag) }
+
+      let(:note_ab) { create(:note, user: user_b, category: category_a) }
+      let(:note_aa) { create(:note, user: user_b, category: category_a) }
+      let(:note_ba) { create(:note, user: user_b, category: category_b) }
+
       let(:note_tag_a) { create(:note_tag, note: note_a, tag: tag_a) }
       let(:note_tag_aa) { create(:note_tag, note: note_aa, tag: tag_a) }
       let(:note_tag_ab) { create(:note_tag, note: note_ab, tag: tag_b) }
-      let(:note_tag_ba) { create(:note_tag, note: note_b, tag: tag_a) }
+      let(:note_tag_ba) { create(:note_tag, note: note_ba, tag: tag_a) }
       let(:note_tag_b) { create(:note_tag, note: note_b, tag: tag_b) }
 
+      before do
+        tag_a
+        tag_b
+
+        note_ab
+        note_aa
+        note_ba
+
+        note_tag_a
+        note_tag_aa
+        note_tag_ab
+        note_tag_ba
+        note_tag_b
+      end
+
       it "同じカテゴリーのノートを取得できているか" do
-        expect(described_class.get_reladed_notes_list(note)).to include(note_a)
+        expect(described_class.get_reladed_notes_list(note_a)).to include(note_aa)
       end
 
       it "関連ノートに現在見ているノートがない" do
-        expect(described_class.get_reladed_notes_list(note)).not_to eq(note)
+        expect(described_class.get_reladed_notes_list(note_a)).not_to include(note_a)
       end
 
       it "違うカテゴリーのノートが含まれていないか" do
@@ -88,8 +120,8 @@ RSpec.describe NoteReadedUser, type: :model do
         expect(described_class.get_reladed_notes_list(note_a)).not_to include(note_ba)
       end
 
-      it "カテゴリーが存在しているノートが上位に来るようにソートできているか" do
-        expect(described_class.get_reladed_notes_list(note_a)).to match [note_aa, note_ab, note]
+      it "タグが一致しているノートが上位に来るようにソートできているか" do
+        expect(described_class.get_reladed_notes_list(note_a)).to match [note_aa, note_ab]
       end
     end
   end
