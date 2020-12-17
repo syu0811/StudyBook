@@ -15,7 +15,8 @@ class NoteReadedUser < ApplicationRecord
     # @tag_notes = 現在見ているノートと同じタグを持つノート一覧
 
     if @tag_notes.present?
-      @tag_notes = @category_notes.where(id: @tag_notes.pluck(:note_id))
+      # @tag_notes = @category_notes.where(id: @tag_notes.pluck(:note_id))
+      NoteTag.left_joins(:note).select('notes.id', 'title', 'category_id', 'COUNT(*) AS count').group('notes.id', 'title', 'category_id').order('count DESC')
       @related_notes = @category_notes.select('id', 'title', 'user_id', 'category_id', 'COUNT(*) AS count').joins(:note_tags).group('id', 'title', 'user_id', 'category_id').order("count DESC")
       # SELECT id, title, user_id, category_id, COUNT(*) as count
       # FROM Note JOIN NoteTag ON Note.id = NoteTag.note_id
