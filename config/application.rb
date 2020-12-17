@@ -12,6 +12,7 @@ require 'action_mailbox/engine'
 require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
+require 'influxdb-client'
 # require "sprockets/railtie"
 # require 'rails/test_unit/railtie'
 
@@ -40,6 +41,11 @@ module Myapp
     end
     # i18nの設定
     config.i18n.default_locale = :ja
+    config.time_zone = 'Tokyo'
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+
+    yaml_file = YAML.safe_load(ERB.new(Rails.root.join('config', 'config.yml').read).result)['study_book']
+    yaml_file.merge! YAML.load_file(Rails.root.join('config', 'local_config.yml'))['study_book'] if File.exist?(Rails.root.join('config', 'local_config.yml'))
+    config.influxdb = yaml_file["influxdb"]
   end
 end

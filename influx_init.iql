@@ -1,0 +1,4 @@
+CREATE DATABASE "study_book_test_db"
+GRANT ALL ON "study_book_test_db" TO "study"
+ALTER RETENTION POLICY "autogen" on "study_book_db" SHARD DURATION 1440h
+ALTER RETENTION POLICY "autogen" on "study_book_test_db" SHARD DURATION 1440h
