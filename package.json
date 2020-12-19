@@ -8,6 +8,7 @@
     "@rails/webpacker": "4.3.0",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.2",
+    "chart.js": "^2.9.4",
     "highlight.js": "^10.4.0",
     "jquery": "^3.5.1",
     "marked": "^1.2.0",
