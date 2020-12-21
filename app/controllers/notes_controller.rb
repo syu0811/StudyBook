@@ -1,6 +1,5 @@
 class NotesController < ApplicationController
   before_action :get_note, only: [:show]
-  before_action :read_user_registration, only: [:show]
   include Pagy::Backend   # Pagyを使えるようになる魔法の呪文
   ITEMS_PER_PAGE = 20
   def index
@@ -25,10 +24,6 @@ class NotesController < ApplicationController
   end
 
   def get_reladed_notes_list
-    @related_notes = NoteReadedUser.get_reladed_notes_list(@note)
-  end
-
-  def read_user_registration
-    NoteReadedUser.new(note_id: params[:id], user_id: current_user.id).save
+    @related_notes = Note.get_reladed_notes_list(@note)
   end
 end

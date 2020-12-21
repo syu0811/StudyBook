@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_07_073231) do
+ActiveRecord::Schema.define(version: 2020_12_05_030911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -73,16 +73,6 @@ ActiveRecord::Schema.define(version: 2020_12_07_073231) do
     t.index ["category_id"], name: "index_my_lists_on_category_id"
     t.index ["id", "title", "description"], name: "index_full_text_my_lists", opclass: { title: :pgroonga_varchar_full_text_search_ops }, using: :pgroonga
     t.index ["user_id"], name: "index_my_lists_on_user_id"
-  end
-
-  create_table "note_readed_users", force: :cascade do |t|
-    t.bigint "note_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["note_id", "user_id"], name: "index_note_readed_users_on_note_id_and_user_id", unique: true
-    t.index ["note_id"], name: "index_note_readed_users_on_note_id"
-    t.index ["user_id"], name: "index_note_readed_users_on_user_id"
   end
 
   create_table "note_tags", force: :cascade do |t|
@@ -173,8 +163,6 @@ ActiveRecord::Schema.define(version: 2020_12_07_073231) do
   add_foreign_key "my_list_notes", "notes"
   add_foreign_key "my_lists", "categories"
   add_foreign_key "my_lists", "users"
-  add_foreign_key "note_readed_users", "notes"
-  add_foreign_key "note_readed_users", "users"
   add_foreign_key "note_tags", "notes"
   add_foreign_key "note_tags", "tags"
   add_foreign_key "notes", "categories"

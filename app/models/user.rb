@@ -9,9 +9,6 @@ class User < ApplicationRecord
 
   has_many :notes, dependent: :destroy
 
-  has_many :note_readed_users, dependent: :destroy
-  has_many :note_readed_users_notes, through: :notes
-
   has_many :deleted_notes, dependent: :destroy
   has_many :my_lists, dependent: :destroy
 

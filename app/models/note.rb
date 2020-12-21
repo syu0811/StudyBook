@@ -7,9 +7,6 @@ class Note < ApplicationRecord
   has_many :my_list_notes, dependent: :destroy
   has_many :my_lists, through: :my_list_notes
 
-  has_many :note_readed_users, dependent: :destroy
-  has_many :note_readed_users_users, through: :users
-
   validates :user_id, presence: true
   validates :category_id, presence: true
   validates :title, presence: true, length: { maximum: 50 }
@@ -79,6 +76,13 @@ class Note < ApplicationRecord
         create_folders(path, directory_tree)
       end
       directory_tree
+    end
+
+    def get_reladed_notes_list(looking_note)
+      related_notes = Note.includes(:user, :category, :tags).where(category_id: looking_note.category_id).where.not(id: looking_note.id)
+      note_tags = NoteTag.where(tag_id: NoteTag.where(note_id: looking_note.id).pluck(:tag_id))
+      related_notes = related_notes.where(id: note_tags.pluck(:note_id)) unless note_tags.empty?
+      related_notes
     end
 
     private
