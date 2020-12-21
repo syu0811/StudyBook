@@ -38,12 +38,16 @@ RSpec.describe NoteReadedUser, type: :model do
     let(:category_a) { create(:category) }
     let(:category_b) { create(:category) }
 
+    let(:user_a) { create(:user) }
+    let(:user_b) { create(:user) }
+
     let(:note) { create(:note, user: user_a, category: category_a) }
     let(:note_a) { create(:note, user: user_b, category: category_a) }
     let(:note_b) { create(:note, user: user_b, category: category_b) }
 
-    let(:user_a) { create(:user) }
-    let(:user_b) { create(:user) }
+    let(:note_readed_user){ create(:note_readed_user, note: note, user: user_b) }
+    let(:note_readed_user_a){ create(:note_readed_user, note: note_a, user: user_b) }
+    let(:note_readed_user_b){ create(:note_readed_user, note: note_b, user: user_b) }
 
     before do
       category_a
@@ -55,6 +59,10 @@ RSpec.describe NoteReadedUser, type: :model do
       note
       note_a
       note_b
+
+      note_readed_user
+      note_readed_user_a
+      note_readed_user_b
     end
 
     context "タグがない場合" do

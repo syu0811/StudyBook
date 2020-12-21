@@ -6,24 +6,25 @@ class NoteReadedUser < ApplicationRecord
   validates :user_id, presence: true, uniqueness: { scope: :note_id }
 
   def self.get_reladed_notes_list(looking_note)
-    @looked_notes = NoteReadedUser.where(user_id: NoteReadedUser.where(note_id: looking_note.id).pluck(:user_id))
-    @category_notes = Note.includes(:user, :category, :tags).where(category_id: looking_note.category_id).where.not(id: looking_note.id)
-    @category_notes = Note.includes(:user, :category, :tags).where(id: @looked_notes.pluck(:note_id), category_id: looking_note.category_id).where.not(id: looking_note.id) if @looked_notes.present?
-    @tag_notes = NoteTag.where(tag_id: NoteTag.where(note_id: looking_note.id).pluck(:tag_id))
+    # ノートをみたユーザのみたノートid一覧
+    looked_note_ids = NoteReadedUser.where(user_id: NoteReadedUser.where(note_id: looking_note.id).pluck(:user_id)).pluck(:note_id)
+    looked_note_ids.delete(looking_note.id)
 
-    # @category_notes = 現在見ているノートと同じカテゴリーのノート一覧
-    # @tag_notes = 現在見ているノートと同じタグを持つノート一覧
-
-    if @tag_notes.present?
-      # @tag_notes = @category_notes.where(id: @tag_notes.pluck(:note_id))
-      NoteTag.left_joins(:note).select('notes.id', 'title', 'category_id', 'COUNT(*) AS count').group('notes.id', 'title', 'category_id').order('count DESC')
-      @related_notes = @category_notes.select('id', 'title', 'user_id', 'category_id', 'COUNT(*) AS count').joins(:note_tags).group('id', 'title', 'user_id', 'category_id').order("count DESC")
-      # SELECT id, title, user_id, category_id, COUNT(*) as count
-      # FROM Note JOIN NoteTag ON Note.id = NoteTag.note_id
-      # GROUP BY id, title, user_id, category_id
-      # ORDER BY count DESC
+    if looked_note_ids.empty?
+      # タグ一致数多いものでソート？
+      return Note.includes(:user, :category, :tags).where(category_id: looking_note.category_id).where.not(id: looking_note.id)
     end
-    @related_notes = @category_notes unless @tag_notes.present?
-    @related_notes
+    # 自分自身を削除
+    # タグでORDER タグが1つでも一致してないと、消えてしまう。 カテゴリーが現在のものと一致するものだけに。
+    note_tags = NoteTag.left_joins(:note).select('notes.id', 'notes.user_id', 'notes.category_id', 'COUNT(*) as count').where(notes: { id: looked_note_ids, category_id: looking_note.category_id }).group('notes.id', 'notes.user_id', 'notes.category_id').order('count DESC')
+    # note = Note.joins("RIGHT JOIN note_tags ON notes.id = note_tags.note_id").joins(:user, :category, :tags)
+    # note = Note.left_joins(:user, :category, :tags).joins("RIGHT JOIN note_tags ON notes.id = note_tags.note_id")
+    # 再取得（include付き)
+    if note_tags.empty?
+      # ノートを見てるユーザが存在しない場合と、タグが一致しているノートが存在しない場合
+      return Note.includes(:user, :category, :tags).where(category_id: looking_note.category_id).where.not(id: looking_note.id)
+    end
+
+    return note_tags
   end
 end
