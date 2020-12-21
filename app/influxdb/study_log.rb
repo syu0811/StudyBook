@@ -12,7 +12,9 @@ class StudyLog < Influxdb::Base
 
   # 当月を含む過去12ヶ月間(12ヶ月前は含む)
   def user_monthly_study_length
-    result = get_logs_by_range('1mo', 1.years)
+    stop_time = Time.now.end_of_month
+    start_time = stop_time.ago(1.years).beginning_of_month
+    result = get_logs_by_range('1mo', start_time.iso8601, stop_time.iso8601)
     result.present? ? result : 13.times.map { 0 }
   end
 
@@ -35,11 +37,9 @@ class StudyLog < Influxdb::Base
     end
   end
 
-  def get_logs_by_range(every, ago_time)
-    stop_time = Time.zone.now
-    start_time = stop_time.ago(ago_time)
+  def get_logs_by_range(every, start_time, stop_time)
     query = "from(bucket: \"#{@client.bucket}\")
-      |> range(start: #{start_time.iso8601}, stop: #{stop_time.iso8601})
+      |> range(start: #{start_time}, stop: #{stop_time})
       |> filter(fn: (r) =>
           r._measurement == \"#{@client.user_id}\")
       |> group(columns: [\"_measurement\"])

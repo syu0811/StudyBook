@@ -60,15 +60,15 @@ class Note < ApplicationRecord
     def upload(user_id, guid, note_params, tags)
       note = find_by(guid: guid, user_id: user_id)
       if note
-        note.attributes = note_params
         body_size = note.body.size
+        note.attributes = note_params
       else
-        note = new(note_params.merge(user_id: user_id))
         body_size = 0
+        note = new(note_params.merge(user_id: user_id))
       end
       return [{ guid: nil, errors: note.errors.details, tag_errors: [], note_id: note.id }, nil] unless note.save
 
-      [{ guid: note.guid, errors: note.errors.details, tag_errors: note.create_note_tags(tags), note_id: note.id }, note_params[:body].size - body_size]
+      [{ guid: note.guid, errors: note.errors.details, tag_errors: note.create_note_tags(tags), note_id: note.id }, (note_params[:body].size - body_size).abs]
     end
 
     def directory_tree
