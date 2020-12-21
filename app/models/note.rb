@@ -81,8 +81,7 @@ class Note < ApplicationRecord
     def get_reladed_notes_list(looking_note)
       related_notes = Note.includes(:user, :category, :tags).where(category_id: looking_note.category_id).where.not(id: looking_note.id)
       note_tags = NoteTag.where(tag_id: NoteTag.where(note_id: looking_note.id).pluck(:tag_id))
-      related_notes = related_notes.where(id: note_tags.pluck(:note_id)) unless note_tags.empty?
-      related_notes
+      note_tags.present? ? related_notes.where(id: note_tags.pluck(:note_id)) : related_notes
     end
 
     private
