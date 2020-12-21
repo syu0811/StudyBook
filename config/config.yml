@@ -1,0 +1,6 @@
+study_book:
+  influxdb:
+    host: <%= ENV.fetch('STUDY_BOOK_INFLUXDB_HOST', 'http://influxdb:8086') %>
+    database: <%= ENV.fetch('STUDY_BOOK_INFLUXDB_DABTABASE', 'study_book_db') %>
+    user: <%= ENV.fetch('STUDY_BOOK_INFLUXDB_DABTABASE', 'study') %>
+    password: <%= ENV.fetch('STUDY_BOOK_INFLUXDB_DABTABASE', 'studybook') %>
