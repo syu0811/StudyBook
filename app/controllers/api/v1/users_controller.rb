@@ -11,7 +11,8 @@ module Api
         if @user.valid_password?(params[:password])
           # 正しいときの処理
           @token = SecureRandom.urlsafe_base64(10)
-          @user.update!(token: @token)
+          # @user.update!(token: @token)
+          Agent.update!(token: @token).where(@user.user_id == Agent.user_id)
         else # 404が帰ってきたとき（メアドがないとき)
           head :not_found
         end
