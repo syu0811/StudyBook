@@ -45,10 +45,10 @@ class Note < ApplicationRecord
   end
 
   def create_note_tags(tags)
+    note_tags.destroy_all
     return [] if tags.blank?
 
     errors = []
-    note_tags.destroy_all
     tags.each do |tag|
       tag_id = tag[:id].present? ? tag[:id] : Tag.find_or_create_by(name: tag[:name]).id
       errors.push(tag) unless note_tags.new(tag_id: tag_id).save

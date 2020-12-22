@@ -87,6 +87,18 @@ RSpec.describe "Api::V1::Notes", type: :request do
             expect { NoteTag.find(note_tag.id) }.to raise_error(ActiveRecord::RecordNotFound)
           end
         end
+
+        context "タグを消すとき" do
+          let!(:note_tag) { create(:note_tag, note: note) }
+
+          before do
+            post api_v1_upload_notes_path, params: { user_id: user.id, token: user.token, notes: [{ local_id: 1, guid: note.guid, title: "テストタイトル", body: "#見出し", category_id: category.id, directory_path: "test/app", tags: [] }] }
+          end
+
+          it "タグが0件になっている" do
+            expect(NoteTag.where(note: note).size).to eq(0)
+          end
+        end
       end
     end
 
