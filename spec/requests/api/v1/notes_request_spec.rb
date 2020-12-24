@@ -89,9 +89,10 @@ RSpec.describe "Api::V1::Notes", type: :request do
         end
 
         context "タグを消すとき" do
-          let!(:note_tag) { create(:note_tag, note: note) }
+          let(:note_tag) { create(:note_tag, note: note) }
 
           before do
+            note_tag
             post api_v1_upload_notes_path, params: { user_id: user.id, token: user.token, notes: [{ local_id: 1, guid: note.guid, title: "テストタイトル", body: "#見出し", category_id: category.id, directory_path: "test/app", tags: [] }] }
           end
 
