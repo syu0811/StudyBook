@@ -79,6 +79,12 @@ class Note < ApplicationRecord
       directory_tree
     end
 
+    def get_reladed_notes_list(looking_note)
+      related_notes = Note.includes(:user, :category, :tags).where(category_id: looking_note.category_id).where.not(id: looking_note.id)
+      note_tags = NoteTag.where(tag_id: NoteTag.where(note_id: looking_note.id).pluck(:tag_id))
+      note_tags.present? ? related_notes.where(id: note_tags.pluck(:note_id)) : related_notes
+    end
+
     private
 
     def create_folders(directory_path, directory_tree, relative_path = Pathname(''))
