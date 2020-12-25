@@ -1,9 +1,9 @@
 class NotesController < ApplicationController
+  include Pagy::Backend   # Pagyを使えるようになる魔法の呪文
+  ITEMS_PER_PAGE = 20
   before_action :get_note, only: [:show]
   before_action :get_list, only: [:show]
   before_action :get_reladed_notes_list, only: [:show]
-  include Pagy::Backend   # Pagyを使えるようになる魔法の呪文
-  ITEMS_PER_PAGE = 20
 
   def index
     @notes = Note.includes(:category, :tags, user: { image_attachment: :blob })
