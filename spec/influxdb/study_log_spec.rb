@@ -102,4 +102,45 @@ RSpec.describe "StudyLogSpec", use_influx: true do
       end
     end
   end
+
+  describe ".total_edit_word_count" do
+    subject { StudyLog.new(user.id).total_edit_word_count }
+
+    let(:time) { "2020-04-01Z00:00:00+0000" }
+
+    before do
+      travel_to time
+    end
+
+    context "ログデータが存在しない場合" do
+      it "0が返る" do
+        expect(subject).to eq(0)
+      end
+    end
+
+    context "ログデータが存在する場合" do
+      let(:now_time) { "2020-04-01Z01:00:00+0000" }
+
+      before do
+        StudyLog.new(user.id).write_study_log(logs)
+        travel_to now_time
+      end
+
+      context "1件の場合" do
+        let(:logs) { [{ note_id: 1, word_count: 100 }] }
+
+        it "100が返る" do
+          expect(subject).to eq(100)
+        end
+      end
+
+      context "2件の場合" do
+        let(:logs) { [{ note_id: 1, word_count: 200, date_at: Time.parse(now_time).ago(1.month) }, { note_id: 2, word_count: 300, date_at: Time.parse(now_time) }] }
+
+        it "500が返る" do
+          expect(subject).to eq(500)
+        end
+      end
+    end
+  end
 end
