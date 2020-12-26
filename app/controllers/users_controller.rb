@@ -14,6 +14,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def notes_category_ratio
+    render json: current_user.notes.category_ratio
+  end
+
   private
 
   def get_user
