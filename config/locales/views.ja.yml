@@ -13,9 +13,10 @@ ja:
       my_lists: マイリスト
       notes: ノート
       order: 並び替え
-      update: 更新時間の降順
-      create: 作成時間の降順
-      name: 名前順
+      update_desc: 更新時間の降順
+      update_asc: 更新時間の昇順
+      create_desc: 作成時間の降順
+      create_asc: 作成時間の昇順
       confirm: 本当にマイリストを削除しますか？
     show:
       empty: ノートは存在しません
@@ -28,8 +29,10 @@ ja:
       category: カテゴリー
       search_filter: 検索フィルタ
       order: 並び替え
-      update: 更新時間の降順
-      create: 作成時間の降順
+      update_desc: 更新時間の降順
+      update_asc: 更新時間の昇順
+      create_desc: 作成時間の降順
+      create_asc: 作成時間の昇順
     show:
       next: 次へ
       prev: 前へ
@@ -50,9 +53,12 @@ ja:
         notes: ノート
         my_lists: マイリスト
         order: 並び替え
-        update: 更新時間の降順
-        create: 作成時間の降順
-        name: 名前順
+        update_desc: 更新時間の降順
+        update_asc: 更新時間の昇順
+        create_desc: 作成時間の降順
+        create_asc: 作成時間の昇順
+        name_desc: タイトルの降順
+        name_asc: タイトルの昇順
     my_lists:
       index:
         search_filter: 検索フィルタ
@@ -61,9 +67,12 @@ ja:
         empty: マイリストは存在しません
         confirm: 本当にマイリストを削除しますか？
         order: 並び替え
-        update: 更新時間の降順
-        create: 作成時間の降順
-        name: 名前順
+        update_desc: 更新時間の降順
+        update_asc: 更新時間の昇順
+        create_desc: 作成時間の降順
+        create_asc: 作成時間の昇順
+        name_desc: タイトルの降順
+        name_asc: タイトルの昇順
         option: オプション
         only_user_mylist: ユーザのマイリストのみ
 
