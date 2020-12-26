@@ -26,6 +26,7 @@ services:
             - db
         environment:
             RAILS_ENV: production
+            NODE_ENV: production
             SECRET_KEY_BASE: StudyBook
             MYAPP_DATABASE_PASSWORD: StudyBook
     influxdb:
