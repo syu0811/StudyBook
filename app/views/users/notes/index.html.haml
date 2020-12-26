@@ -12,14 +12,18 @@
       .left__form
         = form_with(model: @notes, url: notes_path, local: true) do |f|
           .left__label
-            = f.label :category_id, t('.category')
+            = f.label :category_id, Category.model_name.human
           .left__select
-            = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
+            = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "setCategoryParamsAjax(this.value);", class: 'form-control left-pull-list'}
           .left__label
             = f.label :order, t('.order')
           .left__select
-            = f.select :order,[[t('.update'), "update"], [t('.create'), "create"], [t('.name'), "name"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
+            = f.select :order,[[t('.update_desc'), "update_desc"], [t('.update_asc'), "update_asc"], [t('.create_desc'), "create_desc"], [t('.create_asc'), "create_asc"], [t('.name_desc'), "name_desc"], [t('.name_asc'), "name_asc"]], {selected: params[:order]},{ onchange: "setSortParamsAjax(this.value);", class: 'form-control left-pull-list'}
   .main.col-8
+    .search
+      %form.search__container{ onsubmit: 'setSearchParamsAjax(event);' }
+        %input#search_field{ type: 'text',  value: params[:q], place_holder: 'キーワード検索', class: "search__text-field"}
+        %input.search__icon{ type: 'submit', value: "\uF002"}
     .list-header
       .list-header__content--active
         = link_to user_notes_path, class: "list-header__link" do
@@ -30,7 +34,7 @@
           %span.list-header__link-text
             = t '.my_lists'
 
-    .notes#notes
-      = render partial: 'note_index', locals: { notes: @notes }
+    .notes.user-notes#notes
+      = render partial: 'note_index', locals: { notes: @notes, pagy: @pagy }
   .right.col-1
 #new_my_list_form

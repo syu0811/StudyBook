@@ -7,7 +7,7 @@
       .left__form
         = form_with(model: @notes, url: notes_path, local: true) do |f|
           .left__label
-            = f.label :category_id, t('.category')
+            = f.label :category_id, Category.model_name.human
           .left__select
             = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "onChange(this.value);", class: 'form-control left-pull-list'}
       .left__form
@@ -23,7 +23,7 @@
           .left__label
             = f.label :order, t('.order')
           .left__select
-            = f.select :order,[[t('.update'), "update"], [t('.create'), "create"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
+            = f.select :order,[[t('.update_desc'), "update_desc"], [t('.update_asc'), "update_asc"], [t('.create_desc'), "create_desc"], [t('.create_asc'), "create_asc"]], {selected: params[:order]},{ onchange: "setSortParams(this.value);", class: 'form-control left-pull-list'}
   .main.col-8.overflow-auto
     .search
       %form.search__container{ onsubmit: 'setSearchParams(event);' }

@@ -24,4 +24,6 @@
       = my_list.category.name
     .my-list__header-user
       = "#{t('general.by')} #{my_list.user.nickname}"
+    .my-list__header-updated-date
+      = l my_list.updated_at, format: :updated_at
 

@@ -1,5 +1,17 @@
 .user {
+  display: flex;
   margin: 50px 0;
+  white-space: nowrap;
+
+  &__left-box {
+    flex: 1;
+    margin: 0 30px;
+    white-space: nowrap;
+  }
+
+  &__main-box {
+    flex: 3.5;
+  }
 
   &__image {
     background-color: #ccc;
@@ -43,7 +55,7 @@
     background-color: #beede5;
     border-radius: 15px 15px 0 0;
     display: inline-block;
-    padding: 10px 10px;
+    padding: 10px 15px 0 15px;
   }
 
   &__header-box {
@@ -62,5 +74,88 @@
       color: rgba(0, 0, 0, 1);
       font-weight: 700;
     }
+  }
+
+  &__body {
+    background-color: #beede5;
+    border-radius: 0 5px 5px 5px;
+    max-width: 1100px;
+    overflow: auto;
+    padding: 10px 15px;
+    white-space: nowrap;
+  }
+
+  &__card {
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    margin-top: 10px;
+    padding: 10px;
+  }
+
+  &__doughnut-graph {
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  &__notes-category-ratio-graph {
+    display: inline-block;
+    width: 60%;
+
+    .title {
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+  }
+
+  &__logs {
+    background-color: #beede5;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 7px 15px;
+    width: 40%;
+
+    .label {
+      background-color: #fff;
+      border: solid 2px #090;
+      border-radius: 5px;
+      color: rgba(0, 0, 0, 0.7);
+      display: inline-block;
+      flex: 1;
+      font-weight: 600;
+      margin-right: 3px;
+      padding: 5px 10px;
+      text-align: center;
+    }
+
+    .value {
+      background-color: #fff;
+      border: solid 2px #eee;
+      border-radius: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      flex: 2;
+      padding: 5px 10px;
+      text-align: right;
+    }
+  }
+
+  &__total-edit-word-count {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  &__note-count {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  &__my-list-count {
+    display: flex;
+    margin-top: 10px;
   }
 }

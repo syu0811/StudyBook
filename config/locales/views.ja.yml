@@ -5,16 +5,19 @@ ja:
       mypage: マイページ
       notes: ノート
       my_lists: マイリスト
+      downloads: アプリのダウンロード
       setting: 設定
       log_out: ログアウト
   my_lists:
     index:
+      search_filter: 検索フィルタ
       my_lists: マイリスト
       notes: ノート
       order: 並び替え
-      update: 更新時間の降順
-      create: 作成時間の降順
-      name: 名前順
+      update_desc: 更新時間の降順
+      update_asc: 更新時間の昇順
+      create_desc: 作成時間の降順
+      create_asc: 作成時間の昇順
       confirm: 本当にマイリストを削除しますか？
     show:
       empty: ノートは存在しません
@@ -27,15 +30,31 @@ ja:
       category: カテゴリー
       search_filter: 検索フィルタ
       order: 並び替え
-      update: 更新時間の降順
-      create: 作成時間の降順
+      update_desc: 更新時間の降順
+      update_asc: 更新時間の昇順
+      create_desc: 作成時間の降順
+      create_asc: 作成時間の昇順
     show:
       next: 次へ
       prev: 前へ
+      related_notes_title: 関連するノート
+  client_downloads:
+    index:
+      title: StudyBookClientをダウンロード
+      description: <p>効率的に勉強ノートを管理することができます。</p><p>ノートをアップロード、ダウンロードすることが出来、自分のマイリストをローカルで閲覧することが出来ます。</p>
+      windows: Windows10
+      mac: Mac
+      Linux: Linux
+
   users:
     show:
       notes: ノート
       my_lists: マイリスト
+      total_edit_word_count: 総編集文字数
+      note_count: 総ノート数
+      my_list_count: 総マイリスト数
+      notes_category_ratio_graph: カテゴリ別ノート率
+      count: 文字
     notes:
       index:
         search_filter: 検索フィルタ
@@ -44,19 +63,26 @@ ja:
         notes: ノート
         my_lists: マイリスト
         order: 並び替え
-        update: 更新時間の降順
-        create: 作成時間の降順
-        name: 名前順
+        update_desc: 更新時間の降順
+        update_asc: 更新時間の昇順
+        create_desc: 作成時間の降順
+        create_asc: 作成時間の昇順
+        name_desc: タイトルの降順
+        name_asc: タイトルの昇順
     my_lists:
       index:
+        search_filter: 検索フィルタ
         notes: ノート
         my_lists: マイリスト
         empty: マイリストは存在しません
         confirm: 本当にマイリストを削除しますか？
         order: 並び替え
-        update: 更新時間の降順
-        create: 作成時間の降順
-        name: 名前順
+        update_desc: 更新時間の降順
+        update_asc: 更新時間の昇順
+        create_desc: 作成時間の降順
+        create_asc: 作成時間の昇順
+        name_desc: タイトルの降順
+        name_asc: タイトルの昇順
         option: オプション
         only_user_mylist: ユーザのマイリストのみ
 

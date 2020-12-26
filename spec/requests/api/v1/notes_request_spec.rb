@@ -87,6 +87,19 @@ RSpec.describe "Api::V1::Notes", type: :request do
             expect { NoteTag.find(note_tag.id) }.to raise_error(ActiveRecord::RecordNotFound)
           end
         end
+
+        context "タグを消すとき" do
+          let(:note_tag) { create(:note_tag, note: note) }
+
+          before do
+            note_tag
+            post api_v1_upload_notes_path, params: { user_id: user.id, token: user.token, notes: [{ local_id: 1, guid: note.guid, title: "テストタイトル", body: "#見出し", category_id: category.id, directory_path: "test/app", tags: [] }] }
+          end
+
+          it "タグが0件になっている" do
+            expect(NoteTag.where(note: note).size).to eq(0)
+          end
+        end
       end
     end
 
@@ -162,7 +175,7 @@ RSpec.describe "Api::V1::Notes", type: :request do
         let(:updated_at) { "2020-4-01 11:00" }
 
         it "ノート一覧が返る" do
-          expect(response_json).to eq({ notes: [{ guid: note.guid, title: note.title, body: note.body, directory_path: note.directory_path, category_id: note.category_id, tags: [{ id: note_tag.tag.id, name: note_tag.tag.name }] }], deleted_notes: [{ guid: deleted_note.guid }] })
+          expect(response_json).to eq({ notes: [{ guid: note.guid, title: note.title, body: note.body, directory_path: note.directory_path, category_id: note.category_id, tags: [{ id: note_tag.tag.id, name: note_tag.tag.name }], updated_at: note.updated_at.iso8601 }], deleted_notes: [{ guid: deleted_note.guid }] })
         end
       end
 

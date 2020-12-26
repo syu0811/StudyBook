@@ -6,22 +6,26 @@
         .notes__note-user-image-icon{ style: "background-image: url(#{rails_blob_path(note.user.image)})" }
       - else
         .notes__note-user-image-icon
-    .notes__note-main
-      = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
-        = image_pack_tag 'book_icon_plus.png'
-      .notes__note-title
-        = link_to note.title, note_path(note), class: 'notes__note-link'
-    .notes__note-sub
-      .notes__note-category
-        = note.category.name
-      .notes__note-user
-        = "#{t('general.by')} #{note.user.nickname}"
-    .notes__note-tags
-      - note.tags.each do |tag|
-        .notes__note-tag
-          = tag.name
-    .notes_note-body
-      - if note.try(:high_light_body) && note.high_light_body[0].present?
-        = raw note.high_light_body[0]
-      - else
-        = note.body[0..100]
+    = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
+      = image_pack_tag 'book_icon_plus.png'
+    .notes__note-info{ class: "#{'notes__note-no-tags' if note.tags.blank? }"}
+      .notes__note-main
+        .notes__note-title
+          = link_to note.title, note_path(note), class: 'notes__note-link'
+      .notes__note-sub
+        .notes__note-category
+          = note.category.name
+        .notes__note-user
+          = "#{t('general.by')} #{note.user.nickname}"
+        .notes__note-updated-at
+          = l note.updated_at, format: :updated_at
+      - if note.tags.present?
+        .notes__note-tags
+          - note.tags.each do |tag|
+            .notes__note-tag
+              = tag.name
+      .notes_note-body
+        - if note.try(:high_light_body) && note.high_light_body[0].present?
+          = raw note.high_light_body[0]
+        - else
+          = note.body[0..100]

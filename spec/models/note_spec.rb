@@ -102,6 +102,19 @@ RSpec.describe Note, type: :model do
     end
   end
 
+  describe '.category_ratio' do
+    let(:category) { create(:category) }
+    let(:note) { create(:note, category: category) }
+
+    before do
+      note
+    end
+
+    it "カテゴリー毎の数が返る" do
+      expect(described_class.category_ratio).to eq({ category.name.to_s => 1 })
+    end
+  end
+
   describe '.tags_search' do
     let(:tags) { create_list(:tag, 2) }
     let(:note) { create(:note) }
@@ -126,6 +139,77 @@ RSpec.describe Note, type: :model do
     context '存在しないタグ1つを指定する場合' do
       it "結果が0件であること" do
         expect(described_class.tags_search("NotName").size).to eq(0)
+      end
+    end
+  end
+
+  describe ".get_reladed_notes_list" do
+    let(:category_a) { create(:category) }
+    let(:category_b) { create(:category) }
+
+    let(:note) { create(:note, category: category_a) }
+    let(:note_a) { create(:note, category: category_a) }
+    let(:note_b) { create(:note, category: category_b) }
+
+    before do
+      category_a
+      category_b
+      note
+      note_a
+      note_b
+    end
+
+    context "タグがない場合" do
+      it "同じカテゴリーのノートを取得できているか" do
+        expect(described_class.get_reladed_notes_list(note)).to include(note_a)
+      end
+
+      it "関連ノートに現在見ているノートがないか" do
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note)
+      end
+
+      it "違うカテゴリーのノートが含まれていないか" do
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note_b)
+      end
+    end
+
+    context "タグがある場合" do
+      let(:tag_a) { create(:tag) }
+      let(:tag_b) { create(:tag) }
+
+      let(:note_ba) { create(:note, category: category_b) }
+
+      let(:note_tag) { create(:note_tag, note: note, tag: tag_a) }
+      let(:note_tag_a) { create(:note_tag, note: note_a, tag: tag_a) }
+      let(:note_tag_b) { create(:note_tag, note: note_b, tag: tag_b) }
+      let(:note_tag_ba) { create(:note_tag, note: note_ba, tag: tag_a) }
+
+      before do
+        tag_a
+        tag_b
+
+        note_ba
+
+        note_tag
+        note_tag_a
+        note_tag_b
+        note_tag_ba
+      end
+
+      it "同じカテゴリーでタグが一致しているノートを取得できているか" do
+        expect(described_class.get_reladed_notes_list(note)).to include(note_a)
+      end
+
+      it "関連ノートに現在見ているノートがないか" do
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note)
+      end
+
+      it "違うカテゴリーのノートが含まれていないか" do
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note_b)
+      end
+
+      it "違うカテゴリーでタグが一致しているノートが含まれていないか" do
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note_ba)
       end
     end
   end

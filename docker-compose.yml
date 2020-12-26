@@ -16,6 +16,25 @@ services:
         ports:
             - "1080:1080"
             - "1025:1025"
+
+    influxdb:
+        image: influxdb:1.8
+        environment:
+            - INFLUXDB_DB=study_book_db
+            - INFLUXDB_USER=study
+            - INFLUXDB_USER_PASSWORD=studybook
+            - INFLUXDB_ADMIN_USER=root
+            - INFLUXDB_ADMIN_PASSWORD=admin
+            - INFLUXDB_HTTP_FLUX_ENABLED=true
+            - INFLUXDB_HTTP_AUTH_ENABLED=true
+            - INFLUXDB_RESPONTING_DISABLED=true
+            - INFLUXDB_DATA_MAX_SERIES_PER_DATABASE=0
+            - INFLUXDB_DATA_MAX_VALUES_PER_TAG=0
+        ports:
+            - 8086:8086
+        volumes:
+            - ./influx_init.iql:/docker-entrypoint-initdb.d/influx_init.iql/
+            - ./influx:/var/lib/influxdb
     web:
         build: .
         command: bundle exec rails server -b 0.0.0.0
