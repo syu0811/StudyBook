@@ -7,12 +7,14 @@ module Api
       def token
         # トークンを発行する処理
         @user = User.find_by!(email: params[:email])
+        Agent.create(user_id: @user.id, token: "test")
+        @agent = Agent.find_by(user_id: @user.id)
 
         if @user.valid_password?(params[:password])
           # 正しいときの処理
           @token = SecureRandom.urlsafe_base64(10)
           # @user.update!(token: @token)
-          Agent.update!(token: @token).where(@user.user_id == Agent.user_id)
+          @agent.update!(token: @token)
         else # 404が帰ってきたとき（メアドがないとき)
           head :not_found
         end
