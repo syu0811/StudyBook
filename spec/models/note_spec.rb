@@ -177,26 +177,22 @@ RSpec.describe Note, type: :model do
       let(:tag_a) { create(:tag) }
       let(:tag_b) { create(:tag) }
 
-      let(:note_ab) { create(:note, category: category_a) }
       let(:note_ba) { create(:note, category: category_b) }
 
       let(:note_tag) { create(:note_tag, note: note, tag: tag_a) }
       let(:note_tag_a) { create(:note_tag, note: note_a, tag: tag_a) }
       let(:note_tag_b) { create(:note_tag, note: note_b, tag: tag_b) }
-      let(:note_tag_ab) { create(:note_tag, note: note_ab, tag: tag_b) }
       let(:note_tag_ba) { create(:note_tag, note: note_ba, tag: tag_a) }
 
       before do
         tag_a
         tag_b
 
-        note_ab
         note_ba
 
         note_tag
         note_tag_a
         note_tag_b
-        note_tag_ab
         note_tag_ba
       end
 
@@ -210,10 +206,6 @@ RSpec.describe Note, type: :model do
 
       it "違うカテゴリーのノートが含まれていないか" do
         expect(described_class.get_reladed_notes_list(note)).not_to include(note_b)
-      end
-
-      it "同じカテゴリーでタグが一致していないノートが含まれていないか" do
-        expect(described_class.get_reladed_notes_list(note)).not_to include(note_ab)
       end
 
       it "違うカテゴリーでタグが一致しているノートが含まれていないか" do
