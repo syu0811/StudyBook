@@ -17,11 +17,13 @@ class NotesController < ApplicationController
   private
 
   def get_list
-    @my_list_notes = MyListNote.includes(:note).where(my_list_id: params[:my_list_id]).order(:index) if params[:my_list_id].present?
+    @my_list_notes = MyListNote.includes(:note).where(my_list_id: params[:my_list_id]).order(:index)
   end
 
   def get_note
     @note = Note.includes(:user, :category, :tags).find(params[:id])
+    get_list if params[:my_list_id].present?
+    get_reladed_notes_list
   end
 
   def get_reladed_notes_list

@@ -147,20 +147,16 @@ RSpec.describe Note, type: :model do
     end
 
     context "タグがない場合" do
-      context "含まれるべきもの" do
-        it "同じカテゴリーのノートを取得できているか" do
-          expect(described_class.get_reladed_notes_list(note)).to include(note_a)
-        end
+      it "同じカテゴリーのノートを取得できているか" do
+        expect(described_class.get_reladed_notes_list(note)).to include(note_a)
       end
 
-      context "含まれるべきでないもの" do
-        it "関連ノートに現在見ているノートがないか" do
-          expect(described_class.get_reladed_notes_list(note)).not_to include(note)
-        end
+      it "関連ノートに現在見ているノートがないか" do
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note)
+      end
 
-        it "違うカテゴリーのノートが含まれていないか" do
-          expect(described_class.get_reladed_notes_list(note)).not_to include(note_b)
-        end
+      it "違うカテゴリーのノートが含まれていないか" do
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note_b)
       end
     end
 
@@ -191,28 +187,24 @@ RSpec.describe Note, type: :model do
         note_tag_ba
       end
 
-      context "含まれるべきもの" do
-        it "同じカテゴリーでタグが一致しているノートを取得できているか" do
-          expect(described_class.get_reladed_notes_list(note)).to include(note_a)
-        end
+      it "同じカテゴリーでタグが一致しているノートを取得できているか" do
+        expect(described_class.get_reladed_notes_list(note)).to include(note_a)
       end
 
-      context "含まれるべきでないもの" do
-        it "関連ノートに現在見ているノートがないか" do
-          expect(described_class.get_reladed_notes_list(note)).not_to include(note)
-        end
+      it "関連ノートに現在見ているノートがないか" do
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note)
+      end
 
-        it "違うカテゴリーのノートが含まれていないか" do
-          expect(described_class.get_reladed_notes_list(note)).not_to include(note_b)
-        end
+      it "違うカテゴリーのノートが含まれていないか" do
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note_b)
+      end
 
-        it "同じカテゴリーでタグが一致していないノートが含まれていないか" do
-          expect(described_class.get_reladed_notes_list(note)).not_to include(note_ab)
-        end
+      it "同じカテゴリーでタグが一致していないノートが含まれていないか" do
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note_ab)
+      end
 
-        it "違うカテゴリーでタグが一致しているノートが含まれていないか" do
-          expect(described_class.get_reladed_notes_list(note)).not_to include(note_ba)
-        end
+      it "違うカテゴリーでタグが一致しているノートが含まれていないか" do
+        expect(described_class.get_reladed_notes_list(note)).not_to include(note_ba)
       end
     end
   end
