@@ -111,7 +111,7 @@ RSpec.describe Note, type: :model do
     end
 
     it "カテゴリー毎の数が返る" do
-      expect(described_class.category_ratio).to eq({"#{category.name}" => 1})
+      expect(described_class.category_ratio).to eq({ category.name.to_s => 1 })
     end
   end
 

@@ -18,27 +18,27 @@
         = link_to user_my_lists_path(user_nickname: current_user.nickname), class: "" do
           .user__header-link
             = t '.my_lists'
-    .user__body.overflow-scroll
-      .user__logs
-        .user__total-edit-word-count
-          .label
-            = t '.total_edit_word_count'
-          .value
-            = "#{@total_edit_word_count}#{t '.count'}"
-        .user__note-count
-          .label
-            = t ".note_count"
-          .value
-            = @note_count
-        .user__my-list-count
-          .label
-            = t ".my_list_count"
-          .value
-            = @my_list_count
-      .user__study-graph.overflow-auto
+    .user__body
+      .user__card
         %canvas#user_study_graph{ data: { graph: @user_monthly_study_length.join(',') }}
-      .user__doughnut-graph
+      .user__card
         .user__notes-category-ratio-graph
           .title
             = t ".notes_category_ratio_graph"
           %canvas#notes_category_ratio_graph
+        .user__logs
+          .user__total-edit-word-count
+            .label
+              = t '.total_edit_word_count'
+            .value
+              = "#{@total_edit_word_count}#{t '.count'}"
+          .user__note-count
+            .label
+              = t ".note_count"
+            .value
+              = @note_count
+          .user__my-list-count
+            .label
+              = t ".my_list_count"
+            .value
+              = @my_list_count

@@ -38,7 +38,7 @@ class Note < ApplicationRecord
 
   scope :category_ratio, lambda {
     joins(:category)
-    .group("categories.name").order("categories.name").count
+      .group("categories.name").order("categories.name").count
   }
 
   def add_guid
