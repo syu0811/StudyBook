@@ -16,10 +16,10 @@ class Note < ApplicationRecord
   before_create :add_guid
   before_destroy :move_deleted_note
 
-  ORDER_LIST = { "create" => "created_at DESC", "update" => "updated_at DESC", "name" => "title" }.freeze
+  ORDER_LIST = { "create_asc" => "created_at", "create_desc" => "created_at DESC", "update_asc" => "updated_at", "update_desc" => "updated_at DESC", "name_asc" => "title", "name_desc" => "title DESC" }.freeze
   RELADED_NOTE_LIMIT = 10
 
-  scope :specified_order, ->(sort_key) { order(sort_key.present? ? Note::ORDER_LIST[sort_key] : Note::ORDER_LIST["update"]) }
+  scope :specified_order, ->(sort_key) { order(sort_key.present? ? Note::ORDER_LIST[sort_key] : Note::ORDER_LIST["update_desc"]) }
   scope :full_search, ->(query) { where('notes.title @@ ? OR notes.body @@ ?', query, query) }
   scope :high_light_full_search, lambda { |query|
     full_search(query)
