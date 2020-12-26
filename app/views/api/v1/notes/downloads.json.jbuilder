@@ -8,6 +8,7 @@ json.notes do
     json.tags do
       json.array! note.tags, :id, :name
     end
+    json.updated_at note.updated_at.iso8601
   end
 end
 

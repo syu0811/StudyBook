@@ -1,19 +1,30 @@
-%hr.notes__hr--top
-- notes.each do |note|
-  .notes__note
-    .notes__note-main
-      = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
-        = image_pack_tag 'book_icon_plus.png'
-      .notes__note-title
-        = link_to note.title, note_path(note), class: 'notes__note-link'
-    .notes__note-sub
-      .notes__note-category
-        = note.category.name
-      .notes__note-user
-        = "#{t('general.by')} #{note.user.nickname}"
-      .notes__note-file-path
-        = note.directory_path
-    .notes__note-tags
-      - note.tags.each do |tag|
-        .notes__note-tag
-          = tag.name
+.notes-body
+  %hr.notes__hr--top
+  - notes.each do |note|
+    .notes__note
+      .notes__user-note-main
+        = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
+          = image_pack_tag 'book_icon_plus.png'
+        .notes__note-title
+          = link_to note.title, note_path(note), class: 'notes__note-link'
+      .notes__user-note-sub
+        .notes__note-category
+          = note.category.name
+        .notes__note-user
+          = "#{t('general.by')} #{note.user.nickname}"
+        .notes__note-file-path
+          = note.directory_path
+        .notes__note-updated-at
+          = l note.updated_at, format: :updated_at
+      .notes__user-note-tags
+        - note.tags.each do |tag|
+          .notes__note-tag
+            = tag.name
+      .notes_note-body
+        - if note.try(:high_light_body) && note.high_light_body[0].present?
+          = raw note.high_light_body[0]
+        - else
+          = note.body[0..100]
+
+.d-flex.justify-content-center.mb-2
+  != pagy_bootstrap_nav(pagy)

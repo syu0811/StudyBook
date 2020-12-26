@@ -12,20 +12,34 @@
   .list {
     align-items: center;
     display: flex;
+
+    .content {
+      color: #6a6a6a;
+      cursor: pointer;
+      padding-left: 7px;
+
+      &:hover {
+        color: #000;
+        font-weight: 600;
+      }
+    }
+
+    .active-content {
+      background-color: #6a6a6a;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: 600;
+      padding: 2px 5px;
+
+      &:hover {
+        color: #fff;
+        font-weight: 600;
+      }
+    }
   }
 
   .leaf {
     padding-left: 7px;
-  }
-
-  a {
-    color: #6a6a6a;
-    padding-left: 7px;
-
-    &:hover {
-      color: #000;
-      font-weight: 600;
-    }
   }
 
   img {

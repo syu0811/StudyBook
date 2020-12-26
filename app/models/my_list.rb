@@ -16,7 +16,10 @@ class MyList < ApplicationRecord
 
   scope :full_search, ->(query) { where('my_lists.title @@ ? OR my_lists.description @@ ?', query, query) }
   scope :specified_order, ->(sort_key) { order(sort_key.present? ? MyList::ORDER_LIST[sort_key] : MyList::ORDER_LIST["update"]) }
-
+  scope :high_light_full_search, lambda { |query|
+    full_search(query)
+      .select("*, pgroonga_snippet_html(my_lists.description, pgroonga_query_extract_keywords('#{query}')) AS high_light_description")
+  }
   def self.regist(my_list_params, note_id)
     transaction do
       my_list = MyList.create!(my_list_params)
@@ -25,5 +28,9 @@ class MyList < ApplicationRecord
     true
   rescue
     false
+  end
+
+  def user_subscribe?(user_id)
+    subscribe_my_lists.where(user_id: user_id).exists?
   end
 end

@@ -20,4 +20,5 @@
           .user__header-link
             = t '.my_lists'
     .user__body
-  .col-1{ style: 'user-select: none' }
+      .user__study-graph.overflow-auto
+        %canvas#user_study_graph{ data: { graph: @user_monthly_study_length.join(',') }}

@@ -45,12 +45,12 @@ class Note < ApplicationRecord
   end
 
   def create_note_tags(tags)
+    note_tags.destroy_all
     return [] if tags.blank?
 
     errors = []
-    note_tags.destroy_all
     tags.each do |tag|
-      tag_id = tag[:id].present? ? tag[:id] : Tag.create_or_find_by(name: tag[:name]).id
+      tag_id = tag[:id].present? ? tag[:id] : Tag.find_or_create_by(name: tag[:name]).id
       errors.push(tag) unless note_tags.new(tag_id: tag_id).save
     end
     errors
@@ -60,14 +60,15 @@ class Note < ApplicationRecord
     def upload(user_id, guid, note_params, tags)
       note = find_by(guid: guid, user_id: user_id)
       if note
+        body_size = note.body.size
         note.attributes = note_params
       else
+        body_size = 0
         note = new(note_params.merge(user_id: user_id))
       end
+      return [{ guid: nil, errors: note.errors.details, tag_errors: [], note_id: note.id }, nil] unless note.save
 
-      return { guid: nil, errors: note.errors.details, tag_errors: [] } unless note.save
-
-      { guid: note.guid, errors: note.errors.details, tag_errors: note.create_note_tags(tags) }
+      [{ guid: note.guid, errors: note.errors.details, tag_errors: note.create_note_tags(tags), note_id: note.id }, (note_params[:body].size - body_size).abs]
     end
 
     def directory_tree
@@ -88,6 +89,8 @@ class Note < ApplicationRecord
 
     def create_folders(directory_path, directory_tree, relative_path = Pathname(''))
       dir_name, child_path = directory_path.split('/', 2)
+      return unless dir_name
+
       relative_path = relative_path.join(dir_name)
       directory_tree[dir_name.to_sym] ||= { path: relative_path.to_path, name: dir_name }
       return unless child_path

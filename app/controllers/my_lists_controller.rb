@@ -3,10 +3,12 @@ class MyListsController < ApplicationController
   before_action :get_current_user_my_list, only: [:edit, :update, :destroy]
   before_action :get_categories, only: [:new, :edit]
   before_action :get_user_subscribe_my_list_ids, only: [:index]
+  include Pagy::Backend
+  ITEMS_PER_PAGE = 20
 
   def show
     @my_list = MyList.find(params[:id])
-    @my_list_notes = @my_list.my_list_notes.includes(note: [:user, :tags, :category]).order("my_list_notes.index")
+    @my_list_notes = @my_list.my_list_notes.includes(note: [:tags, :category, { user: { image_attachment: :blob } }]).order("my_list_notes.index")
   end
 
   def new
@@ -39,9 +41,9 @@ class MyListsController < ApplicationController
     end
 
     if params[:redirect_to_user_my_lists] == 'true'
-      redirect_to user_my_lists_path(current_user.nickname)
+      redirect_to user_my_lists_path(current_user.nickname, query_params)
     else
-      redirect_to my_lists_path
+      redirect_to my_lists_path(query_params)
     end
   end
 
@@ -52,9 +54,11 @@ class MyListsController < ApplicationController
   end
 
   def get_my_lists
-    @my_lists = MyList.includes(:category, :user)
+    @my_lists = MyList.includes(:category, user: { image_attachment: :blob })
     @my_lists = @my_lists.where(category_id: params[:category]) if params[:category].present?
+    @my_lists = @my_lists.high_light_full_search(params[:q]) if params[:q].present?
     @my_lists = @my_lists.specified_order(params[:order])
+    @pagy, @my_lists = pagy(@my_lists, items: ITEMS_PER_PAGE)
   end
 
   def get_current_user_my_list

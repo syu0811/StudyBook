@@ -11,7 +11,7 @@
   &__my-list {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    padding: 10px 0;
+    padding: 5px 0;
 
     &:first-of-type {
       border-top: none;
@@ -35,6 +35,10 @@
     height: 50px;
     user-select: none;
     width: 50px;
+  }
+
+  &__my-list-no-description {
+    margin-top: 10px;
   }
 
   &__my-list-main {
@@ -73,27 +77,34 @@
   }
 
   &__my-list-description {
-    color: #464646;
-    font-size: 0.9em;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.8em;
     overflow: hidden;
     padding-left: 8px;
-    padding-right: 10px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: auto;
+
+    span {
+      color: #000;
+      font-weight: 700;
+    }
   }
 
   &__my-list-sub {
+    align-items: center;
     color: #6a6a6a;
+    display: flex;
     font-size: 0.8em;
-    margin-top: 5px;
-    padding: 0 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__my-list-category {
     background-color: #caffe6;
     border-radius: 10px;
     display: inline-block;
+    margin-right: 3px;
     max-width: 30%;
     overflow: hidden;
     padding: 2px 8px;
@@ -102,6 +113,16 @@
 
   &__my-list-user {
     display: inline-block;
+    margin-right: 3px;
+    max-width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__my-list-updated-at {
+    display: inline-block;
+    margin-right: 3px;
     max-width: 30%;
     overflow: hidden;
     text-overflow: ellipsis;

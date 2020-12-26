@@ -11,6 +11,20 @@
     padding: 10px 30px;
   }
 
+  &__header-destroy-button {
+    background-color: #dc3545;
+    border-radius: 5px;
+    float: right;
+    height: 40px;
+    width: 40px;
+
+    img {
+      height: 40px;
+      padding: 5px;
+      width: 40px;
+    }
+  }
+
   &__header-main {
     overflow: hidden;
   }
@@ -55,10 +69,18 @@
   }
 
   &__header-edit-button {
-    @extend .btn, .btn-outline-dark;
-
+    background-color: #3c6;
+    border-radius: 5px;
     float: right;
-    width: 58px;
+    height: 40px;
+    margin-right: 5px;
+    width: 40px;
+
+    img {
+      height: 40px;
+      padding: 5px;
+      width: 40px;
+    }
   }
 
   &__header-description {
@@ -126,6 +148,15 @@
     width: 20%;
   }
 
+  &__header-updated-date {
+    display: inline-block;
+    max-width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
   &__notes {
     background-color: #fff;
     border-radius: 10px;
@@ -167,10 +198,17 @@
   }
 
   &__note-destroy-button {
-    @extend .btn, .btn-danger;
-
+    background-color: #dc3545;
+    border-radius: 5px;
     float: right;
-    width: 58px;
+    height: 32px;
+    width: 32px;
+
+    img {
+      height: 32px;
+      padding: 5px;
+      width: 32px;
+    }
   }
 
   &__note-title {

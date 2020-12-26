@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :trackable, :lockable
 
-  has_one_attached :image
+  has_one_attached :image, dependent: :destroy
 
   has_many :notes, dependent: :destroy
 

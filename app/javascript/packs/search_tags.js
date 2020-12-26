@@ -1,12 +1,11 @@
-import Axios from './requests';
+import { resetPage } from './search';
 
 function setSearchTagURL(tags = ['']) {
   let url = new URL(location);
   url.searchParams.set('tags', tags.join(','));
+  resetPage(url);
   window.history.pushState(null, null, url.toString());
-  Axios.get(url.toString(), {headers: {'X-Requested-With': 'XMLHttpRequest'}}).then(response => {
-    eval(response.data);
-  });
+  location.href = url.toString();
 }
 
 function setTags(searchTags, tagName) {
@@ -47,10 +46,11 @@ window.addEventListener('DOMContentLoaded', function () {
   if(searchTags == undefined) {
     return;
   }
-  console.log(searchTags);
 
   let url = new URL(location);
-  for(let tagName of url.searchParams.get('tags').split(',')) {
+  if(url.searchParams.get('tags') == '') return;
+  let tags = url.searchParams.get('tags').split(',');
+  for(let tagName of tags) {
     setTags(searchTags, tagName);
   }
 });

@@ -6,7 +6,7 @@ class NotesController < ApplicationController
   before_action :get_reladed_notes_list, only: [:show]
 
   def index
-    @notes = Note.includes(:user, :category, :tags)
+    @notes = Note.includes(:category, :tags, user: { image_attachment: :blob })
     @notes = @notes.where(category_id: params[:category]) if params[:category].present?
     @notes = @notes.high_light_full_search(params[:q]) if params[:q].present?
     @notes = @notes.tags_search(params[:tags]) if params[:tags].present?

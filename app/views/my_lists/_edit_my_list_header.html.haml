@@ -1,7 +1,7 @@
 = form_with(model: my_list, url: my_list_path, local: false) do |f|
   .my-list__header-main
-    = f.text_field :title, class: "my-list__header-title-text--edit"
-    = f.text_area :description, class: 'my-list__header-description--edit'
+    = f.text_field :title, placeholder: MyList.human_attribute_name(:title), required: true, class: "my-list__header-title-text--edit"
+    = f.text_area :description, placeholder: MyList.human_attribute_name(:description), class: 'my-list__header-description--edit'
   .my-list__header-sub
     = f.collection_select :category_id, categories, :id, :name, {},{ selected: my_list.category_id, class: "my-list__header-category--edit" }
     = f.submit nil, class: 'my-list__header-submit'
