@@ -36,6 +36,11 @@ class Note < ApplicationRecord
     where(id: note_ids)
   }
 
+  scope :category_ratio, lambda {
+    joins(:category)
+    .group("categories.name").count
+  }
+
   def add_guid
     self.guid = SecureRandom.uuid
   end
