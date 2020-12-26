@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :top, onlu: [:index]
+  resources :top, only: [:index]
 
   resources :notes, only: [:index, :show]
   resources :admin, only: [:index]

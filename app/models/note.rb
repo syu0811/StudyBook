@@ -17,6 +17,7 @@ class Note < ApplicationRecord
   before_destroy :move_deleted_note
 
   ORDER_LIST = { "create" => "created_at DESC", "update" => "updated_at DESC", "name" => "title" }.freeze
+  RELADED_NOTE_LIMIT = 10
 
   scope :specified_order, ->(sort_key) { order(sort_key.present? ? Note::ORDER_LIST[sort_key] : Note::ORDER_LIST["update"]) }
   scope :full_search, ->(query) { where('notes.title @@ ? OR notes.body @@ ?', query, query) }
@@ -82,6 +83,13 @@ class Note < ApplicationRecord
         create_folders(path, directory_tree)
       end
       directory_tree
+    end
+
+    def get_reladed_notes_list(looking_note)
+      related_notes = Note.includes(:user, :category, :tags).where(category_id: looking_note.category_id).where.not(id: looking_note.id)
+      note_tags = NoteTag.where(tag_id: NoteTag.where(note_id: looking_note.id).pluck(:tag_id))
+      related_notes = related_notes.where(id: note_tags.pluck(:note_id)) unless note_tags.empty?
+      related_notes.limit(RELADED_NOTE_LIMIT)
     end
 
     private
