@@ -19,11 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
   if(el == null) return;
 
   const request_url =new URL(location).toString() + '/notes_category_ratio';
-  console.log(request_url);
 
   Axios.get(request_url, {headers: {'X-Requested-With': 'XMLHttpRequest'}}).then(
     (response) => {
-      console.log(Object.keys(response.data).map( label => hashBytes(label)));
       new Chart(el, {
         type: 'doughnut',
         data: {
