@@ -1,9 +1,10 @@
 class NotesController < ApplicationController
+  include Pagy::Backend   # Pagyを使えるようになる魔法の呪文
+  ITEMS_PER_PAGE = 20
   before_action :get_note, only: [:show]
   before_action :get_list, only: [:show]
   before_action :get_reladed_notes_list, only: [:show]
-  include Pagy::Backend   # Pagyを使えるようになる魔法の呪文
-  ITEMS_PER_PAGE = 20
+
   def index
     @notes = Note.includes(:user, :category, :tags)
     @notes = @notes.where(category_id: params[:category]) if params[:category].present?
