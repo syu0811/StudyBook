@@ -37,6 +37,10 @@ ja:
     show:
       notes: ノート
       my_lists: マイリスト
+      total_edit_word_count: 総編集文字数
+      note_count: 総ノート数
+      my_list_count: 総マイリスト数
+      count: 文字
     notes:
       index:
         search_filter: 検索フィルタ
