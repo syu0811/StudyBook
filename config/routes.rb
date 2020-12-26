@@ -13,9 +13,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :top, onlu: [:index]
+  resources :top, only: [:index]
 
   resources :notes, only: [:index, :show]
+  resources :client_downloads, only: [:index]
+  get '/client_downloads/download'
   resources :admin, only: [:index]
   resources :my_lists, only: [:index, :show, :create, :edit, :update, :destroy]
   get '/my_lists/new/:note_id', to: 'my_lists#new', as: :new_my_list

@@ -5,6 +5,7 @@ ja:
       mypage: マイページ
       notes: ノート
       my_lists: マイリスト
+      downloads: アプリのダウンロード
       setting: 設定
       log_out: ログアウト
   my_lists:
@@ -36,6 +37,14 @@ ja:
     show:
       next: 次へ
       prev: 前へ
+  client_downloads:
+    index:
+      title: StudyBookClientをダウンロード
+      description: <p>効率的に勉強ノートを管理することができます。</p><p>ノートをアップロード、ダウンロードすることが出来、自分のマイリストをローカルで閲覧することが出来ます。</p>
+      windows: Windows10
+      mac: Mac
+      Linux: Linux
+
   users:
     show:
       notes: ノート
