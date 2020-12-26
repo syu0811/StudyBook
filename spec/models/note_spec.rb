@@ -102,6 +102,19 @@ RSpec.describe Note, type: :model do
     end
   end
 
+  describe '.category_ratio' do
+    let(:category) { create(:category) }
+    let(:note) { create(:note, category: category) }
+
+    before do
+      note
+    end
+
+    it "カテゴリー毎の数が返る" do
+      expect(described_class.category_ratio).to eq({ category.name.to_s => 1 })
+    end
+  end
+
   describe '.tags_search' do
     let(:tags) { create_list(:tag, 2) }
     let(:note) { create(:note) }

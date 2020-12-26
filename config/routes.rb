@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
   resources :users, only: [:show, :edit, :update], param: :nickname do
+    defaults format: :json do
+      get :notes_category_ratio
+    end
     scope module: :users do
       resources :my_lists, only: [:index]
       resources :notes, only: [:index]

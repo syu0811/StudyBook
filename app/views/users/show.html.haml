@@ -1,6 +1,5 @@
-.user.row
-  .col-1{ style: 'user-select: none' }
-  .user__left-box.col-3
+.user
+  .user__left-box
     - if current_user.image.attached?
       .user__image{ style: "background-image: url(#{rails_blob_path(current_user.image)})" }
     - else
@@ -9,7 +8,7 @@
       = @user.nickname
     .user__profile
       = link_to "プロフィール編集", edit_user_path, class: "btn btn-success"
-  .user__main-box.col-7
+  .user__main-box
     .user__header
       .user__header-box.mr-2
         = link_to user_notes_path(user_nickname: current_user.nickname), class: "" do
@@ -20,5 +19,26 @@
           .user__header-link
             = t '.my_lists'
     .user__body
-      .user__study-graph.overflow-auto
+      .user__card
         %canvas#user_study_graph{ data: { graph: @user_monthly_study_length.join(',') }}
+      .user__card
+        .user__notes-category-ratio-graph
+          .title
+            = t ".notes_category_ratio_graph"
+          %canvas#notes_category_ratio_graph
+        .user__logs
+          .user__total-edit-word-count
+            .label
+              = t '.total_edit_word_count'
+            .value
+              = "#{@total_edit_word_count}#{t '.count'}"
+          .user__note-count
+            .label
+              = t ".note_count"
+            .value
+              = @note_count
+          .user__my-list-count
+            .label
+              = t ".my_list_count"
+            .value
+              = @my_list_count

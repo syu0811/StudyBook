@@ -18,6 +18,11 @@ class StudyLog < Influxdb::Base
     result.present? ? result : 13.times.map { 0 }
   end
 
+  def total_edit_word_count
+    result = get_total_edit_word_count
+    result[0] ? result[0].records[0].value : 0
+  end
+
   private
 
   def call_write_api(logs)
@@ -46,5 +51,15 @@ class StudyLog < Influxdb::Base
       |> window(every: #{every}, createEmpty: true)
       |> sum()"
     @client.query_api.query(query: query).map { |section| section[1].records[0].value || 0 }
+  end
+
+  def get_total_edit_word_count
+    query = "from(bucket: \"#{@client.bucket}\")
+      |> range(start: 0)
+      |> filter(fn: (r) =>
+          r._measurement == \"#{@client.user_id}\")
+      |> group(columns: [\"_measurement\"])
+      |> sum()"
+    @client.query_api.query(query: query)
   end
 end
