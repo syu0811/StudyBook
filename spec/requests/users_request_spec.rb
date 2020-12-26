@@ -53,12 +53,22 @@ RSpec.describe "Users", type: :request, use_influx: true do
         get user_path(login_user.nickname)
         expect(response.body).to include('data-graph=\'0,0,0,0,0,0,0,0,0,0,0,0,100\'')
       end
+
+      it "総編集文字数が存在すること" do
+        get user_path(login_user.nickname)
+        expect(response.body).to include("<div class=\'label\'>\n総編集文字数\n</div>\n<div class=\'value\'>\n100文字\n</div>")
+      end
     end
 
     context "ログが存在しない時" do
       it "全て0埋めされたログが存在すること" do
         get user_path(login_user.nickname)
         expect(response.body).to include('data-graph=\'0,0,0,0,0,0,0,0,0,0,0,0,0\'')
+      end
+
+      it "総編集文字数が0なこと" do
+        get user_path(login_user.nickname)
+        expect(response.body).to include("<div class=\'label\'>\n総編集文字数\n</div>\n<div class=\'value\'>\n0文字\n</div>")
       end
     end
   end
