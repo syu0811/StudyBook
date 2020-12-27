@@ -139,9 +139,9 @@
   }
 
   &__related-notes-flex {
+    align-content: flex-start;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     max-width: 100%;
   }
 
