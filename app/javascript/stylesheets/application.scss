@@ -19,9 +19,11 @@
 @import './tag-search.scss';
 @import './user-edit.scss';
 @import './client-downloads.sass';
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
 
 body {
   background-color: #f5ebdf;
+  font-family: 'Noto Sans JP', sans-serif;
 }
 
 .single_container {
