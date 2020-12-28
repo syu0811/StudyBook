@@ -13,8 +13,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :top, only: [:index]
+  namespace :information do
+    get 'manual'
+  end
 
+  resources :top, only: [:index]
   resources :notes, only: [:index, :show]
   resources :client_downloads, only: [:index]
   get '/client_downloads/download'
