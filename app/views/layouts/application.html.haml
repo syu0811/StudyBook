@@ -10,8 +10,11 @@
     %link{ href: "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel: "stylesheet" }
     = favicon_pack_tag 'favicon.png'
   %body
-    .header
+    %header.header
       = render partial: 'navbar/navbar'
       #flash
         = render partial: 'shared/flash_message'
-    = yield
+    %main
+      = yield
+    %footer
+      = render partial: 'shared/footer'
