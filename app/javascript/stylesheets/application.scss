@@ -20,10 +20,23 @@
 @import './user-edit.scss';
 @import './client-downloads.sass';
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+@import './footer.sass';
 
 body {
   background-color: #f5ebdf;
+  display: flex;
+  flex-flow: column;
   font-family: 'Noto Sans JP', sans-serif;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+small {
+  font-size: 1em;
+  font-weight: normal;
 }
 
 .single_container {
