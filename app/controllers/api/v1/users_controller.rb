@@ -12,9 +12,11 @@ module Api
           # 正しいときの処理
           @token = SecureRandom.urlsafe_base64(10)
           Agent.create(user_id: @user.id, token: "test")
-          @agent = Agent.find_by(user_id: @user.id)
-          # @user.update!(token: @token)
+          # 作成したレコードのidを求め、そのレコードのトークンを変更
+          max_id = Agent.maximum(:id)
+          @agent = Agent.find(max_id)
           @agent.update!(token: @token)
+
         else # 404が帰ってきたとき（メアドがないとき)
           head :not_found
         end
@@ -24,6 +26,12 @@ module Api
         # トークン認証を行う
         # user = User.find(params[:user_id])
         user = Agent.find_by(user_id: params[:user_id])
+        if user.token == params[:token]
+          head :ok
+        else
+          head :bad_request
+        end
+=begin
         if user.token.blank?
           # tokenがnilのとき
           head :bad_request
@@ -32,6 +40,7 @@ module Api
         else
           head :bad_request
         end
+=end
       end
     end
   end
