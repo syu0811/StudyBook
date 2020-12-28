@@ -1,6 +1,6 @@
 .footer
   .footer__policy
-    = t '.policy'
+    = link_to t('.policy'), information_policy_path
   .footer__manual
     = link_to t('.manual'), information_manual_path
   %small.footer__copy-right
