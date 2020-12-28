@@ -46,6 +46,8 @@ ja:
     manual:
       title: StudyBook マニュアル
       downloads: ダウンロードページへ
+    policy:
+      title: 利用規約
   client_downloads:
     index:
       title: StudyBookClientをダウンロード
