@@ -23,6 +23,7 @@ window.addMyListNote = function (e, note_id, my_list_id) {
 
 document.addEventListener('DOMContentLoaded', function () {
   var el = document.getElementById('my_list_notes');
+  if(el == null) return;
   if (el.dataset.sortable == 'true') {
     Sortable.create(el, {
       onEnd: function (e) {
