@@ -38,6 +38,10 @@ ja:
       next: 次へ
       prev: 前へ
       related_notes_title: 関連するノート
+  shared:
+    footer:
+      policy: 利用規約
+      manual: マニュアル
   client_downloads:
     index:
       title: StudyBookClientをダウンロード
