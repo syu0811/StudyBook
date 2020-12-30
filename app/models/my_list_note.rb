@@ -7,6 +7,7 @@ class MyListNote < ApplicationRecord
   validates :index, presence: true, on: :update
 
   before_create :set_index
+  before_destroy :destroy_index
 
   def exchange(to_index)
     return false if to_index.negative? || to_index >= MyListNote.where(my_list_id: my_list_id).size
@@ -35,5 +36,12 @@ class MyListNote < ApplicationRecord
 
   def set_index
     self.index = MyListNote.where(my_list_id: my_list_id).size
+  end
+
+  def destroy_index
+    last_index = MyListNote.where(my_list_id: my_list_id).size
+    return if last_index == index
+
+    MyListNote.where(my_list_id: my_list_id, index: (index + 1)..last_index).update_all("index = index - 1")
   end
 end
