@@ -4,42 +4,14 @@
       .left__header
         .left__label
           = t '.my_lists'
-        .left__link
-          新着
-        .left__link
-          トレンド
+        = link_to t('.new'), top_index_path(select: 'new_my_listss'), class: "#{params[:select] == 'new_my_lists' ? 'left__link--active' : 'left__link--disable'}"
+        = link_to t('.trend'), top_index_path(select: 'trend_my_lists'), class: "#{params[:select] == 'trend_my_lists' ? 'left__link--active' : 'left__link--disable'}"
         .left__label
           = t '.notes'
-        .left__link
-          新着
-        .left__link
-          トレンド
+        = link_to t('.new'), top_index_path(select: 'new_notes'), class: "#{params[:select] == 'new_notes' ? 'left__link--active' : 'left__link--disable'}"
+        = link_to t('.trend'), top_index_path(select: 'trend_notes'), class: "#{params[:select] == 'trend_notes' ? 'left__link--active' : 'left__link--disable'}"
   .main.col-8
     .top
-      %h1.top__title
-        = t '.title'
-      - @new_notes.each do |note|
-        .top__note
-          .top__note-user-image
-            - if note.user.image.attached?
-              .top__note-user-image-icon{ style: "background-image: url(#{rails_blob_path(note.user.image)})" }
-            - else
-              .top__note-user-image-icon
-          .top__note-main
-            = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
-              = image_pack_tag 'book_icon_plus.png'
-            .top__note-title
-            = link_to note.title, note_path(note), class: 'notes__note-link'
-          .top__note-sub
-            .top__note-category
-              = "#{note.category.name}"
-            .top__note-user
-              = "#{t('general.by')} #{note.user.nickname}"
-            .top__note-updated-at
-              = l note.updated_at, format: :updated_at
-          .top__note-tags
-            - note.tags.each do |tag|
-              .top__note-tag
-                = tag.name
+      = render partial: @partial_path, locals: { notes: @notes, title: t(".#{@title}")}
   .right.col-2
 #new_my_list_form

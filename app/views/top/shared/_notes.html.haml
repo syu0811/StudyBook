@@ -1,0 +1,25 @@
+%h1.top__title
+  = title
+- notes.each do |note|
+  .top__note
+    .top__note-user-image
+      - if note.user.image.attached?
+        .top__note-user-image-icon{ style: "background-image: url(#{rails_blob_path(note.user.image)})" }
+      - else
+        .top__note-user-image-icon
+    .top__note-main
+      = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
+        = image_pack_tag 'book_icon_plus.png'
+      .top__note-title
+      = link_to note.title, note_path(note), class: 'notes__note-link'
+    .top__note-sub
+      .top__note-category
+        = "#{note.category.name}"
+      .top__note-user
+        = "#{t('general.by')} #{note.user.nickname}"
+      .top__note-updated-at
+        = l note.updated_at, format: :updated_at
+    .top__note-tags
+      - note.tags.each do |tag|
+        .top__note-tag
+          = tag.name
