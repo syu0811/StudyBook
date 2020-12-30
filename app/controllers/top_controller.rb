@@ -18,29 +18,25 @@ class TopController < ApplicationController
 
   def new_notes
     @notes = Note.includes(:user, :category).order(created_at: :desc).limit(LIMIT_ITEMS)
-    @partial_path = partial_path('notes')
+    @partial_name = 'notes'
     @title = 'new'
   end
 
   def trend_notes
     @notes = Note.includes(:user, :category).limit(LIMIT_ITEMS)
-    @partial_path = partial_path('notes')
+    @partial_name = 'notes'
     @title = 'trend'
   end
 
   def new_my_lists
-    @my_lists = MyList.includes(:user, :category).limit(LIMIT_ITEMS)
-    @partial_path = partial_path('my_lists')
+    @my_lists = MyList.includes(:user, :category).limit(LIMIT_ITEMS).order(created_at: :desc).limit(LIMIT_ITEMS)
+    @partial_name = 'my_lists'
     @title = 'new'
   end
 
   def trend_my_lists
     @my_lists = MyList.includes(:user, :category).limit(LIMIT_ITEMS)
-    @partial_path = partial_path('my_lists')
+    @partial_name = 'my_lists'
     @title = 'trend'
-  end
-
-  def partial_path(select)
-    "/top/shared/#{select}"
   end
 end
