@@ -1,0 +1,22 @@
+%h1.top__title
+  = title
+- my_lists.each do |my_list|
+  .top__my-list
+    .top__my-list-user-image
+      - if my_list.user.image.attached?
+        .top__my-list-user-image-icon{ style: "background-image: url(#{rails_blob_path(my_list.user.image)})" }
+      - else
+        .top__my-list-user-image-icon
+    .top__my-list-main
+      .top__my-list-title
+        = link_to my_list.title, my_list_path(my_list), class: 'my-lists__my-list-link'
+    .top__my-list-sub
+      .top__my-list-category
+        = "#{my_list.category.name}"
+      .top__my-list-user
+        = "#{t('general.by')} #{my_list.user.nickname}"
+      .top__my-list-created-at
+        = l my_list.created_at, format: :created_at
+    .top__my-list-description
+      = my_list.description[0..100]
+

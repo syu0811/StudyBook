@@ -8,8 +8,6 @@ RSpec.describe "Tops", type: :request do
   end
 
   describe "/" do
-    let!(:note) { create(:note) }
-
     it "リクエストが成功すること" do
       get root_path
       expect(response).to have_http_status(:ok)

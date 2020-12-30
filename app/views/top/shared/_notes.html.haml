@@ -11,14 +11,14 @@
       = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
         = image_pack_tag 'book_icon_plus.png'
       .top__note-title
-      = link_to note.title, note_path(note), class: 'notes__note-link'
+        = link_to note.title, note_path(note), class: 'notes__note-link'
     .top__note-sub
       .top__note-category
         = "#{note.category.name}"
       .top__note-user
         = "#{t('general.by')} #{note.user.nickname}"
-      .top__note-updated-at
-        = l note.updated_at, format: :updated_at
+      .top__note-created-at
+        = l note.created_at, format: :created_at
     .top__note-tags
       - note.tags.each do |tag|
         .top__note-tag
