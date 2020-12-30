@@ -2,26 +2,44 @@
   .left.col-2
     .left__content
       .left__header
-  .main.col-8.overflow-auto
-    .single-container
-      %h1
-        新着
-      %hr.notes__hr--top
+        .left__label
+          = t '.my_lists'
+        .left__link
+          新着
+        .left__link
+          トレンド
+        .left__label
+          = t '.notes'
+        .left__link
+          新着
+        .left__link
+          トレンド
+  .main.col-8
+    .top
+      %h1.top__title
+        = t '.title'
       - @new_notes.each do |note|
-        .notes__note
-          .notes__note-main
+        .top__note
+          .top__note-user-image
+            - if note.user.image.attached?
+              .top__note-user-image-icon{ style: "background-image: url(#{rails_blob_path(note.user.image)})" }
+            - else
+              .top__note-user-image-icon
+          .top__note-main
             = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
               = image_pack_tag 'book_icon_plus.png'
-            .notes__note-title
+            .top__note-title
             = link_to note.title, note_path(note), class: 'notes__note-link'
-          .notes__note-sub
-            .notes__note-user
-              = "#{t('general.by')} #{note.user.nickname}"
-            .notes__note-category
+          .top__note-sub
+            .top__note-category
               = "#{note.category.name}"
-          .notes__note-tags
-          - note.tags.each do |tag|
-            .notes__note-tag
-              = tag.name
+            .top__note-user
+              = "#{t('general.by')} #{note.user.nickname}"
+            .top__note-updated-at
+              = l note.updated_at, format: :updated_at
+          .top__note-tags
+            - note.tags.each do |tag|
+              .top__note-tag
+                = tag.name
   .right.col-2
 #new_my_list_form

@@ -8,6 +8,11 @@ ja:
       downloads: アプリのダウンロード
       setting: 設定
       log_out: ログアウト
+  top:
+    index:
+      title: 新着
+      notes: ノート
+      my_lists: マイリスト
   my_lists:
     index:
       search_filter: 検索フィルタ
