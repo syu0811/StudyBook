@@ -18,7 +18,7 @@
       .top__note-user
         = "#{t('general.by')} #{note.user.nickname}"
       .top__note-updated-at
-        = l note.updated_at, format: :updated_at
+        = l note.created_at, format: :created_at
     .top__note-tags
       - note.tags.each do |tag|
         .top__note-tag
