@@ -14,10 +14,5 @@ RSpec.describe "Tops", type: :request do
       get root_path
       expect(response).to have_http_status(:ok)
     end
-
-    it "ノートを取得できているか" do
-      get root_path
-      expect(response.body).to include(note.title)
-    end
   end
 end
