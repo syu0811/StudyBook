@@ -29,7 +29,7 @@ class TopController < ApplicationController
   end
 
   def new_my_lists
-    @my_lists = MyList.includes(:user, :category).limit(LIMIT_ITEMS).order(created_at: :desc).limit(LIMIT_ITEMS)
+    @my_lists = MyList.includes(:user, :category).order(created_at: :desc).limit(LIMIT_ITEMS)
     @partial_name = 'my_lists'
     @title = 'new'
   end

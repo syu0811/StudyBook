@@ -13,6 +13,9 @@
       = link_to t('.trend'), top_index_path(select: 'trend_notes'), class: "left__link #{"#{@title}_#{@partial_name}" == 'trend_notes' ? 'left__link--enable' : 'left__link--disable'}"
   .main.col-8
     .top
-      = render partial: "/top/shared/#{@partial_name}", locals: { notes: @notes, title: t(".#{@title}")}
+      - if @partial_name == 'my_lists'
+        = render partial: "/top/shared/#{@partial_name}", locals: { my_lists: @my_lists, title: t(".#{@title}")}
+      - else
+        = render partial: "/top/shared/#{@partial_name}", locals: { notes: @notes, title: t(".#{@title}")}
   .right.col-2
 #new_my_list_form
