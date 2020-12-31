@@ -8,6 +8,12 @@ ja:
       downloads: アプリのダウンロード
       setting: 設定
       log_out: ログアウト
+  top:
+    index:
+      new: 新着
+      trend: トレンド
+      notes: ノート
+      my_lists: マイリスト
   my_lists:
     index:
       search_filter: 検索フィルタ
@@ -19,6 +25,7 @@ ja:
       create_desc: 作成時間の降順
       create_asc: 作成時間の昇順
       confirm: 本当にマイリストを削除しますか？
+      empty: マイリストは存在しません
     show:
       empty: ノートは存在しません
     my_list_header:
@@ -38,6 +45,16 @@ ja:
       next: 次へ
       prev: 前へ
       related_notes_title: 関連するノート
+  shared:
+    footer:
+      policy: 利用規約
+      manual: マニュアル
+  information:
+    manual:
+      title: StudyBook マニュアル
+      downloads: ダウンロードページへ
+    policy:
+      title: 利用規約
   client_downloads:
     index:
       title: StudyBookClientをダウンロード

@@ -1,11 +1,10 @@
 .directory-tree {
-  @extend .overflow-auto;
-
   background-color: #fff;
   border-radius: 10px;
-  font-size: 1.1em;
+  font-size: 0.9em;
   margin-bottom: 20px;
   max-height: 40vh;
+  overflow: auto;
   padding: 15px 10px;
   text-align: left;
 

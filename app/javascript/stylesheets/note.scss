@@ -124,6 +124,10 @@
     font-weight: 700;
   }
 
+  &__body-raw {
+    display: none;
+  }
+
   &__body {
     margin-top: 20px;
 
@@ -135,9 +139,9 @@
   }
 
   &__related-notes-flex {
+    align-content: flex-start;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     max-width: 100%;
   }
 
@@ -184,18 +188,19 @@
     border-radius: 10px;
     color: #555;
     display: inline-block;
-    font-size: 0.8em;
+    font-size: 0.7em;
     padding: 4px 5px;
   }
 
   &__related-note-user {
     color: #555;
     display: inline-block;
-    font-size: 0.8em;
+    font-size: 0.7em;
   }
 
   &__related-note-tags {
     color: #6a6a6a;
+    font-size: 0.7em;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;

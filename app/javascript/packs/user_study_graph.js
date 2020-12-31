@@ -35,9 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
       scales: {
         yAxes: [{
           ticks: {
-            suggestedMax: 3000,
+            suggestedMax: 10000,
             suggestedMin: 0,
-            stepSize: 500,
+            stepSize: 2000,
             callback: function(value) {
               return value + '文字';
             }
