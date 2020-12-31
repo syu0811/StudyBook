@@ -27,6 +27,7 @@
           - else
             = note.body[0..100]
   - else
-    = t('empty.note')
+    .h3.pb-3.ml-2
+      = t('empty.note')
 .d-flex.justify-content-center.mb-2
   != pagy_bootstrap_nav(pagy)

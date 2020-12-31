@@ -31,7 +31,8 @@
     .my-lists
       %hr.my-lists__hr--top
       - if @my_lists.empty?
-        = t '.empty'
+        .h3.pb-3.ml-2
+          = t '.empty'
       - else
         - @my_lists.each do |my_list|
           .my-lists__my-list
@@ -62,8 +63,8 @@
                   = raw my_list.high_light_description[0]
                 - else
                   = my_list&.description ? my_list.description[0..100] : ""
-      .d-flex.justify-content-center.mb-2
-        != pagy_bootstrap_nav(@pagy)
+    .d-flex.justify-content-center.mb-2
+      != pagy_bootstrap_nav(@pagy)
   .right.col-2
 
 

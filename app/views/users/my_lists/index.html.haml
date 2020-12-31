@@ -37,7 +37,8 @@
     .my-lists
       %hr.my-lists__hr--top
       - if @my_lists.empty?
-        = t '.empty'
+        .h3.pb-3.ml-2
+          = t '.empty'
       - else
         - @my_lists.each do |my_list|
           .my-lists__my-list
