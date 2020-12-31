@@ -25,6 +25,7 @@ ja:
       create_desc: 作成時間の降順
       create_asc: 作成時間の昇順
       confirm: 本当にマイリストを削除しますか？
+      empty: マイリストは存在しません
     show:
       empty: ノートは存在しません
     my_list_header:
