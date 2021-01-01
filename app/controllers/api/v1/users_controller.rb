@@ -11,7 +11,7 @@ module Api
         if @user.valid_password?(params[:password])
           # 正しいときの処理
           @token = SecureRandom.urlsafe_base64(10)
-          hoge = Agent.create(user_id: @user.id, token: @token)
+          Agent.create(user_id: @user.id, token: @token)
         else # 404が帰ってきたとき（メアドがないとき)
           head :not_found
         end
