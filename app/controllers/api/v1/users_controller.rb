@@ -11,12 +11,7 @@ module Api
         if @user.valid_password?(params[:password])
           # 正しいときの処理
           @token = SecureRandom.urlsafe_base64(10)
-          Agent.create(user_id: @user.id, token: "test")
-          # 作成したレコードのidを求め、そのレコードのトークンを変更
-          max_id = Agent.maximum(:id)
-          @agent = Agent.find(max_id)
-          @agent.update!(token: @token)
-
+          hoge = Agent.create(user_id: @user.id, token: @token)
         else # 404が帰ってきたとき（メアドがないとき)
           head :not_found
         end
