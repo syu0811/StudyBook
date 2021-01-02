@@ -18,5 +18,5 @@
       .top__my-list-created-at
         = l my_list.created_at, format: :created_at
     .top__my-list-description
-      = my_list.description[0..100]
+      = my_list&.description ? my_list.description[0..100] : ""
 
