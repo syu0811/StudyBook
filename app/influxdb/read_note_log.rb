@@ -14,6 +14,18 @@ class ReadNoteLog < Influxdb::Base
     get_total_read_note_count(note_id)
   end
 
+  def number_read_per_note(limit)
+    result = get_number_read_per_note(limit)
+    if result.present?
+      result.map { |group| { note_id: group[1].records[0].values["note_id"], count: group[1].records[0].value || 0 } }
+            .sort_by { |x| x[:count] }
+            .last(limit)
+            .reverse
+    else
+      []
+    end
+  end
+
   private
 
   def call_write_api(logs)
@@ -43,5 +55,16 @@ class ReadNoteLog < Influxdb::Base
       |> count()"
     result = @client.query_api.query(query: query)
     result.present? ? result[0].records[0].value : 0
+  end
+
+  def get_number_read_per_note
+    query = "from(bucket: \"#{@client.bucket}\")
+      |> range(start: 0)
+      |> filter(fn: (r) =>
+          r._field == \"type\" and
+          r._value == \"read_note\")
+      |> group(columns: [\"note_id\"])
+      |> count(column: \"_value\")"
+    @client.query_api.query(query: query)
   end
 end
