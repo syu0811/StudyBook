@@ -33,6 +33,7 @@ class NotesController < ApplicationController
 
   def write_read_note_log
     return if @note.user_id == current_user.id
+
     ReadNoteLog.new(current_user.id).write_read_note_log([{ note_id: @note.id }])
   end
 end

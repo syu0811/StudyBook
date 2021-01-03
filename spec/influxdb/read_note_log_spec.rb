@@ -38,6 +38,7 @@ RSpec.describe "ReadNoteLogSpec", use_influx: true do
 
     context "データが存在する場合" do
       let(:time) { "2020-04-01Z00:00:00+0000" }
+      let(:logs) { [{ note_id: note_id }] }
 
       def create_log(user, logs)
         ReadNoteLog.new(user.id).write_read_note_log(logs)
@@ -48,12 +49,9 @@ RSpec.describe "ReadNoteLogSpec", use_influx: true do
       end
 
       context "データが1つの場合" do
-        let(:now_time) { "2020-04-01Z01:00:00+0000" }
-        let(:logs) { [{ note_id: note_id }] }
-
         before do
           create_log(user, logs)
-          travel_to now_time
+          travel 1.hours
         end
 
         it "1が返る" do
@@ -62,14 +60,12 @@ RSpec.describe "ReadNoteLogSpec", use_influx: true do
       end
 
       context "他ユーザのデータが混在する場合" do
-        let(:now_time) { "2020-04-01Z01:00:00+0000" }
-        let(:logs) { [{ note_id: note_id }] }
         let(:other_user) { create(:user) }
 
         before do
           create_log(user, logs)
           create_log(other_user, logs)
-          travel_to now_time
+          travel 1.hours
         end
 
         it "2が返る" do
