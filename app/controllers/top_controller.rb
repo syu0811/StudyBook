@@ -23,7 +23,7 @@ class TopController < ApplicationController
   end
 
   def trend_notes
-    @notes = Note.includes(:user, :category).limit(LIMIT_ITEMS)
+    @notes = Note.trend_notes(current_user.id, LIMIT_ITEMS)
     @partial_name = 'notes'
     @title = 'trend'
   end
