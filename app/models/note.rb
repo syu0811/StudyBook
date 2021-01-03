@@ -87,7 +87,7 @@ class Note < ApplicationRecord
       if note_tags.blank?
         Note.includes(:user, :category, :tags).where(category_id: looking_note.category_id).where.not(id: looking_note.id).limit(RELADED_NOTE_LIMIT)
       else
-        Note.includes(:user, :category, :tags).where("notes.category_id = ? OR notes.id IN (?)", looking_note.category_id, note_tags.pluck(:id)).where.not(id: looking_note.id).limit(RELADED_NOTE_LIMIT)
+        Note.includes(:user, :category, :tags).where("notes.category_id = ? AND notes.id IN (?)", looking_note.category_id, note_tags.pluck(:id)).where.not(id: looking_note.id).limit(RELADED_NOTE_LIMIT)
       end
     end
 
