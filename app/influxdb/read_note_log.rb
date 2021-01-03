@@ -15,7 +15,7 @@ class ReadNoteLog < Influxdb::Base
   end
 
   def number_read_per_note(limit)
-    result = get_number_read_per_note(limit)
+    result = get_number_read_per_note
     if result.present?
       result.map { |group| { note_id: group[1].records[0].values["note_id"], count: group[1].records[0].value || 0 } }
             .sort_by { |x| x[:count] }

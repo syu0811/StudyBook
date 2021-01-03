@@ -94,6 +94,13 @@ class Note < ApplicationRecord
       end
     end
 
+    def trend_notes(user_id, limit)
+      number_read_per_note = ReadNoteLog.new(user_id).number_read_per_note(limit)
+      note_ids = number_read_per_note.map { |x| x[:note_id].to_i }
+      notes = includes(:user, :category).where(id: note_ids)
+      note_ids.collect { |id| notes.detect { |note| note.id == id } }.compact
+    end
+
     private
 
     def create_folders(directory_path, directory_tree, relative_path = Pathname(''))
