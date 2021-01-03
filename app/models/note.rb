@@ -25,9 +25,6 @@ class Note < ApplicationRecord
     full_search(query)
       .select("*, pgroonga_snippet_html(notes.body, pgroonga_query_extract_keywords('#{query}')) AS high_light_body")
   }
-  scope :full_search, lambda { |query|
-    where('notes.title &@~ ? OR notes.body &@~ ?', query, query)
-  }
   scope :tags_search, lambda { |tag_params|
     tags = tag_params.split(',')
     tag_ids = Tag.where(name: tags).ids
