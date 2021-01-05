@@ -35,7 +35,7 @@ class TopController < ApplicationController
   end
 
   def trend_my_lists
-    @my_lists = MyList.left_joins(:subscribe_my_lists).select('my_lists.id, my_lists.user_id, my_lists.category_id, my_lists.title, my_lists.description, my_lists.created_at, COUNT(*) as count').group("my_lists.id, my_lists.user_id, my_lists.category_id, my_lists.title, my_lists.description, my_lists.created_at").order("count DESC").limit(LIMIT_ITEMS)
+    @my_lists = MyList.trend(LIMIT_ITEMS)
     @partial_name = 'my_lists'
     @title = 'trend'
   end
