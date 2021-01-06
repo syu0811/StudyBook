@@ -15,28 +15,23 @@ RSpec.describe "Tops", type: :request do
   end
 
   describe "/top?select=trend_my_lists" do
-    let(:my_list_a) { create(:my_list, title: "これはマイリストAです", user: login_user)}
-    let(:my_list_b) { create(:my_list, title: "これはマイリストBです", user: login_user)}
-    let(:subscribe_my_list) { create(:subscribe_my_list, user: login_user, my_list: my_list_a)}
+    limit = 30
+    let(:my_lists) { create_list(:my_list, limit + 1, user: login_user) }
 
     before do
-      my_list_a
-      my_list_b
-      subscribe_my_list
-    end
-
-    context "trendのマイリストが取得できているか" do
-      it "マイリストが取得できているか" do
-        get root_path(select: "trend_my_lists")
-        expect(response.body).to include(my_list_a.title)
+      my_lists.each do |my_list|
+        create(:subscribe_my_list, my_list: my_list, user: login_user)
       end
     end
 
-    context "trendのマイリストに含まれてはいけないもの" do
-      it "保存されていないマイリストを取得していないか" do
-        get root_path(select: "trend_my_lists")
-        expect(response.body).not_to include(my_list_b.title)
-      end
+    it "マイリストが取得できているか" do
+      get root_path(select: "trend_my_lists")
+      expect(response.body).to include(my_lists[0].title)
+    end
+
+    it "取得件数が上限数で収まっているか" do
+      get root_path(select: "trend_my_lists")
+      expect(response.body).not_to include(my_lists[limit].title)
     end
   end
 end
