@@ -41,8 +41,10 @@ ActiveRecord::Schema.define(version: 2020_12_16_024333) do
   create_table "agents", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "token", null: false
+    t.uuid "guid", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["guid"], name: "index_agents_on_guid"
     t.index ["token"], name: "index_agents_on_token"
     t.index ["user_id"], name: "index_agents_on_user_id"
   end
