@@ -15,10 +15,11 @@ RSpec.describe "Tops", type: :request do
   end
 
   describe "/top?select=trend_my_lists" do
-    limit = 30
+    limit = 3
     let(:my_lists) { create_list(:my_list, limit + 1, user: login_user) }
 
     before do
+      stub_const("TopController::LIMIT_ITEMS", limit)
       my_lists.each do |my_list|
         create(:subscribe_my_list, my_list: my_list, user: login_user)
       end

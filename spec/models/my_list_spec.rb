@@ -109,19 +109,17 @@ RSpec.describe MyList, type: :model do
   end
 
   describe ".trend" do
-    let(:users) { create_list(:user, 2) }
-    let(:my_lists) { create_list(:my_list, 2, user: users[0]) }
+    let(:my_lists) { create_list(:my_list, 2) }
 
     before do
-      users
       my_lists
-      create(:subscribe_my_list, user: users[0], my_list: my_lists[0])
+      create(:subscribe_my_list, my_list: my_lists[0])
     end
 
     context "trendのマイリストが取得できているか" do
       before do
-        create(:subscribe_my_list, user: users[0], my_list: my_lists[1])
-        create(:subscribe_my_list, user: users[1], my_list: my_lists[1])
+        create(:subscribe_my_list, my_list: my_lists[1])
+        create(:subscribe_my_list, my_list: my_lists[1])
       end
 
       it "マイリストが取得できているか" do
