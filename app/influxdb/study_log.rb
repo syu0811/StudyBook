@@ -20,7 +20,9 @@ class StudyLog < Influxdb::Base
 
   def total_edit_word_count
     result = get_total_edit_word_count
-    result[0] ? result[0]&.records[0].value : 0
+    return 0 if result.blank?
+
+    result[0] ? result[0].records[0].value : 0
   end
 
   private
