@@ -35,7 +35,7 @@ class TopController < ApplicationController
   end
 
   def trend_my_lists
-    @my_lists = MyList.includes(:user, :category).limit(LIMIT_ITEMS)
+    @my_lists = MyList.trend.limit(LIMIT_ITEMS)
     @partial_name = 'my_lists'
     @title = 'trend'
   end
