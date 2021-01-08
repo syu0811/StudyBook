@@ -2,6 +2,7 @@
 
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
+  before_action :check_manual, only: [:new]
 
   # GET /resource/sign_in
   # def new
@@ -24,9 +25,17 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+  def check_manual
+    session[:manual] = false
+    session[:manual] = true if params[:manual] == "go"
+  end
 
   def after_sign_in_path_for(_resource)
-    root_path
+    if session[:manual]
+      information_manual_path
+    else
+      root_path
+    end
   end
 
   def after_sign_out_path_for(_resource)
