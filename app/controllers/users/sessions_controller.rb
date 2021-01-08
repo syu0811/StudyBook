@@ -26,12 +26,12 @@ class Users::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
   def check_manual
-    session[:manual] = false
-    session[:manual] = true if params[:manual] == "go"
+    session[:redirect_to] = false
+    session[:redirect_to] = true if params[:redirect_to] == "manual"
   end
 
   def after_sign_in_path_for(_resource)
-    if session[:manual]
+    if session[:redirect_to]
       information_manual_path
     else
       root_path
