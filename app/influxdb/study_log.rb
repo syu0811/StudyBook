@@ -20,7 +20,7 @@ class StudyLog < Influxdb::Base
 
   def total_edit_word_count
     result = get_total_edit_word_count
-    result[0] ? result[0].records[0].value : 0
+    result[0] ? result[0]&.records[0].value : 0
   end
 
   private
@@ -51,6 +51,8 @@ class StudyLog < Influxdb::Base
       |> window(every: #{every}, createEmpty: true)
       |> sum()"
     @client.query_api.query(query: query).map { |section| section[1].records[0].value || 0 }
+  rescue InfluxDB2::InfluxError
+    []
   end
 
   def get_total_edit_word_count
@@ -61,5 +63,7 @@ class StudyLog < Influxdb::Base
       |> group(columns: [\"_measurement\"])
       |> sum()"
     @client.query_api.query(query: query)
+  rescue InfluxDB2::InfluxError
+    []
   end
 end
