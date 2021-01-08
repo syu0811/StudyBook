@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Notes", type: :request do
+RSpec.describe "Notes", type: :request, use_influx: true do
   describe 'ユーザでログインしている場合' do
     let(:login_user) { create(:user) }
 
@@ -16,11 +16,34 @@ RSpec.describe "Notes", type: :request do
     end
 
     describe 'GET /notes/:id' do
-      let(:note) { create(:note) }
+      subject(:read_logs) { ReadNoteLog.new(login_user.id).total_read_note_count(note.id) }
 
-      it 'note page is displayed' do
+      before do
         get note_path(note.id)
-        expect(response).to have_http_status(:ok)
+      end
+
+      context 'ログイン中ユーザのノートにアクセスする時' do
+        let(:note) { create(:note, user: login_user) }
+
+        it 'note page is displayed' do
+          expect(response).to have_http_status(:ok)
+        end
+
+        it 'ログが0件なこと' do
+          expect(read_logs).to eq(0)
+        end
+      end
+
+      context '他人のノートにアクセスする時' do
+        let(:note) { create(:note) }
+
+        it 'note page is displayed' do
+          expect(response).to have_http_status(:ok)
+        end
+
+        it 'ログが1件生成されていること' do
+          expect(read_logs).to eq(1)
+        end
       end
     end
 

@@ -4,6 +4,7 @@ class NotesController < ApplicationController
   before_action :get_note, only: [:show]
   before_action :get_list, only: [:show]
   before_action :get_reladed_notes_list, only: [:show]
+  before_action :write_read_note_log, only: [:show]
 
   def index
     @notes = Note.includes(:category, :tags, user: { image_attachment: :blob })
@@ -28,5 +29,11 @@ class NotesController < ApplicationController
 
   def get_reladed_notes_list
     @related_notes = Note.get_reladed_notes_list(@note)
+  end
+
+  def write_read_note_log
+    return if @note.user_id == current_user.id
+
+    ReadNoteLog.new(current_user.id).write_read_note_log([{ note_id: @note.id }])
   end
 end
