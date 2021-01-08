@@ -7,6 +7,7 @@
   top: 50%;
   -webkit-transform: translateY(-50%) translateX(-50%);
   transform: translateY(-50%) translateX(-50%);
+  z-index: 4;
 
   &__existing {
     background-color: #fff;
