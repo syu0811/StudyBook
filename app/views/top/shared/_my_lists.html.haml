@@ -9,6 +9,12 @@
           .top__my-list-user-image-icon{ style: "background-image: url(#{rails_blob_path(my_list.user.image)})" }
         - else
           .top__my-list-user-image-icon
+      - if my_list.user_id == current_user.id
+        = link_to my_list_path(my_list.id), method: :delete, data: {confirm: t('.confirm')}, class: "my-lists__my-list-delete-button" do
+          = image_pack_tag 'trust.png'
+      - else
+        .subscribe
+          .subscribe__button{ class: "#{@user_subscribe_my_list_ids.include?(my_list.id) ? 'subscribe__destroy' : 'subscribe__create'}", data: { isCreate: "#{@user_subscribe_my_list_ids.include?(my_list.id) ? 'false' : 'true'}" }, onclick: "subscribeMyList(event, '#{current_user.nickname}', #{my_list.id})" }
       .top__my-list-main
         .top__my-list-title
           = link_to my_list.title, my_list_path(my_list), class: 'my-lists__my-list-link'
