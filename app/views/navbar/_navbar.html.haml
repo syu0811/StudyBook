@@ -18,7 +18,7 @@
     .navbar__user-pull-list#navbar_user_pull_list{ data: { open: "false" }}
       = link_to t('.mypage'), user_path(nickname: current_user.nickname), class: 'navbar__user-pull-item'
       = link_to t('.downloads'), client_downloads_path, class: 'navbar__user-pull-item'
-      .navbar__user-pull-item
-        後で見る(仮)
+      -# .navbar__user-pull-item
+      -#   後で見る(仮)
       = link_to t('.setting'), edit_user_registration_path, class: 'navbar__user-pull-item'
       = link_to t('.log_out'), destroy_user_session_path, method: :delete, class: 'navbar__user-pull-item'
