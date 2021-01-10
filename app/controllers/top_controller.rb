@@ -9,8 +9,10 @@ class TopController < ApplicationController
       new_notes
     when 'trend_my_lists'
       trend_my_lists
+      get_user_subscribe_my_list_ids
     else
       new_my_lists
+      get_user_subscribe_my_list_ids
     end
   end
 
@@ -38,5 +40,9 @@ class TopController < ApplicationController
     @my_lists = MyList.trend.limit(LIMIT_ITEMS)
     @partial_name = 'my_lists'
     @title = 'trend'
+  end
+
+  def get_user_subscribe_my_list_ids
+    @user_subscribe_my_list_ids = current_user.subscribe_my_lists.pluck(:my_list_id)
   end
 end
