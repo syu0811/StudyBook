@@ -9,10 +9,8 @@ class TopController < ApplicationController
       new_notes
     when 'trend_my_lists'
       trend_my_lists
-      get_user_subscribe_my_list_ids
     else
       new_my_lists
-      get_user_subscribe_my_list_ids
     end
   end
 
@@ -34,12 +32,14 @@ class TopController < ApplicationController
     @my_lists = MyList.includes(:user, :category).order(created_at: :desc).limit(LIMIT_ITEMS)
     @partial_name = 'my_lists'
     @title = 'new'
+    get_user_subscribe_my_list_ids
   end
 
   def trend_my_lists
     @my_lists = MyList.trend.limit(LIMIT_ITEMS)
     @partial_name = 'my_lists'
     @title = 'trend'
+    get_user_subscribe_my_list_ids
   end
 
   def get_user_subscribe_my_list_ids
