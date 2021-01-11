@@ -64,14 +64,16 @@ class Note < ApplicationRecord
       note = find_by(guid: guid, user_id: user_id)
       if note
         body_size = note.body.size
+        is_create = 'false'
         note.attributes = note_params
       else
         body_size = 0
+        is_create = 'true'
         note = new(note_params.merge(user_id: user_id))
       end
       return [{ guid: nil, errors: note.errors.details, tag_errors: [], note_id: note.id }, nil] unless note.save
 
-      [{ guid: note.guid, errors: note.errors.details, tag_errors: note.create_note_tags(tags), note_id: note.id }, (note_params[:body].size - body_size).abs]
+      [{ guid: note.guid, errors: note.errors.details, tag_errors: note.create_note_tags(tags), note_id: note.id }, { note_id: note.id, word_count: (note_params[:body].size - body_size).abs, is_create: is_create }]
     end
 
     def directory_tree

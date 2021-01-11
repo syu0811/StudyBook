@@ -7,8 +7,8 @@ module Api
         @responses = []
         logs = []
         put_note_params[:notes].each do |note_params|
-          response, word_count = Note.upload(@user.id, note_params[:guid], permit_note_params(note_params), note_params[:tags])
-          logs.push({ note_id: response[:note_id], word_count: word_count }) if response[:guid]
+          response, log = Note.upload(@user.id, note_params[:guid], permit_note_params(note_params), note_params[:tags])
+          logs.push(log) if response[:guid]
           @responses.push(response.merge(local_id: note_params[:local_id]))
         end
         StudyLog.new(@user.id).write_study_log(logs)
