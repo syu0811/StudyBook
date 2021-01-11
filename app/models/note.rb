@@ -59,21 +59,27 @@ class Note < ApplicationRecord
     errors
   end
 
+  def upload_note(word_count, is_create, tags)
+    if save
+      [{ guid: guid, errors: errors.details, tag_errors: create_note_tags(tags), note_id: id }, { note_id: id, word_count: word_count, is_create: is_create }]
+    else
+      [{ guid: nil, errors: errors.details, tag_errors: [], note_id: id }, nil]
+    end
+  end
+
   class << self
     def upload(user_id, guid, note_params, tags)
       note = find_by(guid: guid, user_id: user_id)
+      word_count = note_params[:body].size
       if note
-        body_size = note.body.size
+        word_count = (word_count - note.body.size).abs
         is_create = 'false'
         note.attributes = note_params
       else
-        body_size = 0
         is_create = 'true'
         note = new(note_params.merge(user_id: user_id))
       end
-      return [{ guid: nil, errors: note.errors.details, tag_errors: [], note_id: note.id }, nil] unless note.save
-
-      [{ guid: note.guid, errors: note.errors.details, tag_errors: note.create_note_tags(tags), note_id: note.id }, { note_id: note.id, word_count: (note_params[:body].size - body_size).abs, is_create: is_create }]
+      note.upload_note(word_count, is_create, tags)
     end
 
     def directory_tree
