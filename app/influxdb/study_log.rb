@@ -26,6 +26,14 @@ class StudyLog < Influxdb::Base
     result.present? ? result : 13.times.map { 0 }
   end
 
+  # ノート更新作成数 当月を含む過去12ヶ月間(12ヶ月前は含む)
+  def user_monthly_update_count
+    stop_time = Time.now.end_of_month
+    start_time = stop_time.ago(1.years).beginning_of_month
+    result = get_update_logs_by_range('1mo', start_time.iso8601, stop_time.iso8601)
+    result.present? ? result : 13.times.map { 0 }
+  end
+
   def total_edit_word_count
     result = get_total_edit_word_count
     return 0 if result.blank?
@@ -75,6 +83,21 @@ class StudyLog < Influxdb::Base
           r._measurement == \"#{@client.user_id}\" and
           r._field == \"is_create\" and
           r._value == \"true\")
+      |> group(columns: [\"_measurement\"])
+      |> window(every: #{every}, createEmpty: true)
+      |> count()"
+    @client.query_api.query(query: query).map { |section| section[1].records[0].value || 0 }
+  rescue InfluxDB2::InfluxError
+    []
+  end
+
+  def get_update_logs_by_range(every, start_time, stop_time)
+    query = "from(bucket: \"#{@client.bucket}\")
+      |> range(start: #{start_time}, stop: #{stop_time})
+      |> filter(fn: (r) =>
+          r._measurement == \"#{@client.user_id}\" and
+          r._field == \"is_create\" and
+          r._value == \"false\")
       |> group(columns: [\"_measurement\"])
       |> window(every: #{every}, createEmpty: true)
       |> count()"
