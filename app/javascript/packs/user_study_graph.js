@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
           label: '作業文字数',
           data: el.dataset.graph.split(','),
-          borderColor: 'rgba(255,0,0,1)',
+          borderColor: '#DC143C',
           backgroundColor: 'rgba(0,0,0,0)',
           type: 'line',
           yAxisID: 'line',
@@ -26,7 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
         {
           label: '新規ノート数',
           data: el.dataset.createCountGraph.split(','),
-          backgroundColor: 'rgba(0,255,0,1)',
+          backgroundColor: '#93FFAB',
+          yAxisID: 'bar',
+        },
+        {
+          label: '更新ノート数',
+          data: el.dataset.updateCountGraph.split(','),
+          backgroundColor: '#C299FF',
           yAxisID: 'bar',
         }
       ]
