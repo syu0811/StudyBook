@@ -20,7 +20,7 @@
             = t '.my_lists'
     .user__body
       .user__card
-        %canvas#user_study_graph{ data: { graph: @user_monthly_study_length.join(',') }}
+        %canvas#user_study_graph{ data: { graph: @user_monthly_study_length.join(','), create_count_graph: @user_monthly_create_count.join(','), update_count_graph: @user_monthly_update_count.join(',') } }
       .user__card
         .user__notes-category-ratio-graph
           .title
