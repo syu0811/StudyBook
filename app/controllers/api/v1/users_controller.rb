@@ -9,7 +9,7 @@ module Api
 
         if @user.valid_password?(params[:password])
           @token = SecureRandom.urlsafe_base64(10)
-          Agent.create(user_id: @user.id, token: @token)
+          @agent = Agent.create(user_id: @user.id, token: @token)
         else
           head :not_found
         end
