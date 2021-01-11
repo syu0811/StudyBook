@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action -> { authenticate_user_nickname!(:nickname) }, only: [:show]
   before_action :get_user, only: [:show, :edit, :update]
   before_action :get_user_monthly_study_length, only: [:show]
+  before_action :get_user_monthly_create_count, only: [:show]
   before_action :get_total_edit_word_count, only: [:show]
   before_action :get_note_count, only: [:show]
   before_action :get_my_list_count, only: [:show]
@@ -30,6 +31,10 @@ class UsersController < ApplicationController
 
   def get_user_monthly_study_length
     @user_monthly_study_length = StudyLog.new(current_user.id).user_monthly_study_length
+  end
+
+  def get_user_monthly_create_count
+    @user_monthly_create_count = StudyLog.new(current_user.id).user_monthly_create_count
   end
 
   def get_total_edit_word_count
