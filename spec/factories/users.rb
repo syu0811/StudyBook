@@ -9,6 +9,5 @@ FactoryBot.define do
     password_confirmation { 'password' }
     confirmed_at { Time.zone.now }
     admin { false }
-    # token { "g3zmq_tMfak8IA" }
   end
 end

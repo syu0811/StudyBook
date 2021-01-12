@@ -12,9 +12,8 @@ RSpec.describe "Api::V1::Users", type: :request do
       end
 
       it "トークンが返ってくる" do
-        agent = build(:agent, user:user)
         post api_v1_token_user_path, params: { email: user.email, password: user.password }
-        expect(response_json).to eq({ token: agent.reload.token, user_id: user.reload.id })
+        expect(response_json).to eq({ token: user.reload.agent.token, user_id: user.reload.id })
       end
     end
 =begin
