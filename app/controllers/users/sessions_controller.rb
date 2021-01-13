@@ -2,7 +2,6 @@
 
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
-  before_action :set_params, only: [:new]
 
   # GET /resource/sign_in
   # def new
@@ -25,13 +24,10 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  def set_params
-    session[:redirect_to] = params[:redirect_to]
-  end
 
   def after_sign_in_path_for(_resource)
-    case session[:redirect_to]
-    when "manual"
+    case session[:previous_url]
+    when information_manual_path
       information_manual_path
     else
       root_path
