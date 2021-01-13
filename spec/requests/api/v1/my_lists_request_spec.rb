@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::MyLists", type: :request do
   let(:user) { create(:user) }
+  let(:agent) { create(:agent, user: user) }
 
   describe 'GET /my_lists' do
     context "マイリストだけが存在する場合" do
@@ -9,7 +10,7 @@ RSpec.describe "Api::V1::MyLists", type: :request do
 
       before do
         my_lists
-        get api_v1_my_lists_path, params: { user_id: user.id, token: user.token }
+        get api_v1_my_lists_path, params: { agent_guid: agent.guid, token: agent.token }
       end
 
       it 'ステータス OK が返ってくる' do
@@ -28,7 +29,7 @@ RSpec.describe "Api::V1::MyLists", type: :request do
       before do
         my_lists
         subscribe_my_list
-        get api_v1_my_lists_path, params: { user_id: user.id, token: user.token }
+        get api_v1_my_lists_path, params: { agent_guid: agent.guid, token: agent.token }
       end
 
       it 'ステータス OK が返ってくる' do
