@@ -3,9 +3,10 @@ require 'rails_helper'
 RSpec.describe Agent, type: :model do
   describe 'Validation' do
     let(:user) { create(:user) }
+
     context '正常系' do
       it "成功" do
-        agent = build(:agent, user:user)
+        agent = build(:agent, user: user)
         expect(agent).to be_valid
       end
     end

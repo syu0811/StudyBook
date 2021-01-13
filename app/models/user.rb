@@ -15,7 +15,6 @@ class User < ApplicationRecord
   has_many :subscribe_my_list_my_lists, through: :subscribe_my_lists, source: :my_lists
   has_many :agents
 
-
   # 名前は全角平仮名、漢字（鬼車）のみ許可
   VALID_NAME_REGEX = /\A(?:\p{Hiragana}|[ー－]|[一-龠々])+\z/.freeze
   validates :firstname, presence: true, format: { with: VALID_NAME_REGEX }
@@ -44,6 +43,4 @@ class User < ApplicationRecord
     # 生年月日が入力済かつ未来日ではない
     errors.add(:birthdate, :birthdate_cannot_be_in_the_future) if birthdate.present? && birthdate.future?
   end
-
-
 end
