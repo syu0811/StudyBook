@@ -5,7 +5,7 @@ module DirectoryTreeHelper
         content_tag(:li) do
           concat(content_tag(:div, class: "list") do
             concat(image_pack_tag('folder_icon.png', onClick: "toggleDirectory(event)"))
-            concat(content_tag(:div, 'Notes', onClick: "setDirectoryPathParamsAjax('')", class: "content", id: "directory_notes"))
+            concat(content_tag(:div, 'ノート', onClick: "setDirectoryPathParamsAjax('')", class: "content", id: "directory_notes"))
           end)
           concat(create_tree(directory_tree))
         end,
