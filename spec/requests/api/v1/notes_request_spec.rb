@@ -94,7 +94,7 @@ RSpec.describe "Api::V1::Notes", type: :request do
 
           before do
             note_tag
-            post api_v1_upload_notes_path, params: { user_id: user.id, token: user.token, notes: [{ local_id: 1, guid: note.guid, title: "テストタイトル", body: "#見出し", category_id: category.id, directory_path: "test/app", tags: [] }] }
+            post api_v1_upload_notes_path, params: { agent_guid: agent.guid, token: agent.token, notes: [{ local_id: 1, guid: note.guid, title: "テストタイトル", body: "#見出し", category_id: category.id, directory_path: "test/app", tags: [] }] }
           end
 
           it "タグが0件になっている" do
