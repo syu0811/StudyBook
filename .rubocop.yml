@@ -95,10 +95,13 @@ Metrics/BlockLength:
         - 'config/environments/development.rb'
         - 'config/routes.rb'
 Metrics/MethodLength:
+    Max: 12
     Exclude:
         - 'db/migrate/20200910121553_devise_create_users.rb'
         - 'db/migrate/20201205030911_create_active_storage_tables.active_storage.rb'
         - 'app/helpers/directory_tree_helper.rb'
+Metrics/ClassLength:
+    Max: 150
 
 # # Style ##########################################
 
@@ -223,4 +226,3 @@ RSpec/DescribeClass:
 RSpec/ExampleLength:
     Exclude:
         - spec/system/**/*
-

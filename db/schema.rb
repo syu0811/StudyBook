@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_05_030911) do
+ActiveRecord::Schema.define(version: 2021_01_12_031543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -36,6 +36,17 @@ ActiveRecord::Schema.define(version: 2020_12_05_030911) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "agents", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "token", null: false
+    t.uuid "guid", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["guid"], name: "index_agents_on_guid"
+    t.index ["token"], name: "index_agents_on_token"
+    t.index ["user_id"], name: "index_agents_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -140,7 +151,6 @@ ActiveRecord::Schema.define(version: 2020_12_05_030911) do
     t.datetime "locked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "token"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -148,6 +158,7 @@ ActiveRecord::Schema.define(version: 2020_12_05_030911) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "agents", "users"
   add_foreign_key "deleted_notes", "users"
   add_foreign_key "my_list_notes", "my_lists"
   add_foreign_key "my_list_notes", "notes"

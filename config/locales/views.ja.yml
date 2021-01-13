@@ -14,6 +14,9 @@ ja:
       trend: トレンド
       notes: ノート
       my_lists: マイリスト
+    shared:
+      my_lists:
+        confirm: 本当にマイリストを削除しますか？
   my_lists:
     index:
       search_filter: 検索フィルタ

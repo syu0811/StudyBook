@@ -144,72 +144,49 @@ RSpec.describe Note, type: :model do
   end
 
   describe ".get_reladed_notes_list" do
-    let(:category_a) { create(:category) }
-    let(:category_b) { create(:category) }
-
-    let(:note) { create(:note, category: category_a) }
-    let(:note_a) { create(:note, category: category_a) }
-    let(:note_b) { create(:note, category: category_b) }
-
-    before do
-      category_a
-      category_b
-      note
-      note_a
-      note_b
-    end
+    let(:category) { create(:category) }
+    let(:note) { create(:note, category: category) }
 
     context "タグがない場合" do
-      it "同じカテゴリーのノートを取得できているか" do
-        expect(described_class.get_reladed_notes_list(note)).to include(note_a)
+      let(:category_eq_note) { create(:note, category: category) }
+      let(:category_not_eq_note) { create(:note) }
+
+      before do
+        category_eq_note
+        category_not_eq_note
       end
 
-      it "関連ノートに現在見ているノートがないか" do
-        expect(described_class.get_reladed_notes_list(note)).not_to include(note)
-      end
-
-      it "違うカテゴリーのノートが含まれていないか" do
-        expect(described_class.get_reladed_notes_list(note)).not_to include(note_b)
+      it "現在見ているノートを含まないカテゴリ一致のノートが返る" do
+        expect(described_class.get_reladed_notes_list(note)).to match([category_eq_note])
       end
     end
 
     context "タグがある場合" do
-      let(:tag_a) { create(:tag) }
-      let(:tag_b) { create(:tag) }
-
-      let(:note_ba) { create(:note, category: category_b) }
-
-      let(:note_tag) { create(:note_tag, note: note, tag: tag_a) }
-      let(:note_tag_a) { create(:note_tag, note: note_a, tag: tag_a) }
-      let(:note_tag_b) { create(:note_tag, note: note_b, tag: tag_b) }
-      let(:note_tag_ba) { create(:note_tag, note: note_ba, tag: tag_a) }
+      let(:tag) { create(:tag) }
+      let(:patten_notes) { { category_and_tag_eq_note: create(:note, :set_tags, category: category, tags: [tag]), category_eq_and_tag_not_eq_note: create(:note, :set_tags, category: category), category_not_eq_and_tag_eq: create(:note, :set_tags, tags: [tag]) } }
 
       before do
-        tag_a
-        tag_b
-
-        note_ba
-
-        note_tag
-        note_tag_a
-        note_tag_b
-        note_tag_ba
+        patten_notes
       end
 
-      it "同じカテゴリーでタグが一致しているノートを取得できているか" do
-        expect(described_class.get_reladed_notes_list(note)).to include(note_a)
+      context "関連するノート数以上に一致しているノートが存在する場合" do
+        before do
+          stub_const("Note::RELADED_NOTE_LIMIT", 1)
+        end
+
+        it "同じカテゴリーでタグが一致しているノートを取得できているか" do
+          expect(described_class.get_reladed_notes_list(note)).to match([patten_notes[:category_and_tag_eq_note]])
+        end
       end
 
-      it "関連ノートに現在見ているノートがないか" do
-        expect(described_class.get_reladed_notes_list(note)).not_to include(note)
-      end
+      context "関連するノート数より一致しているノートが少ない場合" do
+        before do
+          stub_const("Note::RELADED_NOTE_LIMIT", 2)
+        end
 
-      it "違うカテゴリーのノートが含まれていないか" do
-        expect(described_class.get_reladed_notes_list(note)).not_to include(note_b)
-      end
-
-      it "違うカテゴリーでタグが一致しているノートが含まれていないか" do
-        expect(described_class.get_reladed_notes_list(note)).not_to include(note_ba)
+        it "カテゴリが一致するノートも含まれていること" do
+          expect(described_class.get_reladed_notes_list(note)).to match_array([patten_notes[:category_and_tag_eq_note], patten_notes[:category_eq_and_tag_not_eq_note]])
+        end
       end
     end
   end

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Tags", type: :request do
   let(:user) { create(:user) }
+  let(:agent) { create(:agent, user: user) }
 
   describe "GET /api/v1/tags?updated_at=?" do
     let(:tags) { create_list(:tag, 2) }
@@ -12,7 +13,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
     end
 
     it "タグの一覧が返ってくる" do
-      get api_v1_tags_path(user_id: user.id, token: user.token, updated_at: "2020-4-01 11:00")
+      get api_v1_tags_path(agent_guid: agent.guid, token: agent.token, updated_at: "2020-4-01 11:00")
       expect(response_json).to eq([{ id: tags[0].id, name: tags[0].name }, { id: tags[1].id, name: tags[1].name }])
     end
 
@@ -25,7 +26,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
       end
 
       it "範囲外のものを除いたタグの一覧が返ってくる" do
-        get api_v1_tags_path(user_id: user.id, token: user.token, updated_at: "2020-4-01 13:00")
+        get api_v1_tags_path(agent_guid: agent.guid, token: agent.token, updated_at: "2020-4-01 13:00")
         expect(response_json).to eq([{ id: tag.id, name: tag.name }])
       end
     end

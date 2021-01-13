@@ -107,4 +107,34 @@ RSpec.describe MyList, type: :model do
       it { is_expected.to eq(true) }
     end
   end
+
+  describe ".trend" do
+    let(:my_lists) { create_list(:my_list, 2) }
+
+    before do
+      my_lists
+      create(:subscribe_my_list, my_list: my_lists[0])
+    end
+
+    context "trendのマイリストが取得できているか" do
+      before do
+        create(:subscribe_my_list, my_list: my_lists[1])
+        create(:subscribe_my_list, my_list: my_lists[1])
+      end
+
+      it "マイリストが取得できているか" do
+        expect(described_class.trend).to include(my_lists[0])
+      end
+
+      it "保存回数が多い順にソートできているか" do
+        expect(described_class.trend).to match [my_lists[1], my_lists[0]]
+      end
+    end
+
+    context "trendのマイリストに含まれてはいけないもの" do
+      it "保存されていないマイリストを取得していないか" do
+        expect(described_class.trend).not_to include(my_lists[1])
+      end
+    end
+  end
 end

@@ -23,7 +23,7 @@ class TopController < ApplicationController
   end
 
   def trend_notes
-    @notes = Note.includes(:user, :category).limit(LIMIT_ITEMS)
+    @notes = Note.trend_notes(current_user.id, LIMIT_ITEMS)
     @partial_name = 'notes'
     @title = 'trend'
   end
@@ -32,11 +32,17 @@ class TopController < ApplicationController
     @my_lists = MyList.includes(:user, :category).order(created_at: :desc).limit(LIMIT_ITEMS)
     @partial_name = 'my_lists'
     @title = 'new'
+    get_user_subscribe_my_list_ids
   end
 
   def trend_my_lists
-    @my_lists = MyList.includes(:user, :category).limit(LIMIT_ITEMS)
+    @my_lists = MyList.trend.limit(LIMIT_ITEMS)
     @partial_name = 'my_lists'
     @title = 'trend'
+    get_user_subscribe_my_list_ids
+  end
+
+  def get_user_subscribe_my_list_ids
+    @user_subscribe_my_list_ids = current_user.subscribe_my_lists.pluck(:my_list_id)
   end
 end

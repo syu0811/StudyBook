@@ -26,7 +26,12 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   def after_sign_in_path_for(_resource)
-    root_path
+    case session[:previous_url]
+    when information_manual_path
+      information_manual_path
+    else
+      root_path
+    end
   end
 
   def after_sign_out_path_for(_resource)

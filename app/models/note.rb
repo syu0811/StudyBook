@@ -25,9 +25,6 @@ class Note < ApplicationRecord
     full_search(query)
       .select("*, pgroonga_snippet_html(notes.body, pgroonga_query_extract_keywords('#{query}')) AS high_light_body")
   }
-  scope :full_search, lambda { |query|
-    where('notes.title &@~ ? OR notes.body &@~ ?', query, query)
-  }
   scope :tags_search, lambda { |tag_params|
     tags = tag_params.split(',')
     tag_ids = Tag.where(name: tags).ids
@@ -62,19 +59,27 @@ class Note < ApplicationRecord
     errors
   end
 
+  def upload_note(word_count, is_create, tags)
+    if save
+      [{ guid: guid, errors: errors.details, tag_errors: create_note_tags(tags), note_id: id }, { note_id: id, word_count: word_count, is_create: is_create }]
+    else
+      [{ guid: nil, errors: errors.details, tag_errors: [], note_id: id }, nil]
+    end
+  end
+
   class << self
     def upload(user_id, guid, note_params, tags)
       note = find_by(guid: guid, user_id: user_id)
+      word_count = note_params[:body].size
       if note
-        body_size = note.body.size
+        word_count = (word_count - note.body.size).abs
+        is_create = 'false'
         note.attributes = note_params
       else
-        body_size = 0
+        is_create = 'true'
         note = new(note_params.merge(user_id: user_id))
       end
-      return [{ guid: nil, errors: note.errors.details, tag_errors: [], note_id: note.id }, nil] unless note.save
-
-      [{ guid: note.guid, errors: note.errors.details, tag_errors: note.create_note_tags(tags), note_id: note.id }, (note_params[:body].size - body_size).abs]
+      note.upload_note(word_count, is_create, tags)
     end
 
     def directory_tree
@@ -90,8 +95,15 @@ class Note < ApplicationRecord
       if note_tags.blank?
         Note.includes(:user, :category, :tags).where(category_id: looking_note.category_id).where.not(id: looking_note.id).limit(RELADED_NOTE_LIMIT)
       else
-        Note.includes(:user, :category, :tags).where("notes.category_id = ? OR notes.id IN (?)", looking_note.category_id, note_tags.pluck(:id)).where.not(id: looking_note.id).limit(RELADED_NOTE_LIMIT)
+        Note.includes(:user, :category, :tags).where("notes.category_id = ? AND notes.id IN (?)", looking_note.category_id, note_tags.pluck(:id)).where.not(id: looking_note.id).limit(RELADED_NOTE_LIMIT)
       end
+    end
+
+    def trend_notes(user_id, limit)
+      number_read_per_note = ReadNoteLog.new(user_id).number_read_per_note(limit)
+      note_ids = number_read_per_note.map { |x| x[:note_id].to_i }
+      notes = includes(:user, :category).where(id: note_ids)
+      note_ids.collect { |id| notes.detect { |note| note.id == id } }.compact
     end
 
     private
