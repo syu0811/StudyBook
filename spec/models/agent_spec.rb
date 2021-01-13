@@ -17,6 +17,12 @@ RSpec.describe Agent, type: :model do
         agent.valid?
         expect(agent.errors[:user_id]).to include("を入力してください")
       end
+
+      it "tokenが存在しない場合" do
+        agent = build(:agent, token: nil)
+        agent.valid?
+        expect(agent.errors[:token]).to include("を入力してください")
+      end
     end
   end
 end
