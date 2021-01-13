@@ -1,0 +1,33 @@
+%h1.top__title
+  = title
+
+- if my_lists.present?
+  - my_lists.each do |my_list|
+    .top__my-list
+      .top__my-list-user-image
+        - if my_list.user.image.attached?
+          .top__my-list-user-image-icon{ style: "background-image: url(#{rails_blob_path(my_list.user.image)})" }
+        - else
+          .top__my-list-user-image-icon
+      - if my_list.user_id == current_user.id
+        = link_to my_list_path(my_list.id), method: :delete, data: {confirm: t('.confirm')}, class: "my-lists__my-list-delete-button" do
+          = image_pack_tag 'trust.png'
+      - else
+        .subscribe
+          .subscribe__button{ class: "#{@user_subscribe_my_list_ids.include?(my_list.id) ? 'subscribe__destroy' : 'subscribe__create'}", data: { isCreate: "#{@user_subscribe_my_list_ids.include?(my_list.id) ? 'false' : 'true'}" }, onclick: "subscribeMyList(event, '#{current_user.nickname}', #{my_list.id})" }
+      .top__my-list-main
+        .top__my-list-title
+          = link_to my_list.title, my_list_path(my_list), class: 'my-lists__my-list-link'
+      .top__my-list-sub
+        .top__my-list-category
+          = "#{my_list.category.name}"
+        .top__my-list-user
+          = "#{t('general.by')} #{my_list.user.nickname}"
+        .top__my-list-created-at
+          = l my_list.created_at, format: :created_at
+      .top__my-list-description
+        = my_list&.description ? my_list.description[0..100] : ""
+
+- else
+  .h3.pb-3.ml-2
+    = t('empty.my_list')

@@ -78,3 +78,9 @@ yarn-debug.log*
 /db/seeds/development/images/*
 /db/seeds/production/images/*
 /db/seeds/tmp/*
+
+config/local_config.yml
+
+influx/
+vscode
+

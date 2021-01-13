@@ -27,9 +27,27 @@
                 = tag.name
       %hr
       .note__body
-        #markdown_raw
+        #markdown_raw.note__body-raw
           = @note.body
         #markdown_render
+    .note__related-notes
+      .note__related-notes-title
+        = t ".related_notes_title"
+      .note__related-notes-flex
+        - @related_notes.each do |note|
+          = link_to note_path(note), class: 'note__related-note' do
+            .note__related-note-title
+              = note.title
+            .note__related-note-category
+              = note.category.name
+            .note__related-note-user
+              = note.user.nickname
+            .note__related-note-tags
+              - note.tags.each do |tag|
+                .note__related-note-tag
+                  = tag.name
+            .note__related-note-body
+              = note.body[0..20]
 
   - if params[:my_list_id].present?
     .note-my-list.col-3
@@ -52,5 +70,4 @@
                 = m.index + 1
               .note-my-list__note-title
                 = m.note.title
-
 #new_my_list_form

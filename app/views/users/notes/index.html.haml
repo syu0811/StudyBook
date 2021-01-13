@@ -1,5 +1,5 @@
 .row.m-0.p-0
-  .left.col-3
+  .left.col-2
     .left__content
       .left__header
         .left__label
@@ -14,11 +14,11 @@
           .left__label
             = f.label :category_id, Category.model_name.human
           .left__select
-            = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "setCategoryParamsAjax(this.value);", class: 'form-control left-pull-list'}
+            = f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択して下さい', selected: params[:category]}, { onchange: "setCategoryParamsAjax(this.value);", class: 'form-control left__pull-list'}
           .left__label
             = f.label :order, t('.order')
           .left__select
-            = f.select :order,[[t('.update'), "update"], [t('.create'), "create"], [t('.name'), "name"]], {selected: params[:order]},{ onchange: "setSortParamsAjax(this.value);", class: 'form-control left-pull-list'}
+            = f.select :order,[[t('.update_desc'), "update_desc"], [t('.update_asc'), "update_asc"], [t('.create_desc'), "create_desc"], [t('.create_asc'), "create_asc"], [t('.name_desc'), "name_desc"], [t('.name_asc'), "name_asc"]], {selected: params[:order]},{ onchange: "setSortParamsAjax(this.value);", class: 'form-control left__pull-list'}
   .main.col-8
     .search
       %form.search__container{ onsubmit: 'setSearchParamsAjax(event);' }
@@ -36,5 +36,5 @@
 
     .notes.user-notes#notes
       = render partial: 'note_index', locals: { notes: @notes, pagy: @pagy }
-  .right.col-1
+  .right.col-2
 #new_my_list_form

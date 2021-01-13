@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_one_attached :image, dependent: :destroy
 
   has_many :notes, dependent: :destroy
+
   has_many :deleted_notes, dependent: :destroy
   has_many :my_lists, dependent: :destroy
 

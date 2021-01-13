@@ -23,6 +23,7 @@ window.addMyListNote = function (e, note_id, my_list_id) {
 
 document.addEventListener('DOMContentLoaded', function () {
   var el = document.getElementById('my_list_notes');
+  if(el == null) return;
   if (el.dataset.sortable == 'true') {
     Sortable.create(el, {
       onEnd: function (e) {
@@ -48,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.setUserMyListParams = function(e) {
   let url = new URL(location);
-  console.log(e.target.checked);
   url.searchParams.set('user', e.target.checked);
   resetPage(url);
   location.href = url.toString();

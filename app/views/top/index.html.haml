@@ -2,26 +2,20 @@
   .left.col-2
     .left__content
       .left__header
-  .main.col-8.overflow-auto
-    .single_container
-      %h1
-        新着
-      %hr.notes__hr--top
-      - @new_notes.each do |note|
-        .notes__note
-          .notes__note-main
-            = link_to new_my_list_path(note_id: note.id), class: "notes__add-my-list", remote: true do
-              = image_pack_tag 'book_icon_plus.png'
-            .notes__note-title
-            = link_to note.title, note_path(note), class: 'notes__note-link'
-          .notes__note-sub
-            .notes__note-user
-              = "#{t('general.by')} #{note.user.nickname}"
-            .notes__note-category
-              = "#{note.category.name}"
-          .notes__note-tags
-          - note.tags.each do |tag|
-            .notes__note-tag
-              = tag.name
+        .left__label
+          = t '.my_lists'
+      = link_to t('.new'), top_index_path(select: 'new_my_listss'), class: "left__link #{"#{@title}_#{@partial_name}" == 'new_my_lists' ? 'left__link--enable' : 'left__link--disable'}"
+      = link_to t('.trend'), top_index_path(select: 'trend_my_lists'), class: "left__link #{"#{@title}_#{@partial_name}" == 'trend_my_lists' ? 'left__link--enable' : 'left__link--disable'}"
+      .left__header.mt-2
+        .left__label
+          = t '.notes'
+      = link_to t('.new'), top_index_path(select: 'new_notes'), class: "left__link #{"#{@title}_#{@partial_name}" == 'new_notes' ? 'left__link--enable' : 'left__link--disable'}"
+      = link_to t('.trend'), top_index_path(select: 'trend_notes'), class: "left__link #{"#{@title}_#{@partial_name}" == 'trend_notes' ? 'left__link--enable' : 'left__link--disable'}"
+  .main.col-8
+    .top
+      - if @partial_name == 'my_lists'
+        = render partial: "/top/shared/#{@partial_name}", locals: { my_lists: @my_lists, title: t(".#{@title}")}
+      - else
+        = render partial: "/top/shared/#{@partial_name}", locals: { notes: @notes, title: t(".#{@title}")}
   .right.col-2
 #new_my_list_form

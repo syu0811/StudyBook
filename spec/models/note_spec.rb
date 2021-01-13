@@ -102,6 +102,19 @@ RSpec.describe Note, type: :model do
     end
   end
 
+  describe '.category_ratio' do
+    let(:category) { create(:category) }
+    let(:note) { create(:note, category: category) }
+
+    before do
+      note
+    end
+
+    it "カテゴリー毎の数が返る" do
+      expect(described_class.category_ratio).to eq({ category.name.to_s => 1 })
+    end
+  end
+
   describe '.tags_search' do
     let(:tags) { create_list(:tag, 2) }
     let(:note) { create(:note) }
@@ -126,6 +139,54 @@ RSpec.describe Note, type: :model do
     context '存在しないタグ1つを指定する場合' do
       it "結果が0件であること" do
         expect(described_class.tags_search("NotName").size).to eq(0)
+      end
+    end
+  end
+
+  describe ".get_reladed_notes_list" do
+    let(:category) { create(:category) }
+    let(:note) { create(:note, category: category) }
+
+    context "タグがない場合" do
+      let(:category_eq_note) { create(:note, category: category) }
+      let(:category_not_eq_note) { create(:note) }
+
+      before do
+        category_eq_note
+        category_not_eq_note
+      end
+
+      it "現在見ているノートを含まないカテゴリ一致のノートが返る" do
+        expect(described_class.get_reladed_notes_list(note)).to match([category_eq_note])
+      end
+    end
+
+    context "タグがある場合" do
+      let(:tag) { create(:tag) }
+      let(:patten_notes) { { category_and_tag_eq_note: create(:note, :set_tags, category: category, tags: [tag]), category_eq_and_tag_not_eq_note: create(:note, :set_tags, category: category), category_not_eq_and_tag_eq: create(:note, :set_tags, tags: [tag]) } }
+
+      before do
+        patten_notes
+      end
+
+      context "関連するノート数以上に一致しているノートが存在する場合" do
+        before do
+          stub_const("Note::RELADED_NOTE_LIMIT", 1)
+        end
+
+        it "同じカテゴリーでタグが一致しているノートを取得できているか" do
+          expect(described_class.get_reladed_notes_list(note)).to match([patten_notes[:category_and_tag_eq_note]])
+        end
+      end
+
+      context "関連するノート数より一致しているノートが少ない場合" do
+        before do
+          stub_const("Note::RELADED_NOTE_LIMIT", 2)
+        end
+
+        it "カテゴリが一致するノートも含まれていること" do
+          expect(described_class.get_reladed_notes_list(note)).to match_array([patten_notes[:category_and_tag_eq_note], patten_notes[:category_eq_and_tag_not_eq_note]])
+        end
       end
     end
   end

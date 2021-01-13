@@ -1,0 +1,11 @@
+.client-downloads
+  .client-downloads__title
+    = t '.title'
+  .client-downloads__description
+    != t '.description'
+  .client-downloads__downloads
+    = link_to t('.windows'), client_downloads_download_path(os: 'windows'), class: 'client-downloads__download-link'
+    -# = link_to t('.mac'), client_downloads_download_path(os: 'mac'), class: 'client-downloads__download-link'
+    -# = link_to t('.linux'), client_downloads_download_path(os: 'linux'), class: 'client-downloads__download-link'
+  .client-downloads__sample-image
+    = image_pack_tag 'sample.png'

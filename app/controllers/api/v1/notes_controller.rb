@@ -5,10 +5,13 @@ module Api
 
       def uploads
         @responses = []
+        logs = []
         put_note_params[:notes].each do |note_params|
-          respose = Note.upload(@user.id, note_params[:guid], permit_note_params(note_params), note_params[:tags])
-          @responses.push(respose.merge(local_id: note_params[:local_id]))
+          response, log = Note.upload(@user.id, note_params[:guid], permit_note_params(note_params), note_params[:tags])
+          logs.push(log) if response[:guid]
+          @responses.push(response.merge(local_id: note_params[:local_id]))
         end
+        StudyLog.new(@user.id).write_study_log(logs)
       end
 
       def downloads
