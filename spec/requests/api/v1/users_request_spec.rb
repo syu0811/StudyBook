@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Users", type: :request do
   describe 'GET /token' do
-    # ?どういう場合に？
     context "正常時" do
       let!(:user) { create(:user) }
 
@@ -11,9 +10,9 @@ RSpec.describe "Api::V1::Users", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it "トークンが返ってくる" do
+      it ' トークンが返ってくる ' do
         post api_v1_token_user_path, params: { email: user.email, password: user.password }
-        expect(response_json).to eq({ token: user.reload.token, user_id: user.reload.id })
+        expect(response_json).to eq({ token: user.reload.agents.first.token, agent_guid: user.reload.agents.first.guid })
       end
     end
 
@@ -38,40 +37,39 @@ RSpec.describe "Api::V1::Users", type: :request do
   end
 
   describe 'GET /auth' do
-    # ?どういう場合に？
     context "正常時" do
-      let!(:user) { create(:user) }
+      let(:agent) { create(:agent) }
 
       it ' ステータス OK が返ってくる' do
-        post api_v1_token_auth_path, params: { user_id: user.id, token: user.token }
+        post api_v1_token_auth_path, params: { agent_guid: agent.guid, token: agent.token }
         expect(response).to have_http_status(:ok)
       end
     end
 
-    context "idが存在しないとき" do
-      let!(:user) { create(:user) }
+    context "guidが存在しないとき" do
+      let!(:agent) { create(:agent) }
 
       it 'ActiveRecord::RecordNotFoundが発生する' do
         expect do
-          post api_v1_token_auth_path, params: { user_id: 2000, token: user.token }
+          post api_v1_token_auth_path, params: { agent_guid: 2000, token: agent.token }
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context "tokenが間違っているとき" do
-      let!(:user) { create(:user) }
+      let!(:agent) { create(:agent) }
 
       it 'ステータス404が返ってくる' do
-        post api_v1_token_auth_path, params: { user_id: user.id, token: "testtoken" }
+        post api_v1_token_auth_path, params: { agent_guid: agent.guid, token: "testtoken" }
         expect(response).to have_http_status(:bad_request)
       end
     end
 
     context "tokenが登録されていないとき" do
-      let(:user) { create(:user, token: nil) }
+      let(:agent) { create(:agent) }
 
       it 'ステータス404が返ってくる' do
-        post api_v1_token_auth_path, params: { user_id: user.id, token: nil }
+        post api_v1_token_auth_path, params: { agent_guid: agent.guid, token: nil }
         expect(response).to have_http_status(:bad_request)
       end
     end

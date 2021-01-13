@@ -226,4 +226,3 @@ RSpec/DescribeClass:
 RSpec/ExampleLength:
     Exclude:
         - spec/system/**/*
-

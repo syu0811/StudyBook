@@ -5,8 +5,9 @@ module Api
       before_action :authenticate_token!
 
       def authenticate_token!
-        @user = User.find(params[:user_id])
-        head :bad_request unless @user.token == params[:token]
+        @agent = Agent.find_by!(guid: params[:agent_guid])
+        head :bad_request unless @agent.token == params[:token]
+        @user = @agent.user
       end
     end
   end
