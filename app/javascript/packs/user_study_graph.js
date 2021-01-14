@@ -52,10 +52,10 @@ document.addEventListener('DOMContentLoaded', function () {
           type: 'linear',
           position: 'left',
           ticks: {
-            suggestedMax: 10000,
-            max: 10000,
+            suggestedMax: 25000,
+            max: 25000,
             suggestedMin: 0,
-            stepSize: 2000,
+            stepSize: 5000,
             callback: function(value) {
               return value + '文字';
             }
