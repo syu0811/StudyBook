@@ -18,6 +18,7 @@
         = f.label :nickname
         %br/
         = f.text_field :nickname, class: 'form-control'
+        %small.form-text.text-muted= t('devise.shared.nickname_validates', count: @minimum_password_length)
       .form-row
         = f.label :birthdate, class: 'pt-1 ml-2'
         %br/
