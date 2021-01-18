@@ -16,8 +16,9 @@
                 - else
                   .my-list__note-user-image-icon
               .my-list__note-main
-                = link_to destroy_my_list_note_path(my_list_id: my_list_note.my_list_id, note_id: my_list_note.note_id), method: :delete, remote: true, onClick: "removeMyListNote(event)", class: 'my-list__note-destroy-button' do
-                  = image_pack_tag 'trust.png'
+                - if @my_list.user_id == current_user.id
+                  = link_to destroy_my_list_note_path(my_list_id: my_list_note.my_list_id, note_id: my_list_note.note_id), method: :delete, remote: true, onClick: "removeMyListNote(event)", class: 'my-list__note-destroy-button' do
+                    = image_pack_tag 'trust.png'
                 .my-list__note-title
                   = link_to my_list_note.note.title, note_path(id: my_list_note.note.id, index: my_list_note.index, my_list_id: my_list_note.my_list_id)
                 .my-list__note-info
