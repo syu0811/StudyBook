@@ -21,7 +21,7 @@ Git, Docker, DockerComposeは公式ドキュメント等より構築して下さ
 
 - リポジトリよりクローン
 ```bash
-git clone git@github.com:BMuscle/StudyBook.git
+git clone https://github.com/syu0811/StudyBook.git
 ```
 
 - ビルド
